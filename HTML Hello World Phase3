@@ -1,0 +1,21 @@
+# This script greets the user, with a special message for a specific name.
+
+print("Hello World!") # A classic start!
+
+# First, we ask the user for their name.
+# The input() function waits for the user to type something and press Enter.
+user_name = input("Please enter your name: ")
+
+# Define the special name we're looking for.
+# Replace "Naomi" with the actual name you want to trigger the special message.
+special_name = "Naomi" # <--- IMPORTANT: This is now set to "Naomi"!
+
+# Now, we use an if/else statement to check the entered name.
+# If the name matches our 'special_name', a unique greeting is printed.
+# Otherwise (else), a standard greeting is printed.
+if user_name == special_name:
+    print(f"Hey, it's the goat chef tech girlie, {user_name}!")
+else:
+    print(f"Hello, {user_name}! It's nice to meet you.")
+
+print("\nThank you for using the greeting script!")

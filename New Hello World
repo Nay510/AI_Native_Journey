@@ -1,0 +1,8 @@
+# First, ask the user for their name using the input() function
+user_name = input("What's your name? ")
+
+# Store their name in a variable called 'user_name'
+# (The line above already does this!)
+
+# Finally, print a personalized greeting using the 'user_name' variable
+print("Hello, " + user_name + "! Nice to meet you.")
