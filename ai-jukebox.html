@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Music Jukebox - Create Your Own Music</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .jukebox-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .music-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .control-group h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .control-group input, .control-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .control-group input:focus, .control-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .music-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .music-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .history {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .history h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4caf50;
+        }
+
+        .history-item h4 {
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+        }
+
+        .history-item p {
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .music-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .music-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .current-settings {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .setting-tag {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            margin: 0.2rem;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 AI Music Jukebox</h1>
+            <p class="subtitle">Create your own imaginary music with AI!</p>
+            
+            <!-- Music Icons -->
+            <div class="music-icons">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=60&h=60&fit=crop&crop=center" 
+                     alt="Music" class="music-icon">
+                <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=60&h=60&fit=crop&crop=center" 
+                     alt="Studio" class="music-icon">
+                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=60&h=60&fit=crop&crop=center" 
+                     alt="Instruments" class="music-icon">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=60&h=60&fit=crop&crop=center" 
+                     alt="Sound" class="music-icon">
+            </div>
+        </div>
+
+        <div class="jukebox-container">
+            <!-- Current Settings Display -->
+            <div class="current-settings" id="currentSettings" style="display: none;">
+                <h3>Current Settings:</h3>
+                <div id="settingsTags"></div>
+            </div>
+
+            <!-- Music Controls -->
+            <div class="music-controls">
+                <div class="control-group">
+                    <h3>🎭 Mood</h3>
+                    <label for="mood">How should the music feel?</label>
+                    <input type="text" id="mood" placeholder="e.g., happy, sad, epic, calm" value="happy">
+                </div>
+
+                <div class="control-group">
+                    <h3>🎼 Genre</h3>
+                    <label for="genre">What style of music?</label>
+                    <select id="genre">
+                        <option value="electronic">Electronic</option>
+                        <option value="classical">Classical</option>
+                        <option value="rock">Rock</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="pop">Pop</option>
+                        <option value="ambient">Ambient</option>
+                        <option value="folk">Folk</option>
+                        <option value="hip-hop">Hip-Hop</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <h3>⚡ Tempo</h3>
+                    <label for="tempo">How fast should it be?</label>
+                    <select id="tempo">
+                        <option value="fast">Fast</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="slow">Slow</option>
+                        <option value="steady">Steady</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div style="text-align: center;">
+                <button class="btn" onclick="generateMusic()" id="generateBtn">🎵 Generate Music</button>
+            </div>
+
+            <!-- Loading Animation -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>AI is composing... please wait.</p>
+            </div>
+
+            <!-- Music Display -->
+            <div class="music-display" id="musicDisplay">
+                <h3>🎼 Your AI-Generated Music</h3>
+                <p>Enter your preferences above and click "Generate Music" to create your own musical piece!</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons" id="actionButtons" style="display: none;">
+                <button class="btn" onclick="generateSimilar()">🔄 Generate Similar</button>
+                <button class="btn" onclick="startNew()">🆕 Start New</button>
+                <button class="btn" onclick="addToHistory()">💾 Save to History</button>
+            </div>
+
+            <!-- Music History -->
+            <div class="history" id="history" style="display: none;">
+                <h3>📚 Your Music History</h3>
+                <div id="historyList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMood = "";
+        let currentGenre = "";
+        let currentTempo = "";
+        let lastGeneratedDescription = "";
+        let musicHistory = [];
+
+        function generateMusic() {
+            const mood = document.getElementById('mood').value.trim();
+            const genre = document.getElementById('genre').value;
+            const tempo = document.getElementById('tempo').value;
+
+            if (!mood) {
+                alert('Please enter a mood for your music!');
+                return;
+            }
+
+            // Store current settings
+            currentMood = mood;
+            currentGenre = genre;
+            currentTempo = tempo;
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('generateBtn').disabled = true;
+
+            // Simulate AI generation (in a real app, this would call an API)
+            setTimeout(() => {
+                const musicDescription = generateMusicDescription(mood, genre, tempo, lastGeneratedDescription);
+                displayMusic(musicDescription);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('generateBtn').disabled = false;
+                document.getElementById('actionButtons').style.display = 'flex';
+                updateCurrentSettings();
+            }, 2000);
+        }
+
+        function generateMusicDescription(mood, genre, tempo, previousDescription = "") {
+            const descriptions = {
+                happy: {
+                    electronic: "A vibrant electronic track with uplifting synthesizer melodies and energetic drum patterns that create an infectious, danceable rhythm.",
+                    classical: "A bright classical piece featuring soaring strings and cheerful woodwind instruments, creating a sense of joy and celebration.",
+                    rock: "An upbeat rock anthem with driving guitar riffs and powerful drums that inspire energy and excitement.",
+                    jazz: "A swinging jazz composition with lively brass sections and dynamic piano solos that radiate positivity.",
+                    pop: "A catchy pop melody with bright harmonies and infectious hooks that make you want to sing along.",
+                    ambient: "A warm ambient soundscape with gentle, uplifting tones that create a peaceful, happy atmosphere.",
+                    folk: "A cheerful folk tune with acoustic guitars and harmonizing vocals that tell a story of joy and community.",
+                    "hip-hop": "An energetic hip-hop beat with positive lyrics and groovy bass lines that get your head nodding."
+                },
+                sad: {
+                    electronic: "A melancholic electronic piece with deep, atmospheric pads and slow, contemplative rhythms.",
+                    classical: "A somber classical composition with mournful cello melodies and gentle piano accompaniment.",
+                    rock: "A slow rock ballad with emotional guitar solos and heartfelt lyrics about loss and reflection.",
+                    jazz: "A bluesy jazz piece with soulful saxophone solos and moody piano chords.",
+                    pop: "A touching pop ballad with emotional vocals and gentle instrumentation.",
+                    ambient: "A dark ambient soundscape with ethereal textures and distant, echoing sounds.",
+                    folk: "A melancholic folk song with acoustic guitar and haunting vocals.",
+                    "hip-hop": "A reflective hip-hop track with introspective lyrics and mellow beats."
+                },
+                epic: {
+                    electronic: "A grand electronic symphony with massive orchestral samples and thunderous percussion.",
+                    classical: "A powerful classical piece with full orchestra, dramatic brass sections, and soaring melodies.",
+                    rock: "An epic rock anthem with heavy guitar riffs, pounding drums, and anthemic choruses.",
+                    jazz: "A complex jazz fusion piece with virtuosic solos and dynamic ensemble playing.",
+                    pop: "A cinematic pop track with sweeping arrangements and powerful vocal performances.",
+                    ambient: "A vast ambient soundscape with layered textures and dramatic dynamic shifts.",
+                    folk: "A heroic folk ballad with traditional instruments and storytelling lyrics.",
+                    "hip-hop": "A powerful hip-hop track with hard-hitting beats and commanding vocals."
+                },
+                calm: {
+                    electronic: "A peaceful electronic track with gentle synthesizer waves and soft, rhythmic patterns.",
+                    classical: "A serene classical piece with delicate piano melodies and soft string arrangements.",
+                    rock: "A gentle rock ballad with acoustic guitars and soothing vocal harmonies.",
+                    jazz: "A smooth jazz piece with mellow saxophone and gentle piano chords.",
+                    pop: "A soft pop ballad with gentle vocals and minimal instrumentation.",
+                    ambient: "A tranquil ambient soundscape with floating textures and peaceful atmospheres.",
+                    folk: "A peaceful folk song with gentle acoustic guitar and soft vocals.",
+                    "hip-hop": "A laid-back hip-hop track with smooth beats and relaxed flow."
+                }
+            };
+
+            // Get base description
+            let description = descriptions[mood]?.[genre] || 
+                `A ${tempo} ${genre} piece with a ${mood} mood, featuring dynamic instrumentation and emotional depth.`;
+
+            // Add tempo-specific elements
+            if (tempo === 'fast') {
+                description += " The tempo is energetic and driving, creating an exciting musical journey.";
+            } else if (tempo === 'slow') {
+                description += " The pace is relaxed and contemplative, allowing each note to breathe.";
+            } else if (tempo === 'moderate') {
+                description += " The rhythm flows at a comfortable pace, balancing energy with reflection.";
+            } else {
+                description += " The steady tempo provides a solid foundation for the musical expression.";
+            }
+
+            // Add variation if this is a "similar" generation
+            if (previousDescription) {
+                description += " This piece maintains the core essence while introducing subtle variations in melody and rhythm.";
+            }
+
+            return description;
+        }
+
+        function displayMusic(description) {
+            const musicDisplay = document.getElementById('musicDisplay');
+            musicDisplay.innerHTML = `
+                <h3>🎼 Your AI-Generated Music</h3>
+                <div class="music-description">"${description}"</div>
+                <p style="font-size: 0.9rem; opacity: 0.8;">✨ This is your unique musical creation!</p>
+            `;
+            lastGeneratedDescription = description;
+        }
+
+        function generateSimilar() {
+            if (!lastGeneratedDescription) {
+                alert('Generate some music first!');
+                return;
+            }
+            generateMusic(); // This will use the same settings but generate a variation
+        }
+
+        function startNew() {
+            document.getElementById('mood').value = '';
+            document.getElementById('genre').value = 'electronic';
+            document.getElementById('tempo').value = 'fast';
+            document.getElementById('musicDisplay').innerHTML = `
+                <h3>🎼 Your AI-Generated Music</h3>
+                <p>Enter your preferences above and click "Generate Music" to create your own musical piece!</p>
+            `;
+            document.getElementById('actionButtons').style.display = 'none';
+            document.getElementById('currentSettings').style.display = 'none';
+            lastGeneratedDescription = '';
+        }
+
+        function addToHistory() {
+            if (!lastGeneratedDescription) {
+                alert('Generate some music first!');
+                return;
+            }
+
+            const historyItem = {
+                mood: currentMood,
+                genre: currentGenre,
+                tempo: currentTempo,
+                description: lastGeneratedDescription,
+                timestamp: new Date().toLocaleString()
+            };
+
+            musicHistory.unshift(historyItem);
+            updateHistoryDisplay();
+            document.getElementById('history').style.display = 'block';
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = musicHistory.map((item, index) => `
+                <div class="history-item">
+                    <h4>${item.mood.charAt(0).toUpperCase() + item.mood.slice(1)} ${item.genre} - ${item.tempo}</h4>
+                    <p>"${item.description}"</p>
+                    <small style="opacity: 0.7;">Created: ${item.timestamp}</small>
+                </div>
+            `).join('');
+        }
+
+        function updateCurrentSettings() {
+            const settingsDiv = document.getElementById('currentSettings');
+            const tagsDiv = document.getElementById('settingsTags');
+            
+            tagsDiv.innerHTML = `
+                <span class="setting-tag">Mood: ${currentMood}</span>
+                <span class="setting-tag">Genre: ${currentGenre}</span>
+                <span class="setting-tag">Tempo: ${currentTempo}</span>
+            `;
+            
+            settingsDiv.style.display = 'block';
+        }
+
+        // Initialize the jukebox
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎵 AI Music Jukebox loaded! Ready to create some music!');
+        });
+    </script>
+</body>
+</html> 

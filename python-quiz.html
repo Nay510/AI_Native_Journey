@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Power-Up Quiz - Test Your Knowledge!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .python-images {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .python-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .python-image:hover {
+            transform: scale(1.1);
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .start-screen {
+            text-align: center;
+            display: block;
+        }
+
+        .quiz-screen {
+            display: none;
+        }
+
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .study-guide {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .study-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .study-section h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .study-section ul {
+            margin-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .study-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #4caf50;
+        }
+
+        .category-badge {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .option.selected {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+        }
+
+        .option.correct {
+            background: rgba(76, 175, 80, 0.5);
+            border-color: #4caf50;
+            animation: correctAnswer 0.5s ease;
+        }
+
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.5);
+            border-color: #f44336;
+            animation: incorrectAnswer 0.5s ease;
+        }
+
+        .timer {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .score-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .feedback {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectAnswer {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .final-score {
+            font-size: 3rem;
+            color: #ffd700;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .achievement {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .weak-areas {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐍 Python Power-Up Quiz</h1>
+            <p class="subtitle">Test your knowledge on Variables, if/else, and Debugging!</p>
+            
+            <!-- Python Images -->
+            <div class="python-images">
+                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=80&h=80&fit=crop&crop=center" 
+                     alt="Python Code" class="python-image">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=80&h=80&fit=crop&crop=center" 
+                     alt="Programming" class="python-image">
+                <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=80&h=80&fit=crop&crop=center" 
+                     alt="Development" class="python-image">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=center" 
+                     alt="Web Development" class="python-image">
+            </div>
+        </div>
+
+        <div class="game-container">
+            <!-- Start Screen -->
+            <div class="start-screen" id="startScreen">
+                <h2>Welcome, budding Python programmer! 🚀</h2>
+                <p>Get ready for the "Python Power-Up Quiz" - an educational game show!</p>
+                <p>Test your knowledge on core Python concepts and earn points!</p>
+                <div style="margin: 2rem 0;">
+                    <h3>🎯 What you'll learn:</h3>
+                    <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
+                        <li>Variables and data types</li>
+                        <li>Conditional statements (if/else)</li>
+                        <li>Debugging techniques</li>
+                        <li>Python best practices</li>
+                    </ul>
+                </div>
+                <button class="btn" onclick="startQuiz()">Start Quiz! 🎮</button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div class="quiz-screen" id="quizScreen">
+                <div class="score-display">
+                    Score: <span id="currentScore">0</span> / <span id="totalQuestions">6</span>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="category-badge" id="categoryBadge">
+                    Category: Variables
+                </div>
+
+                <div class="timer">
+                    <div>Time Remaining: <span id="timeLeft">15</span>s</div>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timerFill"></div>
+                    </div>
+                </div>
+
+                <div class="question" id="questionText">
+                    Question text will appear here...
+                </div>
+
+                <div class="options" id="optionsContainer">
+                    <!-- Options will be populated here -->
+                </div>
+
+                <div class="feedback" id="feedback">
+                    <!-- Feedback will appear here -->
+                </div>
+
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            </div>
+
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen">
+                <h2>🎉 Quiz Complete! 🎉</h2>
+                
+                <div class="final-score" id="finalScore">
+                    Score: 0/6
+                </div>
+
+                <div class="achievement" id="achievement">
+                    <h3>🏆 Achievement Unlocked!</h3>
+                    <p id="achievementText">Keep learning and coding!</p>
+                </div>
+
+                <div class="weak-areas" id="weakAreas" style="display: none;">
+                    <h3>📚 Areas to Improve</h3>
+                    <p id="weakAreasText">Focus on these topics to improve your Python skills!</p>
+                </div>
+
+                <button class="btn" onclick="showStudyGuide()">📖 View Study Guide</button>
+                <button class="btn" onclick="restartQuiz()">Play Again! 🔄</button>
+            </div>
+
+            <!-- Study Guide -->
+            <div class="study-guide" id="studyGuide">
+                <h2>📚 Python Study Guide</h2>
+                <p>Based on your quiz results, here's what you should focus on:</p>
+                
+                <div class="study-section">
+                    <h3>🐍 Variables</h3>
+                    <p>Variables are like labeled boxes that store data in your program.</p>
+                    <ul>
+                        <li><strong>Strings:</strong> Text data (e.g., "Hello World")</li>
+                        <li><strong>Integers:</strong> Whole numbers (e.g., 42, -7)</li>
+                        <li><strong>Floats:</strong> Decimal numbers (e.g., 3.14, -0.001)</li>
+                        <li><strong>Booleans:</strong> True or False values</li>
+                        <li><strong>Lists:</strong> Collections of items [1, 2, 3]</li>
+                    </ul>
+                    <div class="code-example">
+# Variable examples<br>
+name = "Alice"           # String<br>
+age = 25                 # Integer<br>
+height = 5.6             # Float<br>
+is_student = True        # Boolean<br>
+grades = [85, 92, 78]    # List
+                    </div>
+                </div>
+
+                <div class="study-section">
+                    <h3>🔀 if/else Statements</h3>
+                    <p>Conditional statements allow your program to make decisions.</p>
+                    <ul>
+                        <li><strong>if:</strong> Execute code if condition is True</li>
+                        <li><strong>elif:</strong> Check another condition if first is False</li>
+                        <li><strong>else:</strong> Execute code if all conditions are False</li>
+                        <li><strong>Comparison operators:</strong> ==, !=, <, >, <=, >=</li>
+                        <li><strong>Logical operators:</strong> and, or, not</li>
+                    </ul>
+                    <div class="code-example">
+# if/else example<br>
+score = 85<br>
+if score >= 90:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Excellent!")<br>
+elif score >= 80:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Good job!")<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Keep studying!")
+                    </div>
+                </div>
+
+                <div class="study-section">
+                    <h3>🐛 Debugging</h3>
+                    <p>Debugging is the process of finding and fixing errors in your code.</p>
+                    <ul>
+                        <li><strong>NameError:</strong> Variable not defined or misspelled</li>
+                        <li><strong>SyntaxError:</strong> Invalid Python syntax</li>
+                        <li><strong>TypeError:</strong> Wrong data type for operation</li>
+                        <li><strong>IndentationError:</strong> Incorrect code indentation</li>
+                        <li><strong>print() debugging:</strong> Add print statements to track code flow</li>
+                    </ul>
+                    <div class="code-example">
+# Common debugging techniques<br>
+# 1. Check variable names<br>
+my_variable = 10<br>
+print(my_variable)  # Make sure it's defined<br><br>
+
+# 2. Use try/except for error handling<br>
+try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result = 10 / 0<br>
+except ZeroDivisionError:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Cannot divide by zero!")
+                    </div>
+                </div>
+
+                <div class="study-section">
+                    <h3>💡 Best Practices</h3>
+                    <ul>
+                        <li>Use descriptive variable names (e.g., <code>user_age</code> instead of <code>a</code>)</li>
+                        <li>Add comments to explain complex code</li>
+                        <li>Test your code with different inputs</li>
+                        <li>Keep your code organized and readable</li>
+                        <li>Use consistent indentation (4 spaces)</li>
+                    </ul>
+                </div>
+
+                <button class="btn" onclick="hideStudyGuide()">Close Study Guide</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const questions = [
+            {
+                question: "What are variables commonly compared to in programming?",
+                options: ["A) Books", "B) Labeled boxes", "C) Roads", "D) Trees"],
+                correctAnswer: "B",
+                concept: "Variables"
+            },
+            {
+                question: "Which of these is a Python 'Boolean' value?",
+                options: ["A) 'hello'", "B) 123", "C) True", "D) 3.14"],
+                correctAnswer: "C",
+                concept: "Variables"
+            },
+            {
+                question: "The 'if/else' structure allows your program to:",
+                options: ["A) Repeat code many times", "B) Draw pictures", "C) Make decisions based on conditions", "D) Play music"],
+                correctAnswer: "C",
+                concept: "if/else Statements"
+            },
+            {
+                question: "What is the keyword used to introduce the alternative path in an 'if' statement?",
+                options: ["A) then", "B) when", "C) else", "D) otherwise"],
+                correctAnswer: "C",
+                concept: "if/else Statements"
+            },
+            {
+                question: "What is the term for finding and fixing errors in your code?",
+                options: ["A) Compiling", "B) Debugging", "C) Executing", "D) Commenting"],
+                correctAnswer: "B",
+                concept: "Debugging"
+            },
+            {
+                question: "If Python says 'NameError: name 'my_var' is not defined', what is a likely cause?",
+                options: ["A) You forgot a colon ':'", "B) You spelled 'my_var' incorrectly or didn't create it", "C) Your computer is off", "D) You have too many comments"],
+                correctAnswer: "B",
+                concept: "Debugging"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 15;
+        let selectedAnswer = null;
+        let wrongAnswers = [];
+
+        function startQuiz() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            
+            // Update category badge
+            document.getElementById('categoryBadge').textContent = `Category: ${question.concept}`;
+            
+            // Update question text
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Update progress
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Populate options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectOption(index, option.charAt(0));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Reset timer
+            timeLeft = 15;
+            startTimer();
+            
+            // Hide feedback and next button
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            selectedAnswer = null;
+        }
+
+        function selectOption(index, answer) {
+            if (selectedAnswer !== null) return; // Prevent multiple selections
+            
+            selectedAnswer = answer;
+            clearInterval(timer);
+            
+            const options = document.querySelectorAll('.option');
+            const correctAnswer = questions[currentQuestion].correctAnswer;
+            
+            // Disable all options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Show correct/incorrect feedback
+            if (answer === correctAnswer) {
+                options[index].classList.add('correct');
+                score++;
+                showFeedback('🎉 Correct! You earned a point!', 'correct');
+                playSound('correct');
+            } else {
+                options[index].classList.add('incorrect');
+                // Track wrong answers for study guide
+                wrongAnswers.push(questions[currentQuestion].concept);
+                // Highlight correct answer
+                options.forEach((option, i) => {
+                    if (option.textContent.charAt(0) === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+                showFeedback(`😔 Incorrect. The correct answer was ${correctAnswer}.`, 'incorrect');
+                playSound('incorrect');
+            }
+            
+            // Update score
+            document.getElementById('currentScore').textContent = score;
+            
+            // Show next button
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+            feedback.style.background = type === 'correct' ? 
+                'rgba(76, 175, 80, 0.3)' : 'rgba(244, 67, 54, 0.3)';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function startTimer() {
+            const timerFill = document.getElementById('timerFill');
+            const timeLeftSpan = document.getElementById('timeLeft');
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                timeLeftSpan.textContent = timeLeft;
+                
+                const percentage = (timeLeft / 15) * 100;
+                timerFill.style.width = percentage + '%';
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function timeUp() {
+            if (selectedAnswer === null) {
+                const correctAnswer = questions[currentQuestion].correctAnswer;
+                wrongAnswers.push(questions[currentQuestion].concept);
+                showFeedback(`⏱️ Time's up! The correct answer was ${correctAnswer}.`, 'timeout');
+                document.getElementById('nextBtn').style.display = 'inline-block';
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+            
+            const finalScore = document.getElementById('finalScore');
+            finalScore.textContent = `Score: ${score}/${questions.length}`;
+            
+            const achievement = document.getElementById('achievement');
+            const achievementText = document.getElementById('achievementText');
+            
+            if (score === questions.length) {
+                achievementText.textContent = "Amazing! A perfect score! You're a Python Master! ⭐⭐⭐";
+            } else if (score >= questions.length / 2) {
+                achievementText.textContent = "Well done! You've got a solid understanding of the basics! Keep coding! 🚀";
+            } else {
+                achievementText.textContent = "Good effort! Don't worry, every programmer starts somewhere. Keep learning! 💪";
+            }
+
+            // Show weak areas if there are any
+            if (wrongAnswers.length > 0) {
+                const weakAreas = document.getElementById('weakAreas');
+                const weakAreasText = document.getElementById('weakAreasText');
+                const uniqueWeakAreas = [...new Set(wrongAnswers)];
+                weakAreasText.textContent = `Focus on: ${uniqueWeakAreas.join(', ')}`;
+                weakAreas.style.display = 'block';
+            }
+        }
+
+        function showStudyGuide() {
+            document.getElementById('studyGuide').style.display = 'block';
+        }
+
+        function hideStudyGuide() {
+            document.getElementById('studyGuide').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            selectedAnswer = null;
+            wrongAnswers = [];
+            
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('studyGuide').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+
+        function playSound(type) {
+            // Simple sound effect simulation
+            const audio = new Audio();
+            if (type === 'correct') {
+                // Play a success sound (you can add actual audio files)
+                console.log('🎵 Correct answer sound!');
+            } else if (type === 'incorrect') {
+                // Play an error sound
+                console.log('🔊 Incorrect answer sound!');
+            }
+        }
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🐍 Python Power-Up Quiz loaded! Ready to test your knowledge!');
+        });
+    </script>
+</body>
+</html> 

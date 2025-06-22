@@ -17,24 +17,23 @@
         }
         
         .container {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 600px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
             margin: 20px;
         }
         
         h1 {
-            color: #333;
-            font-size: 3rem;
+            color: #1a73e8;
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease-out;
         }
         
         .subtitle {
-            color: #666;
+            color: #5f6368;
             font-size: 1.2rem;
             margin-bottom: 2rem;
             animation: fadeInUp 1s ease-out 0.2s both;
@@ -59,6 +58,28 @@
             padding: 1rem;
             border-radius: 8px;
             border-left: 4px solid #4a90e2;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .feature h3 {
+            color: #1a73e8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            color: #5f6368;
+            font-size: 0.9rem;
         }
         
         @keyframes fadeInUp {
@@ -89,26 +110,108 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
         }
+        
+        .hero-section {
+            margin-bottom: 3rem;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .image-item {
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+        
+        .image-item img {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.1);
+        }
+        
+        .image-item p {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Hello World!</h1>
-        <p class="subtitle">Welcome to my AI Native Journey</p>
-        <div class="welcome-text">
-            🚀 Exploring the world of AI and web development
+        <div class="hero-section">
+            <h1>Hello World!</h1>
+            <p class="subtitle">Welcome to my AI Native Journey</p>
+            <div class="welcome-text">
+                🚀 Exploring the world of AI and web development
+            </div>
+            
+            <!-- Hero Image -->
+            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop&crop=center" 
+                 alt="Coding and Development" 
+                 class="hero-image">
+        </div>
+        
+        <!-- Image Grid -->
+        <div class="image-grid">
+            <div class="image-item">
+                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=120&h=120&fit=crop&crop=center" 
+                     alt="Python Programming">
+                <p>Python</p>
+            </div>
+            <div class="image-item">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=center" 
+                     alt="Web Development">
+                <p>Web Dev</p>
+            </div>
+            <div class="image-item">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=120&h=120&fit=crop&crop=center" 
+                     alt="AI and Machine Learning">
+                <p>AI/ML</p>
+            </div>
+            <div class="image-item">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=120&h=120&fit=crop&crop=center" 
+                     alt="Coding">
+                <p>Coding</p>
+            </div>
         </div>
         
         <div class="features">
             <div class="feature">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=60&h=60&fit=crop&crop=center" 
+                     alt="Learning">
                 <h3>🎯 Learning</h3>
                 <p>Building my first web applications</p>
             </div>
             <div class="feature">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=60&h=60&fit=crop&crop=center" 
+                     alt="Coding">
                 <h3>💻 Coding</h3>
                 <p>Python, HTML, CSS, and more</p>
             </div>
             <div class="feature">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=60&h=60&fit=crop&crop=center" 
+                     alt="AI Journey">
                 <h3>🤖 AI Journey</h3>
                 <p>Discovering the power of AI</p>
             </div>
