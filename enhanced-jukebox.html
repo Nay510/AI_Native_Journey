@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Music Jukebox - Original Script</title>
+    <title>Enhanced AI Music Jukebox - Surprise Me!</title>
     <style>
         * {
             margin: 0;
@@ -17,9 +17,7 @@
                 linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
                 url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover,
                 url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover,
-                url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover,
-                url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover,
-                url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+                url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -43,12 +41,39 @@
             z-index: 1;
         }
 
+        .musician-tribute {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 3;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .musician-tribute h2 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+
+        .musician-tribute p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
         .container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             backdrop-filter: blur(10px);
             position: relative;
@@ -114,6 +139,12 @@
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .generate-btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
@@ -124,7 +155,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            width: 100%;
+            flex: 1;
+            min-width: 200px;
         }
 
         .generate-btn:hover {
@@ -136,6 +168,25 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .surprise-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .surprise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
         }
 
         .music-output {
@@ -168,6 +219,33 @@
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-radius: 10px;
             border-left: 4px solid #667eea;
+        }
+
+        .sample-output {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .sample-output.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sample-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
         }
 
         .controls {
@@ -203,6 +281,16 @@
 
         .control-btn.secondary:hover {
             background: #6c757d;
+            color: white;
+        }
+
+        .control-btn.sample {
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .control-btn.sample:hover {
+            background: #ffc107;
             color: white;
         }
 
@@ -249,6 +337,45 @@
             color: #666;
         }
 
+        .sample-input {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #ffc107;
+            display: none;
+        }
+
+        .sample-input.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sample-input input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .sample-input button {
+            background: #ffc107;
+            color: #856404;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sample-input button:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -261,33 +388,10 @@
             .control-btn {
                 min-width: auto;
             }
-        }
 
-        .musician-tribute {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 3;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .musician-tribute h2 {
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            color: #ffd700;
-        }
-
-        .musician-tribute p {
-            font-size: 0.9em;
-            opacity: 0.9;
-            line-height: 1.4;
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -299,8 +403,8 @@
 
     <div class="container">
         <div class="header">
-            <h1>🎵 AI Music Jukebox</h1>
-            <p>Create imaginary music based on your preferences</p>
+            <h1>🎵 Enhanced AI Music Jukebox</h1>
+            <p>Create imaginary music with Surprise Me! and Sample Sound features</p>
         </div>
 
         <div class="jukebox-interface">
@@ -320,7 +424,10 @@
                     <input type="text" id="tempo" placeholder="e.g., fast, slow, moderate, steady" value="">
                 </div>
                 
-                <button class="generate-btn" onclick="generateMusic()">🎼 Generate Music</button>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateMusic()">🎼 Generate Music</button>
+                    <button class="surprise-btn" onclick="surpriseMe()">🎲 Surprise Me!</button>
+                </div>
             </div>
 
             <div class="music-output" id="musicOutput">
@@ -329,8 +436,21 @@
                 <div class="error" id="error" style="display: none;"></div>
             </div>
 
+            <div class="sample-input" id="sampleInput">
+                <label for="sampleDesc">Describe the sound you want to sample:</label>
+                <input type="text" id="sampleDesc" placeholder="e.g., 'a dripping faucet', 'wind chimes', 'a distant thunderclap'">
+                <button onclick="generateSampleUsage()">🎵 Generate Sample Usage</button>
+            </div>
+
+            <div class="sample-output" id="sampleOutput">
+                <div class="loading" id="sampleLoading">AI is thinking about your sample... please wait.</div>
+                <div class="sample-description" id="sampleDescription"></div>
+                <div class="error" id="sampleError" style="display: none;"></div>
+            </div>
+
             <div class="controls" id="controls" style="display: none;">
-                <button class="control-btn" onclick="generateSimilar()">🔄 Generate Similar</button>
+                <button class="control-btn" onclick="refineMusic()">🔄 Refine Current</button>
+                <button class="control-btn sample" onclick="showSampleInput()">🎵 Sample Sound</button>
                 <button class="control-btn secondary" onclick="startNew()">🆕 Start New</button>
                 <button class="control-btn secondary" onclick="resetJukebox()">🔄 Reset</button>
             </div>
@@ -342,6 +462,11 @@
         let currentGenre = '';
         let currentTempo = '';
         let lastGeneratedDescription = '';
+
+        // Define lists for "Surprise Me!" option
+        const possibleMoods = ["happy", "sad", "epic", "calm", "mysterious", "dreamy", "energetic", "melancholy"];
+        const possibleGenres = ["electronic", "classical", "rock", "jazz", "ambient", "funk", "hip-hop", "orchestral"];
+        const possibleTempos = ["fast", "slow", "moderate", "steady", "upbeat", "lively", "driving"];
 
         function generateMusic() {
             const mood = document.getElementById('mood').value.trim().toLowerCase();
@@ -361,9 +486,34 @@
             showLoading();
             showCurrentSettings();
 
-            // Simulate AI music generation (since we can't use the actual Gemini API in browser)
+            // Simulate AI music generation
             setTimeout(() => {
                 const musicDescription = generateMusicDescription(mood, genre, tempo, lastGeneratedDescription);
+                displayMusic(musicDescription);
+                lastGeneratedDescription = musicDescription;
+                showControls();
+            }, 2000);
+        }
+
+        function surpriseMe() {
+            // Pick random parameters
+            currentMood = possibleMoods[Math.floor(Math.random() * possibleMoods.length)];
+            currentGenre = possibleGenres[Math.floor(Math.random() * possibleGenres.length)];
+            currentTempo = possibleTempos[Math.floor(Math.random() * possibleTempos.length)];
+
+            // Update input fields
+            document.getElementById('mood').value = currentMood;
+            document.getElementById('genre').value = currentGenre;
+            document.getElementById('tempo').value = currentTempo;
+
+            lastGeneratedDescription = ""; // Clear previous description for a fresh random start
+
+            showLoading();
+            showCurrentSettings();
+
+            // Simulate AI music generation
+            setTimeout(() => {
+                const musicDescription = generateMusicDescription(currentMood, currentGenre, currentTempo, lastGeneratedDescription);
                 displayMusic(musicDescription);
                 lastGeneratedDescription = musicDescription;
                 showControls();
@@ -442,12 +592,80 @@
             return description;
         }
 
-        function generateSimilar() {
-            if (!lastGeneratedDescription) {
-                showError('No previous music to build upon. Please generate music first.');
+        function generateSampleUsage(sampleDesc, mood, genre, tempo) {
+            const sampleUsages = {
+                'dripping faucet': `The dripping faucet could be used as a rhythmic percussion element, with each drop creating a steady beat that drives the ${tempo} ${genre} piece. The metallic resonance could be layered with ${mood} melodies to create an industrial yet organic texture.`,
+                'wind chimes': `Wind chimes could serve as an ethereal atmospheric layer, their gentle tinkling adding a dreamy quality to the ${mood} ${genre} composition. The natural harmonics could blend beautifully with ${tempo} rhythms.`,
+                'distant thunderclap': `The thunderclap could be used as a dramatic accent, creating tension and release in the ${genre} piece. Its deep resonance could enhance the ${mood} atmosphere, especially during climactic moments.`
+            };
+
+            if (sampleUsages[sampleDesc.toLowerCase()]) {
+                return sampleUsages[sampleDesc.toLowerCase()];
+            } else {
+                return `The "${sampleDesc}" could be creatively integrated into your ${mood} ${genre} piece with ${tempo} tempo. Consider using it as a rhythmic element, atmospheric texture, or dramatic accent depending on the musical context.`;
+            }
+        }
+
+        function showSampleInput() {
+            if (!currentMood || !currentGenre || !currentTempo) {
+                showError('Please generate an initial music piece first (or choose "Surprise Me!") before sampling a sound.');
                 return;
             }
-            generateMusic();
+            document.getElementById('sampleInput').classList.add('show');
+        }
+
+        function generateSampleUsage() {
+            const sampleDesc = document.getElementById('sampleDesc').value.trim();
+            if (!sampleDesc) {
+                showSampleError('Please describe the sound you want to sample.');
+                return;
+            }
+
+            showSampleLoading();
+
+            setTimeout(() => {
+                const sampleUsage = generateSampleUsage(sampleDesc, currentMood, currentGenre, currentTempo);
+                displaySampleUsage(sampleUsage);
+            }, 1500);
+        }
+
+        function refineMusic() {
+            if (!lastGeneratedDescription) {
+                showError('No previous music to refine. Please generate music first.');
+                return;
+            }
+
+            const refineChoice = prompt('How would you like to refine it?\nChange (M)ood, (G)enre, (T)empo, or (A)ll? (M/G/T/A):').toLowerCase();
+
+            if (refineChoice === 'm') {
+                currentMood = prompt(`Enter a new mood (e.g., ${possibleMoods[Math.floor(Math.random() * possibleMoods.length)]}):`).toLowerCase();
+                document.getElementById('mood').value = currentMood;
+            } else if (refineChoice === 'g') {
+                currentGenre = prompt(`Enter a new genre (e.g., ${possibleGenres[Math.floor(Math.random() * possibleGenres.length)]}):`).toLowerCase();
+                document.getElementById('genre').value = currentGenre;
+            } else if (refineChoice === 't') {
+                currentTempo = prompt(`Enter a new tempo (e.g., ${possibleTempos[Math.floor(Math.random() * possibleTempos.length)]}):`).toLowerCase();
+                document.getElementById('tempo').value = currentTempo;
+            } else if (refineChoice === 'a') {
+                currentMood = prompt(`Enter a new mood (e.g., ${possibleMoods[Math.floor(Math.random() * possibleMoods.length)]}):`).toLowerCase();
+                currentGenre = prompt(`Enter a new genre (e.g., ${possibleGenres[Math.floor(Math.random() * possibleGenres.length)]}):`).toLowerCase();
+                currentTempo = prompt(`Enter a new tempo (e.g., ${possibleTempos[Math.floor(Math.random() * possibleTempos.length)]}):`).toLowerCase();
+                document.getElementById('mood').value = currentMood;
+                document.getElementById('genre').value = currentGenre;
+                document.getElementById('tempo').value = currentTempo;
+            } else {
+                alert('Invalid refinement choice. Please choose M, G, T, or A.');
+                return;
+            }
+
+            showLoading();
+            showCurrentSettings();
+
+            setTimeout(() => {
+                const musicDescription = generateMusicDescription(currentMood, currentGenre, currentTempo, lastGeneratedDescription);
+                displayMusic(musicDescription);
+                lastGeneratedDescription = musicDescription;
+            }, 2000);
         }
 
         function startNew() {
@@ -459,6 +677,8 @@
             currentTempo = '';
             lastGeneratedDescription = '';
             hideMusicOutput();
+            hideSampleOutput();
+            hideSampleInput();
             hideControls();
             hideCurrentSettings();
         }
@@ -488,6 +708,27 @@
             musicDesc.style.display = 'block';
         }
 
+        function showSampleLoading() {
+            const output = document.getElementById('sampleOutput');
+            const loading = document.getElementById('sampleLoading');
+            const description = document.getElementById('sampleDescription');
+            const error = document.getElementById('sampleError');
+            
+            output.classList.add('show');
+            loading.style.display = 'block';
+            description.style.display = 'none';
+            error.style.display = 'none';
+        }
+
+        function displaySampleUsage(description) {
+            const loading = document.getElementById('sampleLoading');
+            const sampleDesc = document.getElementById('sampleDescription');
+            
+            loading.style.display = 'none';
+            sampleDesc.textContent = description;
+            sampleDesc.style.display = 'block';
+        }
+
         function showError(message) {
             const output = document.getElementById('musicOutput');
             const loading = document.getElementById('loading');
@@ -501,8 +742,29 @@
             error.style.display = 'block';
         }
 
+        function showSampleError(message) {
+            const output = document.getElementById('sampleOutput');
+            const loading = document.getElementById('sampleLoading');
+            const description = document.getElementById('sampleDescription');
+            const error = document.getElementById('sampleError');
+            
+            output.classList.add('show');
+            loading.style.display = 'none';
+            description.style.display = 'none';
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+
         function hideMusicOutput() {
             document.getElementById('musicOutput').classList.remove('show');
+        }
+
+        function hideSampleOutput() {
+            document.getElementById('sampleOutput').classList.remove('show');
+        }
+
+        function hideSampleInput() {
+            document.getElementById('sampleInput').classList.remove('show');
         }
 
         function showControls() {

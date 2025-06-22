@@ -1,0 +1,137 @@
+import json
+import requests # Used to simulate fetch for API calls in Python
+
+def generate_music_description(mood, genre, tempo, current_description=""):
+    """
+    Generates a textual description of a short musical piece based on mood, genre, and tempo.
+    Simulates AI music generation using a large language model.
+
+    Args:
+        mood (str): The desired mood of the music (e.g., 'happy', 'melancholy').
+        genre (str): The desired genre of the music (e.g., 'electronic', 'classical').
+        tempo (str): The desired tempo of the music (e.g., 'fast', 'slow').
+        current_description (str): The previous music description for iterative refinement.
+
+    Returns:
+        str: A creative description of the generated music, or an error message.
+    """
+    print("AI is composing... please wait.")
+
+    # Base prompt for the AI to generate music descriptions
+    prompt_template = (
+        f"Generate a creative and vivid description for a short instrumental music piece "
+        f"with the following characteristics:\n\n"
+        f"Mood: {mood}\n"
+        f"Genre: {genre}\n"
+        f"Tempo: {tempo}\n\n"
+        f"Focus on describing the instrumentation, emotional impact, and overall sonic landscape. "
+        f"Make it sound appealing and imaginative. The description should be concise, around 3-5 sentences."
+    )
+
+    # If refining, add context from the previous description
+    if current_description:
+        prompt_template = (
+            f"Given the previous music description: '{current_description}', "
+            f"generate a *similar but new* short instrumental music piece description "
+            f"with the following characteristics:\n\n"
+            f"Mood: {mood}\n"
+            f"Genre: {genre}\n"
+            f"Tempo: {tempo}\n\n"
+            f"Focus on subtle variations in instrumentation, emotional nuance, or rhythmic patterns "
+            f"while maintaining the core feel. The description should be concise, around 3-5 sentences."
+        )
+
+    # Gemini API configuration
+    apiKey = "" # If you want to use models other than gemini-2.0-flash, provide an API key here. Otherwise, leave this as-is.
+    apiUrl = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apiKey}"
+
+    chat_history = []
+    chat_history.append({"role": "user", "parts": [{"text": prompt_template}]})
+    payload = {"contents": chat_history}
+
+    try:
+        response = requests.post(apiUrl,
+                                 headers={'Content-Type': 'application/json'},
+                                 data=json.dumps(payload))
+        response.raise_for_status() # Raise an exception for HTTP errors
+        result = response.json()
+
+        if result.get("candidates") and result["candidates"][0].get("content") and \
+           result["candidates"][0]["content"].get("parts") and result["candidates"][0]["content"]["parts"][0].get("text"):
+            text = result["candidates"][0]["content"]["parts"][0]["text"]
+            return text
+        else:
+            return "Failed to generate music description. Unexpected API response structure."
+    except requests.exceptions.RequestException as e:
+        return f"Failed to connect to the AI service: {e}. Please ensure you have network access and a valid API key (if required)."
+    except json.JSONDecodeError:
+        return "Failed to parse API response. Invalid JSON received."
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
+
+
+def run_jukebox():
+    """
+    Runs the interactive AI Music Jukebox.
+    """
+    print("Welcome to the AI Music Jukebox!")
+    print("I'll help you create imaginary music based on your preferences.")
+    print("Let's get started!\n")
+
+    current_mood = ""
+    current_genre = ""
+    current_tempo = ""
+    last_generated_description = ""
+
+    while True:
+        # --- Guided Generation with Intuitive Controls ---
+        if not last_generated_description: # Only ask for full parameters on a new session or after 'start new'
+            print("--- Enter your musical preferences ---")
+            current_mood = input("Enter a mood (e.g., happy, sad, epic, calm): ").strip().lower()
+            current_genre = input("Enter a genre (e.g., electronic, classical, rock, jazz): ").strip().lower()
+            current_tempo = input("Enter a tempo (e.g., fast, slow, moderate, steady): ").strip().lower()
+            print("\nGenerating your first piece...")
+        else:
+            print("\n--- Refining your music ---")
+            print(f"Current Mood: {current_mood.capitalize()}")
+            print(f"Current Genre: {current_genre.capitalize()}")
+            print(f"Current Tempo: {current_tempo.capitalize()}")
+
+
+        # Generate music description
+        music_description = generate_music_description(
+            current_mood, current_genre, current_tempo, last_generated_description
+        )
+
+        # --- Instant Playback ---
+        print("\n--- Your AI-Generated Music ---")
+        print(f'"{music_description}"') # Present the "music"
+        print("---------------------------\n")
+
+        last_generated_description = music_description # Store for potential refinement
+
+        # --- Iterative Refinement ---
+        action = input(
+            "What would you like to do next? (1) Generate Similar, (2) Start New, (3) Quit: "
+        ).strip()
+
+        if action == '1':
+            print("Generating a similar piece with slight variations...")
+            # Parameters remain the same for 'similar', but the prompt will guide the AI
+            # to make variations based on the last_generated_description
+        elif action == '2':
+            print("Starting a new musical journey...")
+            current_mood = "" # Reset parameters to prompt for new ones
+            current_genre = ""
+            current_tempo = ""
+            last_generated_description = ""
+        elif action == '3':
+            print("Thanks for using the AI Music Jukebox! Goodbye!")
+            break
+        else:
+            print("Invalid option. Please choose 1, 2, or 3.")
+            # Keep current parameters and allow user to try again
+
+
+if __name__ == "__main__":
+    run_jukebox() 
