@@ -247,6 +247,134 @@ RECIPE_DATABASE = [
             "Don't rush the process - risotto takes time",
             "Use good quality parmesan for best flavor"
         ]
+    },
+    {
+        "name": "Vegan Chocolate Avocado Mousse",
+        "ingredients": [
+            {"item": "ripe avocados", "amount": 2, "unit": "large", "notes": "very ripe, soft to touch"},
+            {"item": "dark chocolate", "amount": 6, "unit": "ounces", "notes": "70% cocoa, dairy-free"},
+            {"item": "maple syrup", "amount": 1/3, "unit": "cup", "notes": "pure maple syrup"},
+            {"item": "cocoa powder", "amount": 2, "unit": "tablespoons", "notes": "unsweetened"},
+            {"item": "vanilla extract", "amount": 1, "unit": "teaspoon", "notes": "pure vanilla extract"},
+            {"item": "almond milk", "amount": 1/4, "unit": "cup", "notes": "unsweetened"},
+            {"item": "salt", "amount": 1/8, "unit": "teaspoon", "notes": "fine sea salt"},
+            {"item": "fresh berries", "amount": 1, "unit": "cup", "notes": "for garnish (strawberries, raspberries)"},
+            {"item": "coconut whipped cream", "amount": 1/2, "unit": "cup", "notes": "optional, for topping"}
+        ],
+        "instructions": [
+            "**Chocolate Melting**: Chop 6 ounces dark chocolate into small, uniform pieces (about 1/4-inch chunks) for even melting. Place in a heatproof bowl. Create a double boiler by filling a medium saucepan with 1 inch of water and bringing to a gentle simmer over medium heat (water should bubble but not boil vigorously). Place the bowl of chocolate over the simmering water, ensuring the bottom of the bowl doesn't touch the water. Stir chocolate constantly with a rubber spatula until completely melted and smooth (about 3-5 minutes). Remove from heat and let cool for 5 minutes to room temperature.",
+            "**Avocado Preparation**: Cut 2 large ripe avocados in half lengthwise and remove pits. Scoop flesh into a food processor or high-powered blender. Avocados should be very ripe (dark green to black skin, soft when gently squeezed) for the smoothest texture. If avocados aren't ripe enough, the mousse will have a grainy texture.",
+            "**Base Mixture**: Add 1/3 cup pure maple syrup, 2 tablespoons unsweetened cocoa powder, 1 teaspoon pure vanilla extract, 1/4 cup unsweetened almond milk, and 1/8 teaspoon fine sea salt to the food processor with the avocados. Process on high speed for 2-3 minutes, scraping down the sides with a rubber spatula every 30 seconds, until completely smooth and creamy. The mixture should be velvety with no lumps or avocado chunks visible.",
+            "**Chocolate Incorporation**: With the food processor running on low speed, slowly pour the cooled melted chocolate through the feed tube in a steady stream. Continue processing for 1-2 minutes until chocolate is fully incorporated and the mixture is smooth and glossy. The mousse should be thick and creamy, similar to traditional chocolate mousse consistency.",
+            "**Taste Testing**: Stop the processor and taste the mousse. If it needs more sweetness, add 1-2 tablespoons additional maple syrup and process for 30 seconds. If it's too thick, add 1-2 tablespoons additional almond milk and process briefly. The mousse should be rich and chocolatey with a subtle avocado undertone.",
+            "**Chilling**: Transfer mousse to a clean bowl and cover tightly with plastic wrap, pressing the wrap directly onto the surface of the mousse to prevent a skin from forming. Refrigerate for at least 2 hours, or up to 24 hours, until well chilled and set. The mousse will firm up slightly as it chills.",
+            "**Garnish Preparation**: While mousse chills, wash and dry 1 cup fresh berries. Hull strawberries if using, and cut larger berries in half for easier eating. Keep berries refrigerated until ready to serve.",
+            "**Serving**: Remove mousse from refrigerator 10 minutes before serving to allow it to soften slightly. Spoon mousse into 4-6 serving glasses or bowls, creating a smooth, rounded top. Garnish each serving with fresh berries and a dollop of coconut whipped cream if desired. The mousse should be smooth, creamy, and decadent with a rich chocolate flavor.",
+            "**Storage**: Cover any remaining mousse tightly and refrigerate for up to 3 days. The mousse will keep well but may darken slightly over time due to avocado oxidation."
+        ],
+        "prep_time": 20,
+        "cook_time": 0,
+        "total_time": 140,
+        "servings": 4,
+        "difficulty": "easy",
+        "cuisine": "vegan",
+        "tags": ["dessert", "vegan", "chocolate", "healthy", "gluten-free"],
+        "tips": [
+            "Use very ripe avocados for the smoothest texture",
+            "Melt chocolate slowly to prevent burning",
+            "Chill thoroughly for best consistency",
+            "Serve with fresh berries for contrast"
+        ]
+    },
+    {
+        "name": "Classic New York Cheesecake",
+        "ingredients": [
+            {"item": "graham crackers", "amount": 1.5, "unit": "cups", "notes": "crushed into fine crumbs"},
+            {"item": "butter", "amount": 1/3, "unit": "cup", "notes": "unsalted, melted"},
+            {"item": "sugar", "amount": 1/4, "unit": "cup", "notes": "granulated, for crust"},
+            {"item": "cream cheese", "amount": 4, "unit": "8-ounce packages", "notes": "full-fat, room temperature"},
+            {"item": "sugar", "amount": 1.25, "unit": "cups", "notes": "granulated, for filling"},
+            {"item": "eggs", "amount": 4, "unit": "large", "notes": "room temperature"},
+            {"item": "egg yolks", "amount": 2, "unit": "large", "notes": "room temperature"},
+            {"item": "vanilla extract", "amount": 2, "unit": "teaspoons", "notes": "pure vanilla extract"},
+            {"item": "lemon juice", "amount": 1, "unit": "tablespoon", "notes": "fresh squeezed"},
+            {"item": "sour cream", "amount": 1, "unit": "cup", "notes": "full-fat, room temperature"},
+            {"item": "salt", "amount": 1/4, "unit": "teaspoon", "notes": "fine sea salt"},
+            {"item": "fresh berries", "amount": 2, "unit": "cups", "notes": "for garnish (strawberries, blueberries)"}
+        ],
+        "instructions": [
+            "**Oven Setup**: Preheat oven to 350°F (175°C). Position oven rack in the center. Wrap the outside of a 9-inch springform pan with heavy-duty aluminum foil (this prevents water from seeping in during water bath baking). The foil should extend up the sides of the pan by at least 2 inches. Grease the inside of the pan with butter or non-stick cooking spray.",
+            "**Crust Preparation**: Place 1.5 cups graham cracker crumbs in a medium bowl. Add 1/4 cup granulated sugar and stir to combine. Pour in 1/3 cup melted butter and mix with a fork until all crumbs are evenly moistened. The mixture should hold together when pressed but not be soggy. If too dry, add 1 tablespoon additional melted butter.",
+            "**Crust Formation**: Press the crumb mixture firmly and evenly into the bottom of the prepared springform pan using the bottom of a measuring cup or glass. Press the crumbs up the sides of the pan about 1 inch to create a rim. The crust should be compact and even. Bake the crust for 10 minutes until lightly golden and fragrant. Remove from oven and let cool completely on a wire rack while preparing the filling.",
+            "**Cream Cheese Preparation**: Ensure 4 packages (32 ounces total) cream cheese are at room temperature (about 70°F) for at least 2 hours. Room temperature cream cheese is crucial for a smooth, lump-free filling. Cut cream cheese into 1-inch cubes and place in a large mixing bowl.",
+            "**Cream Cheese Beating**: Using an electric mixer fitted with paddle attachment, beat cream cheese on medium speed (speed 4) for 2-3 minutes until completely smooth and creamy. Scrape down the sides and bottom of the bowl with a rubber spatula every 30 seconds to ensure even mixing. The cream cheese should be completely smooth with no lumps.",
+            "**Sugar Addition**: Gradually add 1.25 cups granulated sugar while continuing to beat on medium speed. Beat for 2-3 minutes until sugar is completely dissolved and mixture is light and fluffy. The mixture should be pale yellow and airy. Scrape down the bowl again to ensure even mixing.",
+            "**Egg Incorporation**: Add 4 large eggs and 2 large egg yolks one at a time, beating well after each addition on medium speed (about 30 seconds per egg). Scrape down the bowl after each egg. The mixture should remain smooth and creamy throughout this process. Don't overbeat - this can incorporate too much air and cause cracking.",
+            "**Flavoring**: Beat in 2 teaspoons pure vanilla extract, 1 tablespoon fresh lemon juice, and 1/4 teaspoon fine sea salt until well combined (about 30 seconds). The lemon juice adds brightness and helps balance the richness.",
+            "**Sour Cream Addition**: Add 1 cup room temperature sour cream and beat on low speed just until combined (about 30 seconds). Don't overmix at this stage - overmixing can cause the cheesecake to crack during baking.",
+            "**Water Bath Setup**: Bring a large pot of water to a boil. Place the springform pan in a large roasting pan or baking dish. Pour the cheesecake batter into the cooled crust, smoothing the top with a rubber spatula. Carefully pour boiling water into the roasting pan around the springform pan until it reaches halfway up the sides of the springform pan.",
+            "**Baking**: Bake for 60-75 minutes until the center is almost set but still slightly jiggly when gently shaken. The edges should be set and slightly golden. The center should have a slight wobble but not be liquid. If the top starts to brown too quickly, tent with aluminum foil.",
+            "**Cooling**: Turn off the oven and leave the cheesecake in the oven with the door slightly ajar for 1 hour. This gradual cooling prevents cracking. Remove from water bath and let cool completely on a wire rack for 2 hours. Cover and refrigerate for at least 4 hours, or overnight, before serving.",
+            "**Serving**: Remove from refrigerator 30 minutes before serving. Run a thin knife around the edge of the pan to loosen, then remove the springform ring. Garnish with fresh berries and serve in thin slices. The cheesecake should be creamy, smooth, and perfectly set."
+        ],
+        "prep_time": 30,
+        "cook_time": 75,
+        "total_time": 285,
+        "servings": 12,
+        "difficulty": "medium",
+        "cuisine": "american",
+        "tags": ["dessert", "cheesecake", "baking", "classic", "indulgent"],
+        "tips": [
+            "Use room temperature ingredients for smooth texture",
+            "Don't overmix the filling to prevent cracking",
+            "Use a water bath for even baking",
+            "Cool gradually to prevent cracks"
+        ]
+    },
+    {
+        "name": "Vegan Apple Cinnamon Muffins",
+        "ingredients": [
+            {"item": "all-purpose flour", "amount": 2, "unit": "cups", "notes": "spooned and leveled"},
+            {"item": "baking powder", "amount": 2, "unit": "teaspoons", "notes": ""},
+            {"item": "baking soda", "amount": 1/2, "unit": "teaspoon", "notes": ""},
+            {"item": "salt", "amount": 1/2, "unit": "teaspoon", "notes": "fine sea salt"},
+            {"item": "cinnamon", "amount": 2, "unit": "teaspoons", "notes": "ground"},
+            {"item": "nutmeg", "amount": 1/4, "unit": "teaspoon", "notes": "ground"},
+            {"item": "applesauce", "amount": 1/2, "unit": "cup", "notes": "unsweetened"},
+            {"item": "coconut oil", "amount": 1/3, "unit": "cup", "notes": "melted and cooled"},
+            {"item": "maple syrup", "amount": 1/2, "unit": "cup", "notes": "pure maple syrup"},
+            {"item": "vanilla extract", "amount": 1, "unit": "teaspoon", "notes": "pure vanilla extract"},
+            {"item": "almond milk", "amount": 1/2, "unit": "cup", "notes": "unsweetened"},
+            {"item": "apples", "amount": 2, "unit": "medium", "notes": "peeled, cored, and diced into 1/4-inch pieces"},
+            {"item": "brown sugar", "amount": 1/4, "unit": "cup", "notes": "for topping"},
+            {"item": "cinnamon", "amount": 1, "unit": "teaspoon", "notes": "for topping"}
+        ],
+        "instructions": [
+            "**Oven Setup**: Preheat oven to 375°F (190°C). Line a 12-cup muffin tin with paper liners or grease generously with coconut oil. Position oven rack in the center for even baking. The oven should be fully preheated before adding muffins.",
+            "**Dry Ingredients**: In a large bowl, measure 2 cups all-purpose flour by spooning flour into the measuring cup and leveling with a knife. Add 2 teaspoons baking powder, 1/2 teaspoon baking soda, 1/2 teaspoon fine sea salt, 2 teaspoons ground cinnamon, and 1/4 teaspoon ground nutmeg. Whisk together until well combined and no lumps remain. This ensures even distribution of leavening agents and spices.",
+            "**Apple Preparation**: Peel, core, and dice 2 medium apples into 1/4-inch pieces. Use firm, tart apples like Granny Smith or Honeycrisp for best texture and flavor. The apples should be uniform in size for even distribution throughout the muffins. Set aside in a small bowl.",
+            "**Wet Ingredients**: In a medium bowl, combine 1/2 cup unsweetened applesauce, 1/3 cup melted and cooled coconut oil, 1/2 cup pure maple syrup, 1 teaspoon pure vanilla extract, and 1/2 cup unsweetened almond milk. Whisk together until smooth and well combined. The coconut oil should be liquid but not hot to avoid cooking the ingredients.",
+            "**Batter Assembly**: Make a well in the center of the dry ingredients. Pour the wet ingredients into the well and gently fold together with a rubber spatula until just combined. The batter should be thick but not dry. Don't overmix - this develops gluten and makes muffins tough. A few small lumps are okay.",
+            "**Apple Addition**: Gently fold in the diced apples until evenly distributed throughout the batter. The apples should be well distributed but not broken up. The batter should be thick enough to hold the apple pieces in suspension.",
+            "**Muffin Formation**: Using a 1/4-cup measuring cup or large spoon, divide batter evenly among the 12 muffin cups, filling each about 3/4 full. The muffins should be uniform in size for even baking. Don't overfill - muffins need room to rise.",
+            "**Topping Preparation**: In a small bowl, combine 1/4 cup brown sugar and 1 teaspoon ground cinnamon. Mix well with a fork until evenly combined. Sprinkle about 1 teaspoon of the mixture evenly over each muffin. The topping should be evenly distributed for consistent flavor.",
+            "**Baking**: Bake for 18-22 minutes, rotating the muffin tin halfway through (front to back) for even baking, until a toothpick inserted into the center of a muffin comes out clean with just a few moist crumbs. The muffins should be golden brown on top and spring back when lightly pressed. If muffins are browning too quickly, tent with aluminum foil for the last 5 minutes.",
+            "**Cooling**: Remove from oven and let muffins cool in the tin for 5 minutes. Then transfer to a wire rack to cool completely. Don't try to remove muffins too soon - they will stick to the liners. The muffins should be firm but tender when cooled.",
+            "**Serving**: Serve warm or at room temperature. The muffins should be moist, tender, and full of apple and cinnamon flavor. Store in an airtight container at room temperature for up to 3 days, or freeze for up to 2 months."
+        ],
+        "prep_time": 20,
+        "cook_time": 20,
+        "total_time": 40,
+        "servings": 12,
+        "difficulty": "easy",
+        "cuisine": "vegan",
+        "tags": ["dessert", "vegan", "muffins", "breakfast", "apple", "cinnamon"],
+        "tips": [
+            "Use room temperature ingredients for best results",
+            "Don't overmix the batter to keep muffins tender",
+            "Use firm apples for better texture",
+            "Let muffins cool completely before storing"
+        ]
     }
 ]
 

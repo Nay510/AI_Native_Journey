@@ -131,6 +131,14 @@
             background: linear-gradient(135deg, #9C27B0, #7B1FA2);
         }
 
+        .dietary-option.desserts-vegan {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+
+        .dietary-option.desserts-non-vegan {
+            background: linear-gradient(135deg, #E91E63, #C2185B);
+        }
+
         .dietary-option-content {
             padding: 15px;
             color: white;
@@ -169,6 +177,14 @@
 
         .dietary-option.no-restrictions .dietary-option-bg {
             background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .dietary-option.desserts-vegan .dietary-option-bg {
+            background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .dietary-option.desserts-non-vegan .dietary-option-bg {
+            background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         }
 
         .main-content {
@@ -815,6 +831,20 @@
                     <p>Fish + plant-based</p>
                 </div>
             </div>
+            <div class="dietary-option desserts-vegan" onclick="selectDietaryOption('desserts-vegan')">
+                <div class="dietary-option-bg"></div>
+                <div class="dietary-option-content">
+                    <h4>🍰 Vegan Desserts</h4>
+                    <p>Plant-based desserts</p>
+                </div>
+            </div>
+            <div class="dietary-option desserts-non-vegan" onclick="selectDietaryOption('desserts-non-vegan')">
+                <div class="dietary-option-bg"></div>
+                <div class="dietary-option-content">
+                    <h4>🍫 Non-Vegan Desserts</h4>
+                    <p>Non-vegan desserts</p>
+                </div>
+            </div>
         </div>
 
         <div class="main-content">
@@ -1079,7 +1109,9 @@
                 'vegan': 'tofu, tempeh, chickpeas, lentils, quinoa, vegetables, nutritional yeast, coconut milk, avocado, nuts, seeds',
                 'vegetarian': 'eggs, cheese, yogurt, mushrooms, chickpeas, lentils, quinoa, vegetables, nuts, seeds, dairy products',
                 'alkaline': 'quinoa, millet, leafy greens, cucumber, spinach, kale, avocado, almonds, broccoli, cauliflower, alkaline vegetables',
-                'pescatarian': 'salmon, tuna, shrimp, cod, vegetables, quinoa, rice, olive oil, garlic, herbs, citrus, fish, seafood'
+                'pescatarian': 'salmon, tuna, shrimp, cod, vegetables, quinoa, rice, olive oil, garlic, herbs, citrus, fish, seafood',
+                'desserts-vegan': 'vegan chocolate chips, coconut oil, maple syrup, almond milk, coconut milk, vanilla extract, cocoa powder, flour, baking powder, applesauce, bananas, berries, nuts, coconut flakes, agave nectar, vegan butter',
+                'desserts-non-vegan': 'chocolate chips, butter, eggs, milk, cream, sugar, vanilla extract, flour, baking powder, cocoa powder, brown sugar, powdered sugar, heavy cream, sour cream, cream cheese'
             };
 
             const categoryInfo = {
@@ -1102,6 +1134,14 @@
                 'pescatarian': {
                     title: '🐟 Pescatarian Diet Selected',
                     description: 'Fish and seafood with plant-based ingredients'
+                },
+                'desserts-vegan': {
+                    title: '🍰 Vegan Desserts Selected',
+                    description: 'Plant-based desserts loaded for cruelty-free cooking'
+                },
+                'desserts-non-vegan': {
+                    title: '🍫 Non-Vegan Desserts Selected',
+                    description: 'Non-vegan desserts loaded for a sweet treat'
                 }
             };
 
@@ -1139,7 +1179,9 @@
                 'vegan': '🌱 Vegan ingredients loaded! Plant-based cooking at its finest.',
                 'vegetarian': '🥬 Vegetarian ingredients loaded! Delicious meat-free options.',
                 'alkaline': '⚖️ Alkaline ingredients loaded! pH-balanced healthy eating.',
-                'pescatarian': '🐟 Pescatarian ingredients loaded! Fresh fish and plant-based goodness.'
+                'pescatarian': '🐟 Pescatarian ingredients loaded! Fresh fish and plant-based goodness.',
+                'desserts-vegan': '🍰 Vegan desserts loaded! Plant-based sweetness for all occasions.',
+                'desserts-non-vegan': '🍫 Non-vegan desserts loaded! Classic flavors for a special treat.'
             };
             
             // Create a temporary message
