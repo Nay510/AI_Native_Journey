@@ -652,6 +652,128 @@
         .selected-category.no-restrictions {
             background: linear-gradient(135deg, #9C27B0, #7B1FA2);
         }
+
+        .conversion-section {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid #ffc107;
+            display: none;
+        }
+
+        .conversion-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .conversion-section h3 {
+            color: #856404;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .conversion-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .conversion-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .conversion-card h4 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .conversion-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .conversion-table th, 
+        .conversion-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .conversion-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .conversion-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .conversion-tips {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .conversion-tips h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .conversion-tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .conversion-tips li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .conversion-tips li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .conversion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .conversion-content {
+                gap: 15px;
+            }
+        }
+
+        .control-btn.conversion {
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .control-btn.conversion:hover {
+            background: #ffc107;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -742,6 +864,7 @@
                 <div class="controls" id="controls" style="display: none;">
                     <button class="control-btn save" onclick="saveRecipe()">💾 Save Recipe</button>
                     <button class="control-btn favorites" onclick="showFavorites()">⭐ My Favorites</button>
+                    <button class="control-btn conversion" onclick="showConversionChart()">📏 Conversion Chart</button>
                     <button class="control-btn" onclick="startNew()">🆕 Start New Recipe</button>
                     <button class="control-btn secondary" onclick="resetApp()">🔄 Reset</button>
                     <button class="control-btn back" onclick="goToMainScreen()">🔙 Back to Main Screen</button>
@@ -754,6 +877,176 @@
                     </h3>
                     <div class="favorites-list" id="favoritesList">
                         <div class="no-favorites">No favorite recipes yet. Save a recipe to see it here!</div>
+                    </div>
+                </div>
+
+                <div class="conversion-section" id="conversionSection">
+                    <h3>
+                        📏 Kitchen Measurement Conversion Chart
+                        <button class="favorite-btn" onclick="hideConversionChart()" style="font-size: 16px;" title="Back to Recipe">🔙</button>
+                    </h3>
+                    <div class="conversion-content">
+                        <div class="conversion-grid">
+                            <div class="conversion-card">
+                                <h4>US Volume Measurements</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Measurement</th>
+                                            <th>Equivalent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>1 teaspoon (tsp)</td><td>1/3 tablespoon</td></tr>
+                                        <tr><td>1 tablespoon (tbsp)</td><td>3 teaspoons</td></tr>
+                                        <tr><td>1 fluid ounce (fl oz)</td><td>2 tablespoons</td></tr>
+                                        <tr><td>1/4 cup</td><td>4 tablespoons</td></tr>
+                                        <tr><td>1/3 cup</td><td>5 1/3 tablespoons</td></tr>
+                                        <tr><td>1/2 cup</td><td>8 tablespoons</td></tr>
+                                        <tr><td>2/3 cup</td><td>10 2/3 tablespoons</td></tr>
+                                        <tr><td>3/4 cup</td><td>12 tablespoons</td></tr>
+                                        <tr><td>1 cup</td><td>16 tablespoons</td></tr>
+                                        <tr><td>1 pint</td><td>2 cups</td></tr>
+                                        <tr><td>1 quart</td><td>4 cups</td></tr>
+                                        <tr><td>1 gallon</td><td>16 cups</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="conversion-card">
+                                <h4>Metric Volume Measurements</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Measurement</th>
+                                            <th>Equivalent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>1 milliliter (ml)</td><td>0.034 fl oz</td></tr>
+                                        <tr><td>5 milliliters</td><td>1 teaspoon</td></tr>
+                                        <tr><td>15 milliliters</td><td>1 tablespoon</td></tr>
+                                        <tr><td>30 milliliters</td><td>2 tablespoons</td></tr>
+                                        <tr><td>60 milliliters</td><td>1/4 cup</td></tr>
+                                        <tr><td>80 milliliters</td><td>1/3 cup</td></tr>
+                                        <tr><td>120 milliliters</td><td>1/2 cup</td></tr>
+                                        <tr><td>160 milliliters</td><td>2/3 cup</td></tr>
+                                        <tr><td>180 milliliters</td><td>3/4 cup</td></tr>
+                                        <tr><td>240 milliliters</td><td>1 cup</td></tr>
+                                        <tr><td>1 liter</td><td>4.2 cups</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="conversion-card">
+                                <h4>Weight Conversions</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>US Weight</th>
+                                            <th>Metric Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>1 ounce (oz)</td><td>28.35 grams</td></tr>
+                                        <tr><td>4 ounces</td><td>113.4 grams</td></tr>
+                                        <tr><td>8 ounces</td><td>226.8 grams</td></tr>
+                                        <tr><td>16 ounces (1 lb)</td><td>453.6 grams</td></tr>
+                                        <tr><td>2.2 pounds</td><td>1 kilogram</td></tr>
+                                        <tr><td>1 gram</td><td>0.035 ounces</td></tr>
+                                        <tr><td>100 grams</td><td>3.53 ounces</td></tr>
+                                        <tr><td>500 grams</td><td>1.1 pounds</td></tr>
+                                        <tr><td>1 kilogram</td><td>2.2 pounds</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="conversion-card">
+                                <h4>Temperature Conversions</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fahrenheit (°F)</th>
+                                            <th>Celsius (°C)</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>32°F</td><td>0°C</td><td>Freezing</td></tr>
+                                        <tr><td>212°F</td><td>100°C</td><td>Boiling</td></tr>
+                                        <tr><td>250°F</td><td>121°C</td><td>Low oven</td></tr>
+                                        <tr><td>300°F</td><td>149°C</td><td>Slow oven</td></tr>
+                                        <tr><td>325°F</td><td>163°C</td><td>Moderate</td></tr>
+                                        <tr><td>350°F</td><td>177°C</td><td>Moderate</td></tr>
+                                        <tr><td>375°F</td><td>191°C</td><td>Moderate hot</td></tr>
+                                        <tr><td>400°F</td><td>204°C</td><td>Hot oven</td></tr>
+                                        <tr><td>425°F</td><td>218°C</td><td>Very hot</td></tr>
+                                        <tr><td>450°F</td><td>232°C</td><td>Extremely hot</td></tr>
+                                        <tr><td>500°F</td><td>260°C</td><td>Broiling</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="conversion-card">
+                                <h4>Common Ingredient Weights</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ingredient</th>
+                                            <th>Weight per Cup</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>All-purpose flour</td><td>4.25 oz (120g)</td></tr>
+                                        <tr><td>Bread flour</td><td>4.5 oz (128g)</td></tr>
+                                        <tr><td>Granulated sugar</td><td>7 oz (198g)</td></tr>
+                                        <tr><td>Brown sugar (packed)</td><td>7.5 oz (213g)</td></tr>
+                                        <tr><td>Butter</td><td>8 oz (227g)</td></tr>
+                                        <tr><td>Vegetable oil</td><td>7.5 oz (213g)</td></tr>
+                                        <tr><td>Honey</td><td>12 oz (340g)</td></tr>
+                                        <tr><td>Milk</td><td>8.5 oz (240g)</td></tr>
+                                        <tr><td>Heavy cream</td><td>8 oz (227g)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="conversion-card">
+                                <h4>Cooking Temperature Guide</h4>
+                                <table class="conversion-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Food Item</th>
+                                            <th>Internal Temp</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Beef (rare)</td><td>125°F (52°C)</td><td>Red center</td></tr>
+                                        <tr><td>Beef (medium)</td><td>135°F (57°C)</td><td>Pink center</td></tr>
+                                        <tr><td>Beef (well-done)</td><td>160°F (71°C)</td><td>No pink</td></tr>
+                                        <tr><td>Chicken</td><td>165°F (74°C)</td><td>White throughout</td></tr>
+                                        <tr><td>Pork</td><td>145°F (63°C)</td><td>Slight pink</td></tr>
+                                        <tr><td>Fish</td><td>145°F (63°C)</td><td>Flakes easily</td></tr>
+                                        <tr><td>Eggs</td><td>160°F (71°C)</td><td>Firm yolk</td></tr>
+                                        <tr><td>Ground meat</td><td>160°F (71°C)</td><td>No pink</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="conversion-tips">
+                            <h4>💡 Measurement Tips & Tricks</h4>
+                            <ul>
+                                <li><strong>Use the right tools:</strong> Invest in a good set of measuring cups and spoons for accurate results.</li>
+                                <li><strong>Level off dry ingredients:</strong> Use the back of a knife to level off flour, sugar, and other dry ingredients.</li>
+                                <li><strong>Measure liquids at eye level:</strong> Place liquid measuring cups on a flat surface and read at eye level.</li>
+                                <li><strong>Weigh for precision:</strong> For baking, weighing ingredients (especially flour) gives more consistent results.</li>
+                                <li><strong>Room temperature matters:</strong> Many recipes call for room temperature ingredients - plan ahead!</li>
+                                <li><strong>Don't pack unless specified:</strong> Only pack brown sugar and similar ingredients when the recipe specifically says to.</li>
+                                <li><strong>Use metric for small amounts:</strong> For small quantities, metric measurements (grams, milliliters) are more precise.</li>
+                                <li><strong>Check your oven temperature:</strong> Use an oven thermometer to ensure your oven is at the correct temperature.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1787,6 +2080,14 @@ Note: This is a basic recipe template. Feel free to experiment with cooking meth
                 showFavorites(); // Refresh the favorites list
                 showSaveMessage('Recipe removed from favorites!');
             }
+        }
+
+        function showConversionChart() {
+            document.getElementById('conversionSection').classList.add('show');
+        }
+
+        function hideConversionChart() {
+            document.getElementById('conversionSection').classList.remove('show');
         }
     </script>
 </body>
