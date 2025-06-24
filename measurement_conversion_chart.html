@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Measurement Conversion Chart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 1400px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .nav-tab:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .conversion-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .conversion-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .conversion-card {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .conversion-card h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .conversion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .conversion-table th,
+        .conversion-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .conversion-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .conversion-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .converter-tool {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .converter-tool h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .converter-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .convert-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .result {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1976d2;
+            border-left: 4px solid #2196f3;
+        }
+
+        .tips-section {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px solid #ffc107;
+        }
+
+        .tips-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .converter-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📏 Kitchen Measurement Conversion Chart</h1>
+            <p>Your comprehensive guide to cooking measurements and conversions</p>
+        </div>
+
+        <a href="recipe_remix_master.py" class="back-btn">← Back to Recipe Remix Master</a>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showSection('volume')">Volume Conversions</div>
+            <div class="nav-tab" onclick="showSection('weight')">Weight Conversions</div>
+            <div class="nav-tab" onclick="showSection('temperature')">Temperature Conversions</div>
+            <div class="nav-tab" onclick="showSection('converter')">Quick Converter</div>
+        </div>
+
+        <!-- Volume Conversions -->
+        <div id="volume" class="conversion-section active">
+            <div class="conversion-grid">
+                <div class="conversion-card">
+                    <h3>US Volume Measurements</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Measurement</th>
+                                <th>Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 teaspoon (tsp)</td><td>1/3 tablespoon</td></tr>
+                            <tr><td>1 tablespoon (tbsp)</td><td>3 teaspoons</td></tr>
+                            <tr><td>1 fluid ounce (fl oz)</td><td>2 tablespoons</td></tr>
+                            <tr><td>1/4 cup</td><td>4 tablespoons</td></tr>
+                            <tr><td>1/3 cup</td><td>5 1/3 tablespoons</td></tr>
+                            <tr><td>1/2 cup</td><td>8 tablespoons</td></tr>
+                            <tr><td>2/3 cup</td><td>10 2/3 tablespoons</td></tr>
+                            <tr><td>3/4 cup</td><td>12 tablespoons</td></tr>
+                            <tr><td>1 cup</td><td>16 tablespoons</td></tr>
+                            <tr><td>1 pint</td><td>2 cups</td></tr>
+                            <tr><td>1 quart</td><td>4 cups</td></tr>
+                            <tr><td>1 gallon</td><td>16 cups</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Metric Volume Measurements</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Measurement</th>
+                                <th>Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 milliliter (ml)</td><td>0.034 fl oz</td></tr>
+                            <tr><td>5 milliliters</td><td>1 teaspoon</td></tr>
+                            <tr><td>15 milliliters</td><td>1 tablespoon</td></tr>
+                            <tr><td>30 milliliters</td><td>2 tablespoons</td></tr>
+                            <tr><td>60 milliliters</td><td>1/4 cup</td></tr>
+                            <tr><td>80 milliliters</td><td>1/3 cup</td></tr>
+                            <tr><td>120 milliliters</td><td>1/2 cup</td></tr>
+                            <tr><td>160 milliliters</td><td>2/3 cup</td></tr>
+                            <tr><td>180 milliliters</td><td>3/4 cup</td></tr>
+                            <tr><td>240 milliliters</td><td>1 cup</td></tr>
+                            <tr><td>1 liter</td><td>4.2 cups</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Common Ingredient Equivalents</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Weight per Cup</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>All-purpose flour</td><td>4.25 oz (120g)</td></tr>
+                            <tr><td>Bread flour</td><td>4.5 oz (128g)</td></tr>
+                            <tr><td>Cake flour</td><td>4 oz (113g)</td></tr>
+                            <tr><td>Granulated sugar</td><td>7 oz (198g)</td></tr>
+                            <tr><td>Brown sugar (packed)</td><td>7.5 oz (213g)</td></tr>
+                            <tr><td>Powdered sugar</td><td>4 oz (113g)</td></tr>
+                            <tr><td>Butter</td><td>8 oz (227g)</td></tr>
+                            <tr><td>Vegetable oil</td><td>7.5 oz (213g)</td></tr>
+                            <tr><td>Honey</td><td>12 oz (340g)</td></tr>
+                            <tr><td>Milk</td><td>8.5 oz (240g)</td></tr>
+                            <tr><td>Heavy cream</td><td>8 oz (227g)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Conversions -->
+        <div id="weight" class="conversion-section">
+            <div class="conversion-grid">
+                <div class="conversion-card">
+                    <h3>US Weight Measurements</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Measurement</th>
+                                <th>Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 ounce (oz)</td><td>28.35 grams</td></tr>
+                            <tr><td>4 ounces</td><td>1/4 pound</td></tr>
+                            <tr><td>8 ounces</td><td>1/2 pound</td></tr>
+                            <tr><td>12 ounces</td><td>3/4 pound</td></tr>
+                            <tr><td>16 ounces</td><td>1 pound</td></tr>
+                            <tr><td>1 pound (lb)</td><td>453.59 grams</td></tr>
+                            <tr><td>2.2 pounds</td><td>1 kilogram</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Metric Weight Measurements</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Measurement</th>
+                                <th>Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 gram (g)</td><td>0.035 ounces</td></tr>
+                            <tr><td>10 grams</td><td>0.35 ounces</td></tr>
+                            <tr><td>25 grams</td><td>0.88 ounces</td></tr>
+                            <tr><td>50 grams</td><td>1.76 ounces</td></tr>
+                            <tr><td>100 grams</td><td>3.53 ounces</td></tr>
+                            <tr><td>250 grams</td><td>8.82 ounces</td></tr>
+                            <tr><td>500 grams</td><td>1.1 pounds</td></tr>
+                            <tr><td>1 kilogram (kg)</td><td>2.2 pounds</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Common Food Weights</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Food Item</th>
+                                <th>Average Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Large egg</td><td>2 oz (57g)</td></tr>
+                            <tr><td>Medium banana</td><td>4.2 oz (120g)</td></tr>
+                            <tr><td>Medium apple</td><td>6 oz (170g)</td></tr>
+                            <tr><td>Chicken breast</td><td>6-8 oz (170-227g)</td></tr>
+                            <tr><td>Salmon fillet</td><td>6 oz (170g)</td></tr>
+                            <tr><td>Ground beef (1/4 lb)</td><td>4 oz (113g)</td></tr>
+                            <tr><td>Medium potato</td><td>5.3 oz (150g)</td></tr>
+                            <tr><td>Medium onion</td><td>4 oz (113g)</td></tr>
+                            <tr><td>Medium tomato</td><td>4 oz (113g)</td></tr>
+                            <tr><td>Medium carrot</td><td>2.8 oz (80g)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Temperature Conversions -->
+        <div id="temperature" class="conversion-section">
+            <div class="conversion-grid">
+                <div class="conversion-card">
+                    <h3>Temperature Conversions</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Fahrenheit (°F)</th>
+                                <th>Celsius (°C)</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>32°F</td><td>0°C</td><td>Freezing point of water</td></tr>
+                            <tr><td>212°F</td><td>100°C</td><td>Boiling point of water</td></tr>
+                            <tr><td>250°F</td><td>121°C</td><td>Low oven</td></tr>
+                            <tr><td>275°F</td><td>135°C</td><td>Very slow oven</td></tr>
+                            <tr><td>300°F</td><td>149°C</td><td>Slow oven</td></tr>
+                            <tr><td>325°F</td><td>163°C</td><td>Moderately slow oven</td></tr>
+                            <tr><td>350°F</td><td>177°C</td><td>Moderate oven</td></tr>
+                            <tr><td>375°F</td><td>191°C</td><td>Moderately hot oven</td></tr>
+                            <tr><td>400°F</td><td>204°C</td><td>Hot oven</td></tr>
+                            <tr><td>425°F</td><td>218°C</td><td>Very hot oven</td></tr>
+                            <tr><td>450°F</td><td>232°C</td><td>Extremely hot oven</td></tr>
+                            <tr><td>500°F</td><td>260°C</td><td>Broiling</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Cooking Temperature Guide</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Food Item</th>
+                                <th>Internal Temp</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Beef (rare)</td><td>125°F (52°C)</td><td>Red center</td></tr>
+                            <tr><td>Beef (medium)</td><td>135°F (57°C)</td><td>Pink center</td></tr>
+                            <tr><td>Beef (well-done)</td><td>160°F (71°C)</td><td>No pink</td></tr>
+                            <tr><td>Chicken</td><td>165°F (74°C)</td><td>White throughout</td></tr>
+                            <tr><td>Pork</td><td>145°F (63°C)</td><td>Slight pink</td></tr>
+                            <tr><td>Fish</td><td>145°F (63°C)</td><td>Flakes easily</td></tr>
+                            <tr><td>Eggs</td><td>160°F (71°C)</td><td>Firm yolk</td></tr>
+                            <tr><td>Ground meat</td><td>160°F (71°C)</td><td>No pink</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conversion-card">
+                    <h3>Baking Temperature Guide</h3>
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>Baked Good</th>
+                                <th>Temperature</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Cookies</td><td>350-375°F</td><td>8-12 min</td></tr>
+                            <tr><td>Cakes</td><td>350°F</td><td>25-35 min</td></tr>
+                            <tr><td>Bread</td><td>375-425°F</td><td>30-45 min</td></tr>
+                            <tr><td>Muffins</td><td>375-400°F</td><td>18-25 min</td></tr>
+                            <tr><td>Pies</td><td>375-425°F</td><td>45-60 min</td></tr>
+                            <tr><td>Pizza</td><td>450-500°F</td><td>12-15 min</td></tr>
+                            <tr><td>Roasted vegetables</td><td>400-425°F</td><td>25-35 min</td></tr>
+                            <tr><td>Roasted meat</td><td>325-375°F</td><td>Varies</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Converter -->
+        <div id="converter" class="conversion-section">
+            <div class="converter-tool">
+                <h3>🔧 Quick Measurement Converter</h3>
+                <div class="converter-inputs">
+                    <div class="input-group">
+                        <label for="convertValue">Value:</label>
+                        <input type="number" id="convertValue" placeholder="Enter value" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="convertFrom">From:</label>
+                        <select id="convertFrom">
+                            <option value="">Select unit</option>
+                            <optgroup label="Volume">
+                                <option value="tsp">Teaspoon (tsp)</option>
+                                <option value="tbsp">Tablespoon (tbsp)</option>
+                                <option value="cup">Cup</option>
+                                <option value="floz">Fluid Ounce (fl oz)</option>
+                                <option value="pint">Pint</option>
+                                <option value="quart">Quart</option>
+                                <option value="gallon">Gallon</option>
+                                <option value="ml">Milliliter (ml)</option>
+                                <option value="l">Liter (L)</option>
+                            </optgroup>
+                            <optgroup label="Weight">
+                                <option value="oz">Ounce (oz)</option>
+                                <option value="lb">Pound (lb)</option>
+                                <option value="g">Gram (g)</option>
+                                <option value="kg">Kilogram (kg)</option>
+                            </optgroup>
+                            <optgroup label="Temperature">
+                                <option value="f">Fahrenheit (°F)</option>
+                                <option value="c">Celsius (°C)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="convertTo">To:</label>
+                        <select id="convertTo">
+                            <option value="">Select unit</option>
+                            <optgroup label="Volume">
+                                <option value="tsp">Teaspoon (tsp)</option>
+                                <option value="tbsp">Tablespoon (tbsp)</option>
+                                <option value="cup">Cup</option>
+                                <option value="floz">Fluid Ounce (fl oz)</option>
+                                <option value="pint">Pint</option>
+                                <option value="quart">Quart</option>
+                                <option value="gallon">Gallon</option>
+                                <option value="ml">Milliliter (ml)</option>
+                                <option value="l">Liter (L)</option>
+                            </optgroup>
+                            <optgroup label="Weight">
+                                <option value="oz">Ounce (oz)</option>
+                                <option value="lb">Pound (lb)</option>
+                                <option value="g">Gram (g)</option>
+                                <option value="kg">Kilogram (kg)</option>
+                            </optgroup>
+                            <optgroup label="Temperature">
+                                <option value="f">Fahrenheit (°F)</option>
+                                <option value="c">Celsius (°C)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <button class="convert-btn" onclick="convert()">Convert</button>
+                <div id="conversionResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 Measurement Tips & Tricks</h3>
+            <ul class="tips-list">
+                <li><strong>Use the right tools:</strong> Invest in a good set of measuring cups and spoons for accurate results.</li>
+                <li><strong>Level off dry ingredients:</strong> Use the back of a knife to level off flour, sugar, and other dry ingredients.</li>
+                <li><strong>Measure liquids at eye level:</strong> Place liquid measuring cups on a flat surface and read at eye level.</li>
+                <li><strong>Weigh for precision:</strong> For baking, weighing ingredients (especially flour) gives more consistent results.</li>
+                <li><strong>Room temperature matters:</strong> Many recipes call for room temperature ingredients - plan ahead!</li>
+                <li><strong>Don't pack unless specified:</strong> Only pack brown sugar and similar ingredients when the recipe specifically says to.</li>
+                <li><strong>Use metric for small amounts:</strong> For small quantities, metric measurements (grams, milliliters) are more precise.</li>
+                <li><strong>Check your oven temperature:</strong> Use an oven thermometer to ensure your oven is at the correct temperature.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.conversion-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function convert() {
+            const value = parseFloat(document.getElementById('convertValue').value);
+            const fromUnit = document.getElementById('convertFrom').value;
+            const toUnit = document.getElementById('convertTo').value;
+            const resultDiv = document.getElementById('conversionResult');
+            
+            if (!value || !fromUnit || !toUnit) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            let result = 0;
+            let resultText = '';
+            
+            // Volume conversions
+            if (fromUnit === 'tsp' && toUnit === 'tbsp') {
+                result = value / 3;
+                resultText = `${value} teaspoons = ${result.toFixed(2)} tablespoons`;
+            } else if (fromUnit === 'tbsp' && toUnit === 'tsp') {
+                result = value * 3;
+                resultText = `${value} tablespoons = ${result.toFixed(2)} teaspoons`;
+            } else if (fromUnit === 'tbsp' && toUnit === 'cup') {
+                result = value / 16;
+                resultText = `${value} tablespoons = ${result.toFixed(3)} cups`;
+            } else if (fromUnit === 'cup' && toUnit === 'tbsp') {
+                result = value * 16;
+                resultText = `${value} cups = ${result.toFixed(2)} tablespoons`;
+            } else if (fromUnit === 'cup' && toUnit === 'ml') {
+                result = value * 240;
+                resultText = `${value} cups = ${result.toFixed(0)} milliliters`;
+            } else if (fromUnit === 'ml' && toUnit === 'cup') {
+                result = value / 240;
+                resultText = `${value} milliliters = ${result.toFixed(3)} cups`;
+            }
+            // Weight conversions
+            else if (fromUnit === 'oz' && toUnit === 'g') {
+                result = value * 28.35;
+                resultText = `${value} ounces = ${result.toFixed(2)} grams`;
+            } else if (fromUnit === 'g' && toUnit === 'oz') {
+                result = value / 28.35;
+                resultText = `${value} grams = ${result.toFixed(2)} ounces`;
+            } else if (fromUnit === 'lb' && toUnit === 'kg') {
+                result = value * 0.4536;
+                resultText = `${value} pounds = ${result.toFixed(3)} kilograms`;
+            } else if (fromUnit === 'kg' && toUnit === 'lb') {
+                result = value * 2.2046;
+                resultText = `${value} kilograms = ${result.toFixed(2)} pounds`;
+            }
+            // Temperature conversions
+            else if (fromUnit === 'f' && toUnit === 'c') {
+                result = (value - 32) * 5/9;
+                resultText = `${value}°F = ${result.toFixed(1)}°C`;
+            } else if (fromUnit === 'c' && toUnit === 'f') {
+                result = (value * 9/5) + 32;
+                resultText = `${value}°C = ${result.toFixed(1)}°F`;
+            }
+            else {
+                resultText = 'Conversion not available. Please try different units.';
+            }
+            
+            resultDiv.textContent = resultText;
+            resultDiv.style.display = 'block';
+        }
+
+        // Allow Enter key to trigger conversion
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && (e.target.id === 'convertValue' || e.target.id === 'convertFrom' || e.target.id === 'convertTo')) {
+                convert();
+            }
+        });
+    </script>
+</body>
+</html> 
