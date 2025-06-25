@@ -13,252 +13,47 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: 
-                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
-            z-index: 1;
-        }
-
-        .chef-tribute {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 3;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .chef-tribute h2 {
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            color: #ffd700;
-        }
-
-        .chef-tribute p {
-            font-size: 0.9em;
-            opacity: 0.9;
-            line-height: 1.4;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             max-width: 1200px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 2;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            gap: 30px;
-        }
-
-        .dietary-sidebar {
-            width: 250px;
-            background: rgba(248, 249, 250, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            border: 2px solid #e9ecef;
-            height: fit-content;
-        }
-
-        .dietary-sidebar h3 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.1em;
-        }
-
-        .dietary-option {
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 10px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            position: relative;
-        }
-
-        .dietary-option:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .dietary-option.vegan {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-
-        .dietary-option.vegetarian {
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-        }
-
-        .dietary-option.alkaline {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-        }
-
-        .dietary-option.pescatarian {
-            background: linear-gradient(135deg, #00BCD4, #0097A7);
-        }
-
-        .dietary-option.no-restrictions {
-            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-        }
-
-        .dietary-option.desserts-vegan {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-        }
-
-        .dietary-option.desserts-non-vegan {
-            background: linear-gradient(135deg, #E91E63, #C2185B);
-        }
-
-        .dietary-option-content {
-            padding: 15px;
-            color: white;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .dietary-option-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .dietary-option.vegan .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.vegetarian .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.alkaline .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.pescatarian .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.no-restrictions .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.desserts-vegan .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .dietary-option.desserts-non-vegan .dietary-option-bg {
-            background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        }
-
-        .main-content {
-            flex: 1;
         }
 
         .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .animated-title {
-            position: relative;
-            display: inline-block;
-        }
-
-        .title-ingredients {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: ingredientFloat 3s ease-in-out infinite;
-        }
-
-        .title-ingredients:nth-child(1) { animation-delay: 0s; }
-        .title-ingredients:nth-child(2) { animation-delay: 0.5s; }
-        .title-ingredients:nth-child(3) { animation-delay: 1s; }
-        .title-ingredients:nth-child(4) { animation-delay: 1.5s; }
-
-        @keyframes ingredientFloat {
-            0%, 100% { opacity: 0; transform: translateY(20px) scale(0.8); }
-            25%, 75% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .title-text {
-            opacity: 1;
-            animation: titleAppear 2s ease-in-out forwards;
-        }
-
-        @keyframes titleAppear {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
         }
 
         .header h1 {
-            color: #333;
             font-size: 2.5em;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .header p {
-            color: #666;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            opacity: 0.9;
         }
 
-        .recipe-interface {
-            display: grid;
-            gap: 20px;
+        .main-content {
+            padding: 30px;
         }
 
         .input-section {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            border: 2px solid #e9ecef;
+            margin-bottom: 30px;
         }
 
         .input-group {
@@ -274,1644 +69,404 @@
 
         .input-group input, .input-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
-            font-family: inherit;
+            transition: border-color 0.3s;
         }
 
         .input-group input:focus, .input-group textarea:focus {
             outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+            border-color: #667eea;
         }
 
-        .input-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .generate-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        }
-
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .remix-btn {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            flex: 1;
-            min-width: 200px;
+            transition: transform 0.2s;
+            margin: 5px;
         }
 
-        .remix-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
         }
 
-        .remix-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         }
 
-        .recipe-output {
-            background: #fff;
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .recipe-display {
+            background: white;
             border: 2px solid #e9ecef;
             border-radius: 15px;
             padding: 25px;
             margin-top: 20px;
-            min-height: 200px;
-            display: none;
-        }
-
-        .recipe-output.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .recipe-content {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #333;
             white-space: pre-wrap;
-            background: linear-gradient(135deg, #fff9f9, #f8f9fa);
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 4px solid #ff6b6b;
-            max-height: 400px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 600px;
             overflow-y: auto;
         }
 
-        .controls {
-            display: flex;
+        .cuisine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            margin: 20px 0;
         }
 
-        .control-btn {
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 20px;
-            border: 2px solid #ff6b6b;
+        .cuisine-card {
             background: white;
-            color: #ff6b6b;
-            border-radius: 8px;
-            font-weight: 600;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
-        .control-btn:hover {
-            background: #ff6b6b;
-            color: white;
-            transform: translateY(-2px);
+        .cuisine-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .control-btn.secondary {
-            border-color: #6c757d;
-            color: #6c757d;
+        .cuisine-card h3 {
+            color: #333;
+            margin-bottom: 5px;
         }
 
-        .control-btn.secondary:hover {
-            background: #6c757d;
-            color: white;
+        .cuisine-card p {
+            color: #666;
+            font-size: 0.9em;
         }
 
-        .control-btn.save {
-            border-color: #28a745;
-            color: #28a745;
+        .tips {
+            background: #e8f5e8;
+            border-left: 4px solid #2ecc71;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
         }
 
-        .control-btn.save:hover {
-            background: #28a745;
-            color: white;
+        .tips h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
         }
 
-        .control-btn.favorites {
-            border-color: #ffc107;
-            color: #856404;
+        .tips ul {
+            margin-left: 20px;
         }
 
-        .control-btn.favorites:hover {
-            background: #ffc107;
-            color: white;
+        .tips li {
+            margin-bottom: 5px;
         }
 
-        .control-btn.back {
-            border-color: #6f42c1;
-            color: #6f42c1;
-        }
-
-        .control-btn.back:hover {
-            background: #6f42c1;
-            color: white;
+        .hidden {
+            display: none;
         }
 
         .loading {
             text-align: center;
-            color: #ff6b6b;
-            font-style: italic;
-        }
-
-        .error {
-            color: #dc3545;
-            text-align: center;
-            padding: 15px;
-            background: #f8d7da;
-            border-radius: 8px;
-            border: 1px solid #f5c6cb;
-        }
-
-        .current-recipe {
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #28a745;
-        }
-
-        .current-recipe h3 {
-            color: #155724;
-            margin-bottom: 10px;
-        }
-
-        .recipe-preview {
-            font-size: 14px;
-            color: #666;
-            max-height: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .remix-section {
-            background: #fff3cd;
             padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border: 2px solid #ffc107;
-            display: none;
-        }
-
-        .remix-section.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .remix-section h3 {
-            color: #856404;
-            margin-bottom: 15px;
-        }
-
-        .remix-examples {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
             color: #666;
         }
 
-        .remix-examples strong {
-            color: #856404;
-        }
-
-        .favorites-section {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border: 2px solid #ffc107;
-            display: none;
-        }
-
-        .favorites-section.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .favorites-section h3 {
-            color: #856404;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .favorites-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .favorite-recipe {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #ffc107;
-            position: relative;
-        }
-
-        .favorite-recipe h4 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .favorite-recipe-content {
-            font-size: 14px;
-            color: #666;
-            max-height: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .favorite-recipe-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .favorite-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
             border-radius: 50%;
-            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
         }
 
-        .favorite-btn:hover {
-            background: rgba(255, 193, 7, 0.2);
-            transform: scale(1.1);
-        }
-
-        .favorite-btn.remove {
-            color: #dc3545;
-        }
-
-        .favorite-btn.view {
-            color: #007bff;
-        }
-
-        .no-favorites {
-            text-align: center;
-            color: #856404;
-            font-style: italic;
-            padding: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .control-btn {
-                min-width: auto;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-        }
-
-        .selected-category {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .selected-category.show {
-            display: block;
-        }
-
-        .selected-category h3 {
-            margin: 0;
-            font-size: 1.2em;
-        }
-
-        .selected-category p {
-            margin: 5px 0 0 0;
-            opacity: 0.9;
-            font-size: 0.9em;
-        }
-
-        .selected-category.vegan {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-
-        .selected-category.vegetarian {
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-        }
-
-        .selected-category.alkaline {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-        }
-
-        .selected-category.pescatarian {
-            background: linear-gradient(135deg, #00BCD4, #0097A7);
-        }
-
-        .selected-category.no-restrictions {
-            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-        }
-
-        .conversion-section {
-            background: #fff3cd;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 2px solid #ffc107;
-            display: none;
-        }
-
-        .conversion-section.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .conversion-section h3 {
-            color: #856404;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .conversion-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .conversion-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .conversion-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e9ecef;
-        }
-
-        .conversion-card h4 {
-            color: #333;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 1.1em;
-        }
-
-        .conversion-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        .conversion-table th, 
-        .conversion-table td {
-            padding: 8px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .conversion-table th {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .conversion-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .conversion-tips {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .conversion-tips h4 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .conversion-tips ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .conversion-tips li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .conversion-tips li::before {
-            content: "💡";
-            position: absolute;
-            left: 0;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @media (max-width: 768px) {
-            .conversion-grid {
-                grid-template-columns: 1fr;
+            .container {
+                margin: 10px;
+                border-radius: 15px;
             }
             
-            .conversion-content {
-                gap: 15px;
+            .header h1 {
+                font-size: 2em;
             }
-        }
-
-        .control-btn.conversion {
-            border-color: #ffc107;
-            color: #856404;
-        }
-
-        .control-btn.conversion:hover {
-            background: #ffc107;
-            color: white;
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .cuisine-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="dietary-sidebar">
-            <h3>🥗 Dietary Preferences</h3>
-            <div class="dietary-option no-restrictions" onclick="selectDietaryOption('no-restrictions')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🍽️ No Restrictions</h4>
-                    <p>All ingredients welcome</p>
-                </div>
-            </div>
-            <div class="dietary-option vegan" onclick="selectDietaryOption('vegan')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🌱 Vegan</h4>
-                    <p>Plant-based ingredients</p>
-                </div>
-            </div>
-            <div class="dietary-option vegetarian" onclick="selectDietaryOption('vegetarian')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🥬 Vegetarian</h4>
-                    <p>No meat, includes dairy</p>
-                </div>
-            </div>
-            <div class="dietary-option alkaline" onclick="selectDietaryOption('alkaline')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>⚖️ Alkaline</h4>
-                    <p>pH-balanced foods</p>
-                </div>
-            </div>
-            <div class="dietary-option pescatarian" onclick="selectDietaryOption('pescatarian')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🐟 Pescatarian</h4>
-                    <p>Fish + plant-based</p>
-                </div>
-            </div>
-            <div class="dietary-option desserts-vegan" onclick="selectDietaryOption('desserts-vegan')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🍰 Vegan Desserts</h4>
-                    <p>Plant-based desserts</p>
-                </div>
-            </div>
-            <div class="dietary-option desserts-non-vegan" onclick="selectDietaryOption('desserts-non-vegan')">
-                <div class="dietary-option-bg"></div>
-                <div class="dietary-option-content">
-                    <h4>🍫 Non-Vegan Desserts</h4>
-                    <p>Non-vegan desserts</p>
-                </div>
-            </div>
+        <div class="header">
+            <h1>🍽️ AI Recipe Remix Master</h1>
+            <p>Transform your ingredients into delicious recipes with world cuisine flavors!</p>
         </div>
 
         <div class="main-content">
-            <div class="header">
-                <div class="animated-title">
-                    <h1 class="title-text">🍳 AI Recipe Remix Master</h1>
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="ingredients">📋 Enter your ingredients (comma-separated):</label>
+                    <input type="text" id="ingredients" placeholder="e.g., chicken, broccoli, pasta, garlic, olive oil">
                 </div>
-                <p>Generate and remix recipes based on your ingredients and preferences</p>
+                
+                <button class="btn" onclick="generateRecipe()">🔍 Find Recipe</button>
+                <button class="btn btn-secondary" onclick="getRandomRecipe()">🎲 Random Recipe</button>
+                <button class="btn btn-success" onclick="showCuisineOptions()">🌍 Cuisine Transformations</button>
             </div>
 
-            <div class="recipe-interface">
-                <div class="selected-category" id="selectedCategory">
-                    <h3 id="categoryTitle">Selected Category</h3>
-                    <p id="categoryDescription">Category description</p>
-                </div>
-
-                <div class="input-section">
-                    <div class="input-group">
-                        <label for="ingredients">Ingredients:</label>
-                        <input type="text" id="ingredients" placeholder="e.g., chicken, broccoli, pasta, olive oil, garlic" value="">
+            <div id="cuisineOptions" class="hidden">
+                <h3>🌍 Transform to World Cuisines</h3>
+                <div class="cuisine-grid">
+                    <div class="cuisine-card" onclick="transformCuisine('mexican')">
+                        <h3>🇲🇽 Mexican</h3>
+                        <p>Bold flavors, corn-based ingredients, spicy elements</p>
                     </div>
-                    
-                    <div class="button-group">
-                        <button class="generate-btn" onclick="generateRecipe()">🍳 Generate Recipe</button>
-                        <button class="remix-btn" onclick="showRemixSection()" id="remixBtn" disabled>🔄 Remix Recipe</button>
+                    <div class="cuisine-card" onclick="transformCuisine('asian')">
+                        <h3>🇯🇵 Asian</h3>
+                        <p>Umami flavors, quick cooking methods</p>
                     </div>
-                </div>
-
-                <div class="recipe-output" id="recipeOutput">
-                    <div class="loading" id="loading">AI is thinking up a recipe... please wait.</div>
-                    <div class="recipe-content" id="recipeContent"></div>
-                    <div class="error" id="error" style="display: none;"></div>
-                </div>
-
-                <div class="remix-section" id="remixSection">
-                    <h3>🎯 How would you like to remix this recipe?</h3>
-                    <div class="remix-examples">
-                        <strong>Examples:</strong> "make it vegan", "make it vegetarian", "make it alkaline", "add a spicy kick", "use less oil", "add mushrooms", "make it gluten-free", "add more protein", "low carb", "mediterranean style", "asian fusion"
+                    <div class="cuisine-card" onclick="transformCuisine('indian')">
+                        <h3>🇮🇳 Indian</h3>
+                        <p>Complex spice blends, vegetarian-friendly</p>
                     </div>
-                    <div class="input-group">
-                        <label for="modifications">Modifications:</label>
-                        <textarea id="modifications" placeholder="Describe how you want to modify the recipe..."></textarea>
+                    <div class="cuisine-card" onclick="transformCuisine('mediterranean')">
+                        <h3>🇬🇷 Mediterranean</h3>
+                        <p>Fresh vegetables, olive oil, healthy fats</p>
                     </div>
-                    <button class="remix-btn" onclick="remixRecipe()">🔄 Remix Recipe</button>
-                </div>
-
-                <div class="controls" id="controls" style="display: none;">
-                    <button class="control-btn save" onclick="saveRecipe()">💾 Save Recipe</button>
-                    <button class="control-btn favorites" onclick="showFavorites()">⭐ My Favorites</button>
-                    <button class="control-btn conversion" onclick="showConversionChart()">📏 Conversion Chart</button>
-                    <button class="control-btn" onclick="startNew()">🆕 Start New Recipe</button>
-                    <button class="control-btn secondary" onclick="resetApp()">🔄 Reset</button>
-                    <button class="control-btn back" onclick="goToMainScreen()">🔙 Back to Main Screen</button>
-                </div>
-
-                <div class="favorites-section" id="favoritesSection">
-                    <h3>
-                        ⭐ My Favorite Recipes
-                        <button class="favorite-btn" onclick="goToMainScreen()" style="font-size: 16px;" title="Back to Main Screen">🔙</button>
-                    </h3>
-                    <div class="favorites-list" id="favoritesList">
-                        <div class="no-favorites">No favorite recipes yet. Save a recipe to see it here!</div>
+                    <div class="cuisine-card" onclick="transformCuisine('french')">
+                        <h3>🇫🇷 French</h3>
+                        <p>Rich sauces, sophisticated flavors</p>
+                    </div>
+                    <div class="cuisine-card" onclick="transformCuisine('thai')">
+                        <h3>🇹🇭 Thai</h3>
+                        <p>Sweet, sour, salty, and spicy balance</p>
+                    </div>
+                    <div class="cuisine-card" onclick="transformCuisine('japanese')">
+                        <h3>🇯🇵 Japanese</h3>
+                        <p>Umami, seasonal ingredients, precise techniques</p>
+                    </div>
+                    <div class="cuisine-card" onclick="transformCuisine('greek')">
+                        <h3>🇬🇷 Greek</h3>
+                        <p>Fresh herbs, olive oil, Mediterranean ingredients</p>
+                    </div>
+                    <div class="cuisine-card" onclick="transformCuisine('chinese')">
+                        <h3>🇨🇳 Chinese</h3>
+                        <p>Balance, texture, five fundamental tastes</p>
+                    </div>
+                    <div class="cuisine-card" onclick="transformCuisine('italian')">
+                        <h3>🇮🇹 Italian</h3>
+                        <p>Fresh ingredients, olive oil, herbs</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="conversion-section" id="conversionSection">
-                    <h3>
-                        📏 Kitchen Measurement Conversion Chart
-                        <button class="favorite-btn" onclick="hideConversionChart()" style="font-size: 16px;" title="Back to Recipe">🔙</button>
-                    </h3>
-                    <div class="conversion-content">
-                        <div class="conversion-grid">
-                            <div class="conversion-card">
-                                <h4>US Volume Measurements</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Measurement</th>
-                                            <th>Equivalent</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>1 teaspoon (tsp)</td><td>1/3 tablespoon</td></tr>
-                                        <tr><td>1 tablespoon (tbsp)</td><td>3 teaspoons</td></tr>
-                                        <tr><td>1 fluid ounce (fl oz)</td><td>2 tablespoons</td></tr>
-                                        <tr><td>1/4 cup</td><td>4 tablespoons</td></tr>
-                                        <tr><td>1/3 cup</td><td>5 1/3 tablespoons</td></tr>
-                                        <tr><td>1/2 cup</td><td>8 tablespoons</td></tr>
-                                        <tr><td>2/3 cup</td><td>10 2/3 tablespoons</td></tr>
-                                        <tr><td>3/4 cup</td><td>12 tablespoons</td></tr>
-                                        <tr><td>1 cup</td><td>16 tablespoons</td></tr>
-                                        <tr><td>1 pint</td><td>2 cups</td></tr>
-                                        <tr><td>1 quart</td><td>4 cups</td></tr>
-                                        <tr><td>1 gallon</td><td>16 cups</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+            <div class="tips">
+                <h3>💡 How to Use:</h3>
+                <ul>
+                    <li><strong>Find Recipe:</strong> Enter ingredients and get a matching recipe</li>
+                    <li><strong>Random Recipe:</strong> Get a surprise recipe from our database</li>
+                    <li><strong>Cuisine Transformations:</strong> Transform any recipe to world cuisines</li>
+                    <li><strong>Modifications:</strong> Add "make it spicy", "add mushrooms", "use less oil"</li>
+                </ul>
+            </div>
 
-                            <div class="conversion-card">
-                                <h4>Metric Volume Measurements</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Measurement</th>
-                                            <th>Equivalent</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>1 milliliter (ml)</td><td>0.034 fl oz</td></tr>
-                                        <tr><td>5 milliliters</td><td>1 teaspoon</td></tr>
-                                        <tr><td>15 milliliters</td><td>1 tablespoon</td></tr>
-                                        <tr><td>30 milliliters</td><td>2 tablespoons</td></tr>
-                                        <tr><td>60 milliliters</td><td>1/4 cup</td></tr>
-                                        <tr><td>80 milliliters</td><td>1/3 cup</td></tr>
-                                        <tr><td>120 milliliters</td><td>1/2 cup</td></tr>
-                                        <tr><td>160 milliliters</td><td>2/3 cup</td></tr>
-                                        <tr><td>180 milliliters</td><td>3/4 cup</td></tr>
-                                        <tr><td>240 milliliters</td><td>1 cup</td></tr>
-                                        <tr><td>1 liter</td><td>4.2 cups</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Creating your recipe...</p>
+            </div>
 
-                            <div class="conversion-card">
-                                <h4>Weight Conversions</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>US Weight</th>
-                                            <th>Metric Weight</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>1 ounce (oz)</td><td>28.35 grams</td></tr>
-                                        <tr><td>4 ounces</td><td>113.4 grams</td></tr>
-                                        <tr><td>8 ounces</td><td>226.8 grams</td></tr>
-                                        <tr><td>16 ounces (1 lb)</td><td>453.6 grams</td></tr>
-                                        <tr><td>2.2 pounds</td><td>1 kilogram</td></tr>
-                                        <tr><td>1 gram</td><td>0.035 ounces</td></tr>
-                                        <tr><td>100 grams</td><td>3.53 ounces</td></tr>
-                                        <tr><td>500 grams</td><td>1.1 pounds</td></tr>
-                                        <tr><td>1 kilogram</td><td>2.2 pounds</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+            <div id="recipeDisplay" class="recipe-display hidden"></div>
 
-                            <div class="conversion-card">
-                                <h4>Temperature Conversions</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Fahrenheit (°F)</th>
-                                            <th>Celsius (°C)</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>32°F</td><td>0°C</td><td>Freezing</td></tr>
-                                        <tr><td>212°F</td><td>100°C</td><td>Boiling</td></tr>
-                                        <tr><td>250°F</td><td>121°C</td><td>Low oven</td></tr>
-                                        <tr><td>300°F</td><td>149°C</td><td>Slow oven</td></tr>
-                                        <tr><td>325°F</td><td>163°C</td><td>Moderate</td></tr>
-                                        <tr><td>350°F</td><td>177°C</td><td>Moderate</td></tr>
-                                        <tr><td>375°F</td><td>191°C</td><td>Moderate hot</td></tr>
-                                        <tr><td>400°F</td><td>204°C</td><td>Hot oven</td></tr>
-                                        <tr><td>425°F</td><td>218°C</td><td>Very hot</td></tr>
-                                        <tr><td>450°F</td><td>232°C</td><td>Extremely hot</td></tr>
-                                        <tr><td>500°F</td><td>260°C</td><td>Broiling</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="conversion-card">
-                                <h4>Common Ingredient Weights</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Ingredient</th>
-                                            <th>Weight per Cup</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>All-purpose flour</td><td>4.25 oz (120g)</td></tr>
-                                        <tr><td>Bread flour</td><td>4.5 oz (128g)</td></tr>
-                                        <tr><td>Granulated sugar</td><td>7 oz (198g)</td></tr>
-                                        <tr><td>Brown sugar (packed)</td><td>7.5 oz (213g)</td></tr>
-                                        <tr><td>Butter</td><td>8 oz (227g)</td></tr>
-                                        <tr><td>Vegetable oil</td><td>7.5 oz (213g)</td></tr>
-                                        <tr><td>Honey</td><td>12 oz (340g)</td></tr>
-                                        <tr><td>Milk</td><td>8.5 oz (240g)</td></tr>
-                                        <tr><td>Heavy cream</td><td>8 oz (227g)</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="conversion-card">
-                                <h4>Cooking Temperature Guide</h4>
-                                <table class="conversion-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Food Item</th>
-                                            <th>Internal Temp</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>Beef (rare)</td><td>125°F (52°C)</td><td>Red center</td></tr>
-                                        <tr><td>Beef (medium)</td><td>135°F (57°C)</td><td>Pink center</td></tr>
-                                        <tr><td>Beef (well-done)</td><td>160°F (71°C)</td><td>No pink</td></tr>
-                                        <tr><td>Chicken</td><td>165°F (74°C)</td><td>White throughout</td></tr>
-                                        <tr><td>Pork</td><td>145°F (63°C)</td><td>Slight pink</td></tr>
-                                        <tr><td>Fish</td><td>145°F (63°C)</td><td>Flakes easily</td></tr>
-                                        <tr><td>Eggs</td><td>160°F (71°C)</td><td>Firm yolk</td></tr>
-                                        <tr><td>Ground meat</td><td>160°F (71°C)</td><td>No pink</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="conversion-tips">
-                            <h4>💡 Measurement Tips & Tricks</h4>
-                            <ul>
-                                <li><strong>Use the right tools:</strong> Invest in a good set of measuring cups and spoons for accurate results.</li>
-                                <li><strong>Level off dry ingredients:</strong> Use the back of a knife to level off flour, sugar, and other dry ingredients.</li>
-                                <li><strong>Measure liquids at eye level:</strong> Place liquid measuring cups on a flat surface and read at eye level.</li>
-                                <li><strong>Weigh for precision:</strong> For baking, weighing ingredients (especially flour) gives more consistent results.</li>
-                                <li><strong>Room temperature matters:</strong> Many recipes call for room temperature ingredients - plan ahead!</li>
-                                <li><strong>Don't pack unless specified:</strong> Only pack brown sugar and similar ingredients when the recipe specifically says to.</li>
-                                <li><strong>Use metric for small amounts:</strong> For small quantities, metric measurements (grams, milliliters) are more precise.</li>
-                                <li><strong>Check your oven temperature:</strong> Use an oven thermometer to ensure your oven is at the correct temperature.</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="input-section" id="modificationSection" style="display: none;">
+                <div class="input-group">
+                    <label for="modifications">🔄 How would you like to remix this recipe?</label>
+                    <input type="text" id="modifications" placeholder="e.g., make it mexican, add a spicy kick, use less oil, add mushrooms">
                 </div>
+                <button class="btn" onclick="remixRecipe()">🔄 Remix Recipe</button>
             </div>
         </div>
     </div>
 
     <script>
-        let currentRecipe = "";
-        let savedRecipes = [];
-
-        // Load saved recipes from localStorage on page load
-        window.addEventListener('load', function() {
-            loadSavedRecipes();
-        });
-
-        function loadSavedRecipes() {
-            const saved = localStorage.getItem('favoriteRecipes');
-            if (saved) {
-                savedRecipes = JSON.parse(saved);
+        // Recipe database
+        const RECIPE_DATABASE = [
+            {
+                name: "Classic Spaghetti Carbonara",
+                ingredients: [
+                    {item: "spaghetti", amount: 1, unit: "pound", notes: "or 16 oz"},
+                    {item: "eggs", amount: 4, unit: "large", notes: "room temperature"},
+                    {item: "pecorino romano cheese", amount: 1, unit: "cup", notes: "freshly grated"},
+                    {item: "guanciale", amount: 8, unit: "ounces", notes: "or pancetta, cubed"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "freshly ground"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "for pasta water"}
+                ],
+                instructions: [
+                    "Fill a large pot with water and bring to a boil. Add salt to taste.",
+                    "Cook spaghetti according to package directions until al dente. Reserve 1 cup of pasta water.",
+                    "In a large skillet, cook guanciale over medium heat until crispy and golden brown.",
+                    "Remove skillet from heat and add hot pasta to the pan with guanciale.",
+                    "In a bowl, whisk together eggs, grated cheese, and black pepper.",
+                    "Quickly pour egg mixture over hot pasta, stirring constantly to create a creamy sauce.",
+                    "Add reserved pasta water gradually if needed to achieve desired consistency.",
+                    "Serve immediately with extra cheese and black pepper on top."
+                ],
+                prep_time: 15,
+                cook_time: 20,
+                total_time: 35,
+                servings: 4,
+                difficulty: "medium",
+                cuisine: "italian",
+                tags: ["pasta", "quick", "classic", "dinner"],
+                tips: [
+                    "Use room temperature eggs to prevent scrambling",
+                    "Work quickly when combining pasta and eggs",
+                    "Reserve pasta water - it's essential for the sauce",
+                    "Don't overcook the pasta - al dente is key"
+                ]
+            },
+            {
+                name: "Vegetarian Buddha Bowl",
+                ingredients: [
+                    {item: "quinoa", amount: 1, unit: "cup", notes: "uncooked, rinsed"},
+                    {item: "sweet potato", amount: 1, unit: "large", notes: "peeled and cubed into 1-inch pieces"},
+                    {item: "chickpeas", amount: 1, unit: "can", notes: "15 oz, drained and rinsed"},
+                    {item: "kale", amount: 2, unit: "cups", notes: "chopped, stems removed"},
+                    {item: "avocado", amount: 1, unit: "medium", notes: "sliced"},
+                    {item: "olive oil", amount: 2, unit: "tablespoons", notes: "extra virgin, divided"},
+                    {item: "lemon", amount: 1, unit: "medium", notes: "juiced (about 2 tbsp)"},
+                    {item: "garlic", amount: 2, unit: "cloves", notes: "minced"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "cumin", amount: 0.5, unit: "teaspoon", notes: "ground"},
+                    {item: "paprika", amount: 0.5, unit: "teaspoon", notes: "smoked"}
+                ],
+                instructions: [
+                    "Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.",
+                    "Cook quinoa according to package directions. Set aside to keep warm.",
+                    "Toss sweet potato cubes with 1 tablespoon olive oil, salt, pepper, cumin, and paprika.",
+                    "Spread sweet potatoes on baking sheet and roast for 25-30 minutes until tender.",
+                    "In a skillet, heat remaining olive oil and cook garlic for 30 seconds until fragrant.",
+                    "Add chickpeas and cook for 5-7 minutes until golden and slightly crispy.",
+                    "Massage kale with lemon juice and salt until softened.",
+                    "Assemble bowls with quinoa, roasted sweet potatoes, crispy chickpeas, and kale.",
+                    "Top with sliced avocado and serve immediately."
+                ],
+                prep_time: 20,
+                cook_time: 30,
+                total_time: 50,
+                servings: 2,
+                difficulty: "easy",
+                cuisine: "vegetarian",
+                tags: ["healthy", "bowl", "vegetarian", "gluten-free", "lunch"],
+                tips: [
+                    "Massage kale thoroughly to make it tender",
+                    "Don't overcrowd the baking sheet for crispy sweet potatoes",
+                    "Rinse quinoa well to remove bitter coating",
+                    "Use fresh lemon juice for best flavor"
+                ]
             }
-        }
+        ];
 
-        function saveRecipesToStorage() {
-            localStorage.setItem('favoriteRecipes', JSON.stringify(savedRecipes));
-        }
-
-        function selectDietaryOption(dietType) {
-            const ingredients = {
-                'no-restrictions': 'chicken, beef, pork, fish, eggs, dairy, vegetables, grains, nuts, seeds, herbs, spices',
-                'vegan': 'tofu, tempeh, chickpeas, lentils, quinoa, vegetables, nutritional yeast, coconut milk, avocado, nuts, seeds',
-                'vegetarian': 'eggs, cheese, yogurt, mushrooms, chickpeas, lentils, quinoa, vegetables, nuts, seeds, dairy products',
-                'alkaline': 'quinoa, millet, leafy greens, cucumber, spinach, kale, avocado, almonds, broccoli, cauliflower, alkaline vegetables',
-                'pescatarian': 'salmon, tuna, shrimp, cod, vegetables, quinoa, rice, olive oil, garlic, herbs, citrus, fish, seafood',
-                'desserts-vegan': 'vegan chocolate chips, coconut oil, maple syrup, almond milk, coconut milk, vanilla extract, cocoa powder, flour, baking powder, applesauce, bananas, berries, nuts, coconut flakes, agave nectar, vegan butter',
-                'desserts-non-vegan': 'chocolate chips, butter, eggs, milk, cream, sugar, vanilla extract, flour, baking powder, cocoa powder, brown sugar, powdered sugar, heavy cream, sour cream, cream cheese'
-            };
-
-            const categoryInfo = {
-                'no-restrictions': {
-                    title: '🍽️ No Dietary Restrictions',
-                    description: 'All ingredients available for unlimited culinary creativity'
-                },
-                'vegan': {
-                    title: '🌱 Vegan Diet Selected',
-                    description: 'Plant-based ingredients loaded for cruelty-free cooking'
-                },
-                'vegetarian': {
-                    title: '🥬 Vegetarian Diet Selected',
-                    description: 'Meat-free ingredients with dairy and eggs included'
-                },
-                'alkaline': {
-                    title: '⚖️ Alkaline Diet Selected',
-                    description: 'pH-balanced ingredients for optimal health'
-                },
-                'pescatarian': {
-                    title: '🐟 Pescatarian Diet Selected',
-                    description: 'Fish and seafood with plant-based ingredients'
-                },
-                'desserts-vegan': {
-                    title: '🍰 Vegan Desserts Selected',
-                    description: 'Plant-based desserts loaded for cruelty-free cooking'
-                },
-                'desserts-non-vegan': {
-                    title: '🍫 Non-Vegan Desserts Selected',
-                    description: 'Non-vegan desserts loaded for a sweet treat'
-                }
-            };
-
-            document.getElementById('ingredients').value = ingredients[dietType];
-            
-            // Show selected category heading
-            const selectedCategory = document.getElementById('selectedCategory');
-            const categoryTitle = document.getElementById('categoryTitle');
-            const categoryDescription = document.getElementById('categoryDescription');
-            
-            // Update content
-            categoryTitle.textContent = categoryInfo[dietType].title;
-            categoryDescription.textContent = categoryInfo[dietType].description;
-            
-            // Update styling and show
-            selectedCategory.className = `selected-category ${dietType} show`;
-            
-            // Add visual feedback to sidebar
-            document.querySelectorAll('.dietary-option').forEach(option => {
-                option.style.transform = 'scale(1)';
-                option.style.boxShadow = 'none';
-            });
-            
-            const selectedOption = document.querySelector(`.dietary-option.${dietType}`);
-            selectedOption.style.transform = 'scale(1.05)';
-            selectedOption.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
-            
-            // Show a brief message
-            showDietaryMessage(dietType);
-        }
-
-        function showDietaryMessage(dietType) {
-            const messages = {
-                'no-restrictions': '🍽️ No restrictions loaded! All ingredients available for your culinary adventure.',
-                'vegan': '🌱 Vegan ingredients loaded! Plant-based cooking at its finest.',
-                'vegetarian': '🥬 Vegetarian ingredients loaded! Delicious meat-free options.',
-                'alkaline': '⚖️ Alkaline ingredients loaded! pH-balanced healthy eating.',
-                'pescatarian': '🐟 Pescatarian ingredients loaded! Fresh fish and plant-based goodness.',
-                'desserts-vegan': '🍰 Vegan desserts loaded! Plant-based sweetness for all occasions.',
-                'desserts-non-vegan': '🍫 Non-vegan desserts loaded! Classic flavors for a special treat.'
-            };
-            
-            // Create a temporary message
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                z-index: 1000;
-                font-size: 16px;
-                text-align: center;
-            `;
-            messageDiv.textContent = messages[dietType];
-            document.body.appendChild(messageDiv);
-            
-            setTimeout(() => {
-                messageDiv.remove();
-            }, 2000);
-        }
-
-        function generateRecipe() {
-            const ingredients = document.getElementById('ingredients').value.trim();
-            
-            if (!ingredients) {
-                showError('Please enter some ingredients to get started.');
-                return;
+        // Cuisine transformations
+        const CUISINE_TRANSFORMATIONS = {
+            mexican: {
+                spices: ["cumin", "chili powder", "oregano", "cayenne", "lime", "cilantro"],
+                techniques: ["grill", "braise", "slow cook", "char"],
+                ingredients: ["corn", "beans", "tortillas", "avocado", "jalapeños"],
+                description: "Mexican cuisine features bold flavors, corn-based ingredients, and spicy elements."
+            },
+            asian: {
+                spices: ["ginger", "soy sauce", "sesame oil", "garlic", "chili", "lemongrass"],
+                techniques: ["stir-fry", "steam", "braise", "deep fry"],
+                ingredients: ["rice", "noodles", "tofu", "bamboo shoots", "water chestnuts"],
+                description: "Asian cuisine emphasizes balance, umami flavors, and quick cooking methods."
+            },
+            indian: {
+                spices: ["turmeric", "cumin", "coriander", "cardamom", "ginger", "garam masala"],
+                techniques: ["curry", "tandoor", "slow cook", "temper"],
+                ingredients: ["rice", "lentils", "yogurt", "ghee", "naan"],
+                description: "Indian cuisine is known for its complex spice blends and vegetarian-friendly options."
             }
+        };
 
-            showLoading();
-
-            // Simulate AI recipe generation
-            setTimeout(() => {
-                const recipe = generateRecipeFromIngredients(ingredients);
-                displayRecipe(recipe);
-                currentRecipe = recipe;
-                enableRemix();
-                showControls();
-            }, 2000);
-        }
-
-        function generateRecipeFromIngredients(ingredients) {
-            const recipes = {
-                'chicken, broccoli, pasta': `🍝 Creamy Chicken Broccoli Pasta
-
-Ingredients:
-- 2 chicken breasts (6-8 oz each), diced into 1-inch cubes
-- 2 cups broccoli florets (cut into bite-sized pieces)
-- 8 oz pasta (penne or fettuccine)
-- 2 tbsp extra virgin olive oil
-- 3 cloves garlic, minced finely
-- 1/2 cup heavy cream (36% fat content)
-- 1/4 cup freshly grated parmesan cheese
-- 1 tbsp fresh thyme leaves (or 1 tsp dried thyme)
-- 1 tbsp fresh rosemary, finely chopped (or 1 tsp dried rosemary)
-- 1/2 tsp dried oregano
-- 1/4 tsp red pepper flakes (optional for heat)
-- Salt and freshly ground black pepper to taste
-- 1/4 cup reserved pasta water
-
-Instructions:
-1. **Pasta Preparation**: Bring a large pot of salted water to a rolling boil (add 1 tbsp salt per 4 quarts water). Cook pasta according to package directions (usually 8-10 minutes for al dente). Reserve 1/4 cup pasta water before draining. Pasta should be firm but not crunchy when done.
-
-2. **Chicken Preparation**: Season diced chicken with 1/2 tsp salt and 1/4 tsp black pepper. Heat 1 tbsp olive oil in a large skillet over medium-high heat (375°F/190°C) until oil shimmers. Add chicken in a single layer and cook undisturbed for 3-4 minutes until golden brown on one side. Flip chicken pieces and cook for an additional 3-4 minutes until internal temperature reaches 165°F (74°C). Chicken should be opaque throughout with no pink centers. Remove chicken to a plate and set aside.
-
-3. **Garlic and Herbs**: In the same skillet, add remaining 1 tbsp olive oil and reduce heat to medium (325°F/163°C). Add minced garlic and cook for exactly 30 seconds until fragrant but not browned (garlic should smell aromatic, not burnt). Immediately add fresh thyme, rosemary, and oregano, stirring for 15 seconds to release oils.
-
-4. **Broccoli Cooking**: Add broccoli florets to the skillet and cook for 3-4 minutes, stirring occasionally, until bright green and tender-crisp (broccoli should be fork-tender but still have some bite). Add 2 tbsp water if needed to prevent sticking.
-
-5. **Sauce Assembly**: Return chicken to skillet and add heavy cream. Bring to a gentle simmer over medium heat (do not boil). Cook for 2-3 minutes until cream thickens slightly and coats the back of a spoon. Add parmesan cheese and stir until melted and smooth.
-
-6. **Final Assembly**: Add cooked pasta and reserved pasta water to the skillet. Toss gently for 1-2 minutes until pasta is well-coated with sauce. Sauce should cling to pasta without being runny. Season with additional salt and pepper if needed.
-
-7. **Serving**: Serve immediately while hot. Garnish with extra parmesan cheese and fresh herbs if desired.
-
-Serving Size: 4 people
-Prep Time: 15 minutes
-Cook Time: 20 minutes
-Total Time: 35 minutes
-
-Herb Substitutions:
-- Fresh thyme → 1/3 amount dried thyme
-- Fresh rosemary → 1/3 amount dried rosemary
-- Fresh oregano → 1/3 amount dried oregano
-- Alternative herbs: Fresh sage, marjoram, or basil can be used instead
-
-Dietary Options:
-🌱 Vegan: Replace chicken with 1 block extra-firm tofu (pressed and cubed), cream with 1/2 cup full-fat coconut milk, cheese with 1/4 cup nutritional yeast
-🥬 Vegetarian: Replace chicken with 2 cups sliced portobello mushrooms or 1 can chickpeas (drained)
-⚖️ Alkaline: Use quinoa instead of pasta, add 2 cups chopped kale or spinach
-
-⚠️ Allergy Warnings:
-• Contains: Dairy (cream, parmesan cheese), Gluten (pasta), Eggs (may be in pasta)
-• May contain: Nuts (if using nut-based cream alternatives)`,
-
-                'tomato, basil, mozzarella': `🍕 Caprese Salad
-
-Ingredients:
-- 4 large ripe tomatoes (heirloom or beefsteak), sliced 1/4-inch thick
-- 8 oz fresh mozzarella (bocconcini or burrata), sliced 1/4-inch thick
-- 1/2 cup fresh basil leaves (Genovese basil preferred)
-- 2 tbsp aged balsamic glaze (reduced balsamic vinegar)
-- 2 tbsp extra virgin olive oil (first cold press)
-- 1/2 tsp flaky sea salt (Maldon or fleur de sel)
-- 1/4 tsp freshly ground black pepper
-- 1/4 tsp dried oregano (optional for extra flavor)
-- 1/8 tsp red pepper flakes (optional for heat)
-
-Instructions:
-1. **Tomato Preparation**: Wash tomatoes thoroughly and pat dry. Using a sharp knife, slice tomatoes into 1/4-inch thick rounds. Arrange tomato slices on a large serving platter, slightly overlapping. Tomatoes should be at room temperature for best flavor.
-
-2. **Mozzarella Preparation**: Remove mozzarella from brine and pat dry with paper towels. Slice mozzarella into 1/4-inch thick rounds, matching the size of tomato slices. If using burrata, gently tear into pieces.
-
-3. **Basil Preparation**: Wash fresh basil leaves and pat completely dry (water will dilute the dressing). Remove stems and use whole leaves or tear into large pieces. Basil should be bright green and aromatic.
-
-4. **Assembly**: Place one slice of mozzarella on top of each tomato slice, creating alternating layers. Tuck fresh basil leaves between the layers, allowing some to peek out for visual appeal. Arrange in a circular pattern or straight rows.
-
-5. **Seasoning**: Sprinkle flaky sea salt evenly over the entire dish. Add freshly ground black pepper to taste. If using, sprinkle dried oregano and red pepper flakes sparingly.
-
-6. **Dressing**: Drizzle extra virgin olive oil in a thin stream over the entire salad, ensuring each piece gets some oil. Follow with balsamic glaze, drizzling in a decorative pattern. Allow dressing to settle for 2-3 minutes.
-
-7. **Serving**: Serve immediately at room temperature. The salad should be eaten within 30 minutes of assembly for optimal texture and flavor.
-
-Serving Size: 4 people
-Prep Time: 15 minutes
-Cook Time: 0 minutes
-Total Time: 15 minutes
-
-Herb Substitutions:
-- Fresh basil → 1/4 cup fresh mint or 1/4 cup fresh parsley
-- Dried oregano → 1/4 tsp dried marjoram or 1/4 tsp dried thyme
-- Alternative herbs: Fresh thyme, rosemary, or chives can be added for variety
-
-Dietary Options:
-🌱 Vegan: Replace mozzarella with 1 large avocado (sliced) or 8 oz vegan mozzarella
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Add 1 cucumber (sliced) and 1/2 cup alfalfa sprouts
-
-⚠️ Allergy Warnings:
-• Contains: Dairy (mozzarella cheese)
-• May contain: Sulfites (balsamic glaze)`,
-
-                'eggs, spinach, cheese': `🥚 Spinach and Cheese Omelette
-
-Ingredients:
-- 3 large eggs (room temperature for best results)
-- 1 cup fresh spinach leaves, washed and chopped
-- 1/2 cup shredded cheese (sharp cheddar, gruyère, or mozzarella)
-- 1 tbsp unsalted butter (or olive oil)
-- 1 tbsp fresh chives, finely chopped
-- 1 tbsp fresh parsley, finely chopped
-- 1/2 tsp fresh thyme leaves (or 1/4 tsp dried thyme)
-- 1/4 tsp dried oregano
-- 1/8 tsp garlic powder
-- 1/4 tsp salt
-- 1/8 tsp freshly ground black pepper
-- 1 tbsp milk or cream (optional for fluffier omelette)
-
-Instructions:
-1. **Egg Preparation**: Crack eggs into a medium bowl and whisk vigorously for 30 seconds until well combined and slightly frothy. Add milk or cream if using, and whisk again. Season with salt, pepper, and garlic powder. Eggs should be at room temperature for even cooking.
-
-2. **Herb Preparation**: Wash and thoroughly dry fresh herbs. Finely chop chives and parsley, remove thyme leaves from stems. Fresh herbs should be bright green and aromatic. Set aside 1 tbsp of mixed herbs for garnish.
-
-3. **Spinach Preparation**: Wash spinach thoroughly and remove any tough stems. Chop leaves into 1-inch pieces. Spinach should be completely dry to prevent watery omelette.
-
-4. **Pan Preparation**: Heat a 10-inch non-stick skillet over medium heat (325°F/163°C) for 2 minutes. Add butter and swirl to coat the entire pan. Butter should be melted and slightly bubbling but not browned.
-
-5. **Spinach Cooking**: Add chopped spinach to the pan and cook for 1-2 minutes, stirring constantly, until wilted and bright green. Spinach should reduce in volume by about 75%. Remove spinach to a small bowl and set aside.
-
-6. **Omelette Cooking**: Pour beaten eggs into the hot pan. Using a rubber spatula, gently stir eggs in a circular motion for the first 30 seconds to create small curds. Then stop stirring and let eggs set for 1-2 minutes until edges are firm but center is still slightly runny.
-
-7. **Filling Addition**: Sprinkle cheese evenly over one half of the omelette. Add cooked spinach and remaining herbs on top of cheese. The filling should be placed on the left or right half, not the center.
-
-8. **Folding**: Using a spatula, gently fold the empty half of the omelette over the filled half. Cook for an additional 30 seconds to melt cheese and set the omelette completely. The omelette should be golden brown on the outside and slightly runny inside.
-
-9. **Serving**: Slide omelette onto a warm plate, seam side down. Garnish with reserved herbs and serve immediately while hot and fluffy.
-
-Serving Size: 1 person
-Prep Time: 10 minutes
-Cook Time: 5 minutes
-Total Time: 15 minutes
-
-Herb Substitutions:
-- Fresh chives → 1 tbsp fresh green onions or 1/2 tsp onion powder
-- Fresh parsley → 1 tbsp fresh cilantro or 1/2 tsp dried parsley
-- Fresh thyme → 1/4 tsp dried thyme or 1/4 tsp dried marjoram
-- Alternative herbs: Fresh dill, basil, or tarragon can be used
-
-Dietary Options:
-🌱 Vegan: Replace eggs with 1/2 cup chickpea flour + 1/2 cup water, cheese with 1/4 cup nutritional yeast
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Add 1/2 cup chopped kale and 1/4 cup alfalfa sprouts
-
-⚠️ Allergy Warnings:
-• Contains: Eggs, Dairy (cheese, butter)
-• May contain: Soy (if using soy-based butter alternatives)`,
-
-                'quinoa, vegetables, tofu': `🥗 Quinoa Buddha Bowl
-
-Ingredients:
-- 1 cup quinoa, rinsed thoroughly
-- 1 block extra-firm tofu (14 oz), pressed and cubed into 1-inch pieces
-- 2 cups mixed vegetables (broccoli florets, julienned carrots, sliced bell peppers)
-- 2 tbsp extra virgin olive oil
-- 2 tbsp soy sauce or tamari (gluten-free option)
-- 1 tbsp toasted sesame oil
-- 2 cloves garlic, minced finely
-- 1 inch fresh ginger, grated (about 1 tbsp)
-- 1 tbsp fresh cilantro, finely chopped
-- 1 tbsp fresh mint leaves, finely chopped
-- 1/2 tsp fresh thyme leaves (or 1/4 tsp dried thyme)
-- 1/4 tsp red pepper flakes (optional for heat)
-- 1/4 tsp sea salt
-- 1/8 tsp freshly ground black pepper
-- 2 tbsp sesame seeds for garnish
-
-Instructions:
-1. **Quinoa Preparation**: Rinse quinoa in a fine-mesh strainer under cold water for 2 minutes to remove bitter saponins. Drain well. In a medium saucepan, bring 2 cups water to a boil. Add quinoa and reduce heat to low. Cover and simmer for 15 minutes until water is absorbed and quinoa is fluffy. Remove from heat and let stand for 5 minutes. Fluff with a fork.
-
-2. **Tofu Preparation**: Press tofu for 30 minutes between paper towels with a heavy weight to remove excess moisture. Cut into 1-inch cubes. Tofu should feel firm and dry to the touch.
-
-3. **Herb Preparation**: Wash and thoroughly dry fresh herbs. Finely chop cilantro and mint leaves separately. Remove thyme leaves from stems. Fresh herbs should be bright green and aromatic.
-
-4. **Tofu Cooking**: Heat 1 tbsp olive oil in a large non-stick skillet over medium-high heat (375°F/190°C) until oil shimmers. Add tofu cubes in a single layer and cook undisturbed for 4-5 minutes until golden brown on one side. Flip tofu and cook for an additional 4-5 minutes until all sides are golden and crispy. Remove tofu to a plate and set aside.
-
-5. **Aromatics**: In the same skillet, add remaining 1 tbsp olive oil and reduce heat to medium (325°F/163°C). Add minced garlic and grated ginger. Cook for exactly 30 seconds until fragrant but not browned. Garlic should smell aromatic, not burnt.
-
-6. **Vegetable Cooking**: Add mixed vegetables to the skillet and stir-fry for 3-4 minutes, stirring frequently, until vegetables are bright colored and tender-crisp. Broccoli should be bright green, carrots should be slightly softened but still have bite.
-
-7. **Sauce Assembly**: Return tofu to skillet and add soy sauce, sesame oil, and fresh herbs. Toss gently for 1-2 minutes until tofu is well-coated and sauce is evenly distributed. Sauce should cling to ingredients without being runny.
-
-8. **Final Assembly**: Add cooked quinoa to the skillet and toss gently for 1 minute to combine all ingredients. Quinoa should be evenly distributed and slightly warm.
-
-9. **Serving**: Divide mixture into 4 bowls. Garnish with sesame seeds and additional fresh herbs if desired. Serve immediately while warm.
-
-Serving Size: 3-4 people
-Prep Time: 20 minutes (plus 30 minutes tofu pressing)
-Cook Time: 25 minutes
-Total Time: 45 minutes
-
-Herb Substitutions:
-- Fresh cilantro → 1 tbsp fresh parsley or 1 tbsp fresh basil
-- Fresh mint → 1 tbsp fresh lemon verbena or 1 tbsp fresh lemon balm
-- Fresh thyme → 1/4 tsp dried thyme or 1/4 tsp dried oregano
-- Alternative herbs: Fresh dill, chives, or tarragon can be used
-
-Dietary Options:
-🌱 Vegan: Already vegan-friendly
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Use more alkaline vegetables like kale, spinach, and cucumber
-
-⚠️ Allergy Warnings:
-• Contains: Soy (tofu, soy sauce), Sesame (sesame oil, sesame seeds)
-• May contain: Gluten (soy sauce - use tamari for gluten-free)`,
-
-                'lentils, rice, vegetables': `🍛 Lentil and Rice Pilaf
-
-Ingredients:
-- 1 cup brown basmati rice, rinsed thoroughly
-- 1 cup red lentils, rinsed and picked over
-- 2 cups mixed vegetables (diced onions, julienned carrots, fresh peas)
-- 3 cups vegetable broth (low-sodium preferred)
-- 2 tbsp extra virgin olive oil
-- 2 cloves garlic, minced finely
-- 1 inch fresh ginger, grated (about 1 tbsp)
-- 1 tsp ground cumin
-- 1 tsp ground turmeric
-- 1/2 tsp ground coriander
-- 1/4 tsp ground cardamom
-- 1/4 tsp red pepper flakes (optional for heat)
-- 1 tbsp fresh cilantro, finely chopped
-- 1 tbsp fresh mint leaves, finely chopped
-- 1/2 tsp fresh thyme leaves (or 1/4 tsp dried thyme)
-- 1 bay leaf
-- 1/2 tsp sea salt
-- 1/4 tsp freshly ground black pepper
-- 2 tbsp fresh lemon juice
-- 2 tbsp chopped fresh parsley for garnish
-
-Instructions:
-1. **Rice and Lentil Preparation**: Rinse brown rice in a fine-mesh strainer under cold water for 2 minutes. Drain well. Rinse red lentils and pick over to remove any debris. Both should be clean and free of impurities.
-
-2. **Herb Preparation**: Wash and thoroughly dry fresh herbs. Finely chop cilantro, mint, and parsley separately. Remove thyme leaves from stems. Fresh herbs should be bright green and aromatic.
-
-3. **Aromatics Cooking**: Heat olive oil in a large heavy-bottomed pot over medium heat (325°F/163°C) until oil shimmers. Add diced onions and cook for 3-4 minutes, stirring occasionally, until translucent and slightly golden. Onions should be soft but not browned.
-
-4. **Spice Blooming**: Add minced garlic and grated ginger to the pot. Cook for exactly 30 seconds until fragrant but not browned. Add ground cumin, turmeric, coriander, and cardamom. Stir constantly for 30 seconds to bloom spices (spices should become aromatic and slightly darker in color).
-
-5. **Vegetable Addition**: Add julienned carrots and cook for 2-3 minutes, stirring frequently, until carrots begin to soften but still have some bite. Carrots should be bright orange and slightly tender.
-
-6. **Grain Addition**: Add rinsed rice and lentils to the pot. Stir gently for 1 minute to coat grains with oil and spices. Grains should be evenly coated and slightly translucent.
-
-7. **Liquid Addition**: Pour in vegetable broth and add bay leaf, fresh herbs, salt, and pepper. Bring to a boil over high heat, then immediately reduce heat to low (simmer setting). Cover pot tightly with lid.
-
-8. **Simmering**: Cook covered for 20-25 minutes until all liquid is absorbed and grains are tender. Do not lift lid during cooking. Rice should be fluffy and lentils should be soft but not mushy.
-
-9. **Final Touches**: Remove from heat and let stand covered for 5 minutes. Remove bay leaf and discard. Add fresh peas and lemon juice. Fluff gently with a fork to combine.
-
-10. **Serving**: Transfer to a serving dish and garnish with chopped parsley. Serve hot as a main dish or side.
-
-Serving Size: 4 people
-Prep Time: 15 minutes
-Cook Time: 30 minutes
-Total Time: 45 minutes
-
-Herb Substitutions:
-- Fresh cilantro → 1 tbsp fresh parsley or 1 tbsp fresh basil
-- Fresh mint → 1 tbsp fresh lemon verbena or 1 tbsp fresh lemon balm
-- Fresh thyme → 1/4 tsp dried thyme or 1/4 tsp dried oregano
-- Fresh parsley → 1 tbsp fresh dill or 1 tbsp fresh chives
-- Alternative herbs: Fresh rosemary, sage, or tarragon can be used
-
-Dietary Options:
-🌱 Vegan: Already vegan-friendly
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Use more alkaline vegetables and herbs
-🐟 Pescatarian: Add grilled fish or seafood on top
-
-⚠️ Allergy Warnings:
-• Contains: None of the major allergens
-• May contain: Gluten (check vegetable broth ingredients)`,
-
-                'salmon, vegetables, quinoa': `🐟 Grilled Salmon with Quinoa
-
-Ingredients:
-- 4 salmon fillets (6 oz each), skin-on, pin bones removed
-- 1 cup quinoa, rinsed thoroughly
-- 2 cups mixed vegetables (asparagus spears, julienned bell peppers, sliced zucchini)
-- 2 tbsp extra virgin olive oil
-- 2 cloves garlic, minced finely
-- 1 lemon, sliced into 1/4-inch rounds
-- 2 tbsp fresh dill, finely chopped
-- 2 tbsp fresh parsley, finely chopped
-- 1 tbsp fresh thyme leaves (or 1/2 tsp dried thyme)
-- 1/2 tsp fresh rosemary, finely chopped (or 1/4 tsp dried rosemary)
-- 1/4 tsp red pepper flakes (optional for heat)
-- 1/2 tsp sea salt
-- 1/4 tsp freshly ground black pepper
-- 1/4 cup white wine (optional for deglazing)
-- 2 tbsp unsalted butter (optional for finishing)
-
-Instructions:
-1. **Salmon Preparation**: Remove salmon from refrigerator 30 minutes before cooking to bring to room temperature. Pat salmon fillets dry with paper towels. Season both sides with salt and pepper. Salmon should feel slightly cool but not cold.
-
-2. **Quinoa Preparation**: Rinse quinoa in a fine-mesh strainer under cold water for 2 minutes to remove bitter saponins. Drain well. In a medium saucepan, bring 2 cups water to a boil. Add quinoa and reduce heat to low. Cover and simmer for 15 minutes until water is absorbed and quinoa is fluffy. Remove from heat and let stand for 5 minutes. Fluff with a fork.
-
-3. **Herb Preparation**: Wash and thoroughly dry fresh herbs. Finely chop dill and parsley separately. Remove thyme and rosemary leaves from stems. Fresh herbs should be bright green and aromatic.
-
-4. **Grill Preparation**: Preheat grill to medium-high heat (400-450°F/204-232°C). Clean and oil grill grates to prevent sticking. Grill should be hot enough that you can hold your hand 4 inches above for only 2-3 seconds.
-
-5. **Salmon Grilling**: Place salmon fillets skin-side down on the hot grill. Close lid and cook for 4-5 minutes until skin is crispy and salmon releases easily from grates. Flip salmon and cook for an additional 3-4 minutes until internal temperature reaches 145°F (63°C). Salmon should be opaque throughout with a slightly pink center.
-
-6. **Vegetable Cooking**: While salmon cooks, heat 1 tbsp olive oil in a large skillet over medium-high heat (375°F/190°C). Add minced garlic and cook for 30 seconds until fragrant. Add mixed vegetables and cook for 3-4 minutes, stirring frequently, until bright colored and tender-crisp. Vegetables should be slightly charred but still have bite.
-
-7. **Herb Addition**: Add fresh herbs to vegetables and cook for 30 seconds to release oils. Herbs should become aromatic and slightly wilted.
-
-8. **Final Assembly**: Remove salmon from grill and let rest for 3-5 minutes. Place quinoa on serving plates, top with grilled vegetables, and place salmon fillet on top. Drizzle with remaining olive oil and garnish with lemon slices and additional fresh herbs.
-
-9. **Serving**: Serve immediately while hot. Salmon should be moist and flaky, vegetables should be bright and crisp.
-
-Serving Size: 4 people
-Prep Time: 20 minutes
-Cook Time: 15 minutes
-Total Time: 35 minutes
-
-Herb Substitutions:
-- Fresh dill → 1 tbsp fresh fennel fronds or 1 tbsp fresh tarragon
-- Fresh parsley → 1 tbsp fresh cilantro or 1 tbsp fresh basil
-- Fresh thyme → 1/2 tsp dried thyme or 1/2 tsp dried oregano
-- Fresh rosemary → 1/4 tsp dried rosemary or 1/4 tsp dried sage
-- Alternative herbs: Fresh chives, mint, or lemon verbena can be used
-
-Dietary Options:
-🌱 Vegan: Replace salmon with 1 block extra-firm tofu (pressed and grilled), butter with olive oil
-🥬 Vegetarian: Replace salmon with 4 large portobello mushroom caps (grilled)
-⚖️ Alkaline: Use more alkaline vegetables like kale and spinach
-🐟 Pescatarian: Already pescatarian-friendly
-
-⚠️ Allergy Warnings:
-• Contains: Fish (salmon)
-• May contain: Dairy (butter), Sulfites (wine)`,
-
-                'chocolate, vanilla, cream': `🍫 Chocolate Lava Cake
-
-Ingredients:
-- 4 oz dark chocolate (70% cocoa), finely chopped
-- 1/2 cup unsalted butter, cubed
-- 2 large eggs, room temperature
-- 2 large egg yolks, room temperature
-- 1/2 cup powdered sugar, sifted
-- 1/4 cup all-purpose flour, sifted
-- 1/4 tsp vanilla extract
-- 1/8 tsp salt
-- 1 tbsp unsweetened cocoa powder for dusting
-- 2 tbsp fresh mint leaves for garnish (optional)
-
-Instructions:
-1. **Chocolate Melting**: Place chopped chocolate and butter in a heatproof bowl. Set over a saucepan of simmering water (double boiler method) and melt, stirring occasionally, until smooth and glossy (about 3-4 minutes). Remove from heat and let cool for 5 minutes.
-
-2. **Egg Preparation**: In a separate bowl, whisk eggs, egg yolks, and vanilla extract until well combined. Eggs should be at room temperature for proper emulsification.
-
-3. **Batter Assembly**: Gradually add powdered sugar to the melted chocolate mixture, whisking until smooth. Add egg mixture in a slow stream while whisking constantly. The mixture should be glossy and well-emulsified.
-
-4. **Flour Incorporation**: Sift flour and salt together, then gently fold into the chocolate mixture using a rubber spatula. Mix until just combined (do not overmix). Batter should be thick but pourable.
-
-5. **Ramekin Preparation**: Butter and dust 4 (6-ounce) ramekins with cocoa powder, tapping out excess. Divide batter evenly among ramekins, filling each about 3/4 full.
-
-6. **Baking**: Preheat oven to 425°F (218°C). Place ramekins on a baking sheet and bake for 12-14 minutes. Cakes are done when edges are set but centers are still soft and jiggly. Do not overbake.
-
-7. **Serving**: Let cakes cool for 1 minute, then run a knife around edges and invert onto serving plates. Serve immediately while warm and gooey. Garnish with fresh mint if desired.
-
-Serving Size: 4 people
-Prep Time: 20 minutes
-Cook Time: 12-14 minutes
-Total Time: 35 minutes
-
-Herb Substitutions:
-- Fresh mint → 1/4 cup fresh basil or 1/4 cup fresh rosemary
-- Vanilla extract → 1/4 tsp almond extract or 1/4 tsp orange extract
-- Alternative herbs: Fresh lavender, thyme, or lemon verbena can be used
-
-Dietary Options:
-🌱 Vegan: Replace eggs with 1/4 cup aquafaba, butter with 1/2 cup coconut oil, use vegan chocolate
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Use 1/4 cup maple syrup instead of powdered sugar, add 1/4 cup chopped almonds
-
-⚠️ Allergy Warnings:
-• Contains: Eggs, Dairy (butter), Gluten (flour)
-• May contain: Nuts (if using nut-based chocolate)`,
-
-                'coconut, dates, nuts': `🥥 Vegan Coconut Date Balls
-
-Ingredients:
-- 1 cup pitted Medjool dates, soaked in warm water for 10 minutes
-- 1/2 cup raw almonds, soaked for 4 hours and drained
-- 1/2 cup unsweetened shredded coconut
-- 2 tbsp coconut oil, melted
-- 1 tbsp fresh lemon zest
-- 1 tbsp fresh mint leaves, finely chopped
-- 1/2 tsp vanilla extract
-- 1/4 tsp ground cinnamon
-- 1/8 tsp sea salt
-- 1/4 cup additional shredded coconut for rolling
-
-Instructions:
-1. **Date Preparation**: Soak dates in warm water for 10 minutes to soften. Drain well and pat dry with paper towels. Remove any remaining pits. Dates should be soft but not mushy.
-
-2. **Almond Preparation**: Soak almonds in water for 4 hours or overnight, then drain and pat dry. Soaking makes them easier to blend and more digestible.
-
-3. **Herb Preparation**: Wash and thoroughly dry fresh mint leaves. Finely chop mint and set aside. Zest lemon using a microplane, avoiding the white pith.
-
-4. **Blending Process**: In a food processor, pulse almonds until finely chopped (about 30 seconds). Add drained dates and pulse until mixture starts to clump together (about 1 minute). Mixture should be sticky but not completely smooth.
-
-5. **Flavor Addition**: Add coconut oil, lemon zest, chopped mint, vanilla extract, cinnamon, and sea salt. Pulse for an additional 30 seconds until well combined. Mixture should hold together when pressed between fingers.
-
-6. **Ball Formation**: Using a 1-tablespoon measure, scoop mixture and roll into balls between your palms. Each ball should be about 1 inch in diameter and firm enough to hold its shape.
-
-7. **Coating**: Roll each ball in additional shredded coconut, pressing gently to adhere. Place on a parchment-lined baking sheet.
-
-8. **Chilling**: Refrigerate balls for at least 30 minutes to firm up. They should be firm but not hard when ready to serve.
-
-9. **Serving**: Serve chilled or at room temperature. Store in an airtight container in the refrigerator for up to 1 week.
-
-Serving Size: 12 balls
-Prep Time: 20 minutes (plus 4 hours soaking)
-Cook Time: 0 minutes
-Total Time: 4 hours 20 minutes
-
-Herb Substitutions:
-- Fresh mint → 1 tbsp fresh basil or 1 tbsp fresh rosemary
-- Lemon zest → 1 tbsp orange zest or 1/2 tsp lemon extract
-- Cinnamon → 1/4 tsp ground cardamom or 1/4 tsp ground ginger
-- Alternative herbs: Fresh lavender, thyme, or sage can be used
-
-Dietary Options:
-🌱 Vegan: Already vegan-friendly
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Already alkaline-friendly
-
-⚠️ Allergy Warnings:
-• Contains: Tree Nuts (almonds), Coconut
-• May contain: None of the other major allergens`,
-
-                'berries, yogurt, honey': `🫐 Berry Yogurt Parfait
-
-Ingredients:
-- 2 cups Greek yogurt (full-fat or 2% for best texture)
-- 1 cup mixed berries (strawberries, blueberries, raspberries)
-- 1/4 cup honey (or maple syrup for vegan)
-- 1/4 cup granola (homemade or store-bought)
-- 1 tbsp fresh mint leaves, finely chopped
-- 1 tbsp fresh basil leaves, finely chopped
-- 1/2 tsp vanilla extract
-- 1/4 tsp ground cinnamon
-- 1/8 tsp ground cardamom
-- 2 tbsp chopped pistachios for garnish
-
-Instructions:
-1. **Yogurt Preparation**: In a medium bowl, whisk Greek yogurt with vanilla extract, cinnamon, and cardamom until smooth and well combined. Yogurt should be creamy and free of lumps.
-
-2. **Berry Preparation**: Wash berries thoroughly and pat dry. Hull strawberries and cut into quarters. Leave blueberries and raspberries whole. Berries should be at room temperature for best flavor.
-
-3. **Herb Preparation**: Wash and thoroughly dry fresh herbs. Finely chop mint and basil leaves separately. Herbs should be bright green and aromatic.
-
-4. **Honey Infusion**: In a small bowl, mix honey with chopped mint and basil. Let sit for 5 minutes to infuse flavors. Honey should take on a subtle herbal aroma.
-
-5. **Layering Process**: In 4 serving glasses or bowls, start with 1/4 cup yogurt mixture. Add 2 tablespoons of mixed berries, then drizzle with 1 teaspoon of herb-infused honey. Repeat layers: yogurt, berries, honey, ending with a final layer of yogurt.
-
-6. **Granola Addition**: Sprinkle 1 tablespoon of granola on top of each parfait. Granola should be evenly distributed and not sink into the yogurt.
-
-7. **Garnish**: Top each parfait with remaining berries, a drizzle of honey, and chopped pistachios. Fresh herbs can be added as a final garnish.
-
-8. **Chilling**: Refrigerate parfaits for 15-20 minutes before serving to allow flavors to meld. Yogurt should be cold but not frozen.
-
-9. **Serving**: Serve chilled with a spoon. Parfaits should be eaten within 2 hours of assembly for optimal texture.
-
-Serving Size: 4 people
-Prep Time: 20 minutes
-Cook Time: 0 minutes
-Total Time: 20 minutes
-
-Herb Substitutions:
-- Fresh mint → 1 tbsp fresh lemon verbena or 1 tbsp fresh lavender
-- Fresh basil → 1 tbsp fresh thyme or 1 tbsp fresh rosemary
-- Cinnamon → 1/4 tsp ground nutmeg or 1/4 tsp ground allspice
-- Alternative herbs: Fresh dill, chives, or tarragon can be used
-
-Dietary Options:
-🌱 Vegan: Replace yogurt with coconut yogurt, honey with maple syrup
-🥬 Vegetarian: Already vegetarian-friendly
-⚖️ Alkaline: Use almond yogurt, add 1/4 cup chopped almonds
-
-⚠️ Allergy Warnings:
-• Contains: Dairy (yogurt), Tree Nuts (pistachios, granola may contain nuts)
-• May contain: Gluten (granola), Eggs (if granola contains eggs)`
-            };
-
-            // Check for exact matches first
-            const lowerIngredients = ingredients.toLowerCase();
-            for (const [key, recipe] of Object.entries(recipes)) {
-                if (lowerIngredients.includes(key)) {
-                    return recipe;
-                }
-            }
-
-            // Generate a generic recipe based on ingredients
-            const ingredientList = ingredients.split(',').map(i => i.trim()).join(', ');
-            return `🍽️ Custom Recipe with ${ingredientList}
-
-Ingredients:
-- ${ingredientList}
-- 2 tbsp olive oil
-- Salt and pepper to taste
-- Herbs and spices as desired
-
-Instructions:
-1. Prepare all ingredients by washing and chopping as needed.
-2. Heat olive oil in a large pan over medium heat.
-3. Add your ingredients in order of cooking time (hardest first).
-4. Season with salt, pepper, and your favorite herbs.
-5. Cook until all ingredients are tender and well-combined.
-6. Taste and adjust seasoning as needed.
-7. Serve hot and enjoy your custom creation!
-
-Serving Size: 2-3 people
-
-Dietary Options:
-🌱 Vegan: Use plant-based ingredients and avoid animal products
-🥬 Vegetarian: Use plant-based proteins like beans, lentils, or tofu
-⚖️ Alkaline: Focus on alkaline vegetables and grains like quinoa
-
-⚠️ Allergy Warnings:
-• Please check all ingredients for your specific allergies
-• Common allergens to watch for: Dairy, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soy
-
-Note: This is a basic recipe template. Feel free to experiment with cooking methods and additional ingredients!`;
-        }
-
-        function showRemixSection() {
-            if (!currentRecipe) {
-                showError('Please generate a recipe first before remixing.');
-                return;
-            }
-            document.getElementById('remixSection').classList.add('show');
-        }
-
-        function remixRecipe() {
-            const modifications = document.getElementById('modifications').value.trim();
-            
-            if (!modifications) {
-                showError('Please describe how you want to modify the recipe.');
-                return;
-            }
-
-            if (!currentRecipe) {
-                showError('No recipe to remix. Please generate a recipe first.');
-                return;
-            }
-
-            showRemixLoading();
-
-            setTimeout(() => {
-                const remixedRecipe = remixRecipeWithModifications(currentRecipe, modifications);
-                displayRecipe(remixedRecipe);
-                currentRecipe = remixedRecipe;
-                hideRemixSection();
-            }, 2000);
-        }
-
-        function remixRecipeWithModifications(recipe, modifications) {
-            const mod = modifications.toLowerCase();
-            
-            if (mod.includes('vegan')) {
-                return recipe.replace(/chicken/g, 'tofu or tempeh')
-                           .replace(/heavy cream/g, 'coconut milk or cashew cream')
-                           .replace(/parmesan cheese/g, 'nutritional yeast')
-                           .replace(/mozzarella/g, 'vegan mozzarella')
-                           .replace(/cheese/g, 'vegan cheese or nutritional yeast')
-                           .replace(/eggs/g, 'flax eggs (1 tbsp ground flax + 3 tbsp water)')
-                           .replace(/butter/g, 'vegan butter or olive oil')
-                           + '\n\n🌱 This recipe has been adapted to be vegan! All animal products have been replaced with plant-based alternatives.'
-                           + '\n\n⚠️ Updated Allergy Warnings:'
-                           + '\n• Contains: Soy (tofu, tempeh), Tree Nuts (cashew cream)'
-                           + '\n• May contain: Gluten (check vegan cheese ingredients)';
-            }
-            
-            if (mod.includes('vegetarian')) {
-                return recipe.replace(/chicken/g, 'mushrooms, chickpeas, or lentils')
-                           .replace(/heavy cream/g, 'coconut milk or cashew cream')
-                           .replace(/parmesan cheese/g, 'nutritional yeast or vegetarian parmesan')
-                           + '\n\n🥬 This recipe has been adapted to be vegetarian! Meat has been replaced with plant-based proteins.'
-                           + '\n\n⚠️ Updated Allergy Warnings:'
-                           + '\n• Contains: Dairy (if using dairy products), Tree Nuts (cashew cream)'
-                           + '\n• May contain: Soy (check vegetarian parmesan ingredients)';
-            }
-            
-            if (mod.includes('alkaline')) {
-                return recipe.replace(/pasta/g, 'quinoa or millet')
-                           .replace(/white rice/g, 'brown rice or quinoa')
-                           .replace(/penne or fettuccine/g, 'quinoa or millet')
-                           + '\n\n⚖️ This recipe has been adapted to be alkaline-friendly! Acidic ingredients have been replaced with alkaline alternatives. Consider adding more leafy greens like kale, spinach, and cucumber.'
-                           + '\n\n⚠️ Updated Allergy Warnings:'
-                           + '\n• Contains: Check original recipe for allergens'
-                           + '\n• May contain: Tree Nuts (if adding nuts for protein)';
-            }
-            
-            if (mod.includes('spicy') || mod.includes('kick')) {
-                return recipe.replace(/Salt and pepper to taste/g, 'Salt, pepper, and red pepper flakes to taste')
-                           + '\n\n🌶️ Spice level has been increased! Add chili powder, cayenne pepper, or hot sauce for extra heat.';
-            }
-            
-            if (mod.includes('less oil') || mod.includes('low fat')) {
-                return recipe.replace(/2 tbsp olive oil/g, '1 tbsp olive oil')
-                           .replace(/1 tbsp butter/g, '1/2 tbsp butter')
-                           + '\n\n💚 Oil has been reduced for a lighter version! Consider using cooking spray or water for sautéing.';
-            }
-            
-            if (mod.includes('mushroom')) {
-                return recipe.replace(/Instructions:/, 'Ingredients:\n- 8 oz mushrooms, sliced\n- ' + recipe.split('Ingredients:')[1].split('\n')[1])
-                           .replace(/1\./, '1. Add mushrooms to the pan and cook until golden brown.\n2.')
-                           + '\n\n🍄 Mushrooms have been added for extra umami flavor and texture!';
-            }
-            
-            if (mod.includes('gluten-free')) {
-                return recipe.replace(/pasta/g, 'gluten-free pasta')
-                           .replace(/penne or fettuccine/g, 'gluten-free penne or rice noodles')
-                           .replace(/soy sauce/g, 'tamari (gluten-free soy sauce)')
-                           + '\n\n🌾 This recipe is now gluten-free! All wheat-based ingredients have been replaced with gluten-free alternatives.'
-                           + '\n\n⚠️ Updated Allergy Warnings:'
-                           + '\n• Contains: Soy (tamari), check original recipe for other allergens'
-                           + '\n• May contain: Eggs (in gluten-free pasta), Dairy (if using dairy products)';
-            }
-            
-            if (mod.includes('protein')) {
-                return recipe.replace(/Instructions:/, 'Ingredients:\n- 1/2 cup chickpeas or lentils\n- ' + recipe.split('Ingredients:')[1].split('\n')[1])
-                           .replace(/1\./, '1. Add protein source to the dish.\n2.')
-                           + '\n\n💪 Extra protein has been added for a more filling and nutritious meal!';
-            }
-            
-            if (mod.includes('low carb') || mod.includes('keto')) {
-                return recipe.replace(/pasta/g, 'zucchini noodles or cauliflower rice')
-                           .replace(/rice/g, 'cauliflower rice')
-                           .replace(/quinoa/g, 'cauliflower rice')
-                           + '\n\n🥑 This recipe has been adapted for low-carb/keto diets! High-carb ingredients have been replaced with low-carb alternatives.';
-            }
-            
-            if (mod.includes('mediterranean')) {
-                return recipe + '\n\nMediterranean additions:\n- Add 1/4 cup olives\n- Include 2 tbsp capers\n- Use extra virgin olive oil\n- Add fresh herbs like oregano and basil\n- Include lemon juice for brightness';
-            }
-            
-            if (mod.includes('asian') || mod.includes('asian fusion')) {
-                return recipe + '\n\nAsian fusion additions:\n- Add 2 tbsp soy sauce or tamari\n- Include 1 tbsp sesame oil\n- Add 2 cloves minced garlic\n- Include 1 inch grated ginger\n- Add 2 tbsp rice vinegar\n- Garnish with green onions and sesame seeds';
-            }
-            
-            if (mod.includes('pescatarian')) {
-                return recipe.replace(/chicken/g, 'salmon or white fish')
-                           .replace(/tofu or tempeh/g, 'fish or seafood')
-                           .replace(/mushrooms, chickpeas, or lentils/g, 'fish, shrimp, or scallops')
-                           + '\n\n🐟 This recipe has been adapted to be pescatarian! Meat has been replaced with fish and seafood options.'
-                           + '\n\n⚠️ Updated Allergy Warnings:'
-                           + '\n• Contains: Fish, Shellfish (shrimp, scallops)'
-                           + '\n• May contain: Check original recipe for other allergens';
-            }
-            
-            // Generic modification
-            return recipe + `\n\n✨ Custom Modification: ${modifications}\n\nThis recipe has been customized according to your preferences. Feel free to adjust cooking times and methods as needed!`
-                           + '\n\n⚠️ Allergy Warnings:'
-                           + '\n• Please check all modified ingredients for your specific allergies'
-                           + '\n• Common allergens to watch for: Dairy, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soy';
-        }
-
-        function startNew() {
-            document.getElementById('ingredients').value = '';
-            document.getElementById('modifications').value = '';
-            currentRecipe = '';
-            hideRecipeOutput();
-            hideRemixSection();
-            hideControls();
-            disableRemix();
-        }
-
-        function resetApp() {
-            startNew();
-        }
+        let currentRecipe = null;
 
         function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('recipeDisplay').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+        }
+
+        function formatRecipe(recipe) {
+            let formatted = `🍽️ ${recipe.name}\n\n`;
+            
+            // Ingredients section
+            formatted += "📋 Ingredients:\n";
+            for (let ingredient of recipe.ingredients) {
+                let amount = ingredient.amount;
+                if (Number.isInteger(amount)) {
+                    amount = amount.toString();
+                }
+                formatted += `- ${amount} ${ingredient.unit} ${ingredient.item}`;
+                if (ingredient.notes) {
+                    formatted += ` (${ingredient.notes})`;
+                }
+                formatted += "\n";
+            }
+            
+            // Instructions section
+            formatted += `\n👨‍🍳 Instructions:\n`;
+            for (let i = 0; i < recipe.instructions.length; i++) {
+                formatted += `${i + 1}. ${recipe.instructions[i]}\n`;
+            }
+            
+            // Additional info
+            formatted += `\n⏱️ Prep Time: ${recipe.prep_time} minutes\n`;
+            formatted += `🔥 Cook Time: ${recipe.cook_time} minutes\n`;
+            formatted += `⏰ Total Time: ${recipe.total_time} minutes\n`;
+            formatted += `👥 Servings: ${recipe.servings}\n`;
+            formatted += `📊 Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}\n`;
+            formatted += `🌍 Cuisine: ${recipe.cuisine.charAt(0).toUpperCase() + recipe.cuisine.slice(1)}\n`;
+            
+            if (recipe.tags) {
+                formatted += `🏷️ Tags: ${recipe.tags.join(', ')}\n`;
+            }
+            
+            // Tips section
+            if (recipe.tips) {
+                formatted += `\n💡 Chef's Tips:\n`;
+                for (let tip of recipe.tips) {
+                    formatted += `• ${tip}\n`;
+                }
+            }
+            
             const output = document.getElementById('recipeOutput');
             const loading = document.getElementById('loading');
             const content = document.getElementById('recipeContent');
