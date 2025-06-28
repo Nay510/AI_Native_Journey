@@ -6,54 +6,58 @@ Simple HTTP server to host the Recipe Remix Master
 import http.server
 import socketserver
 import os
-import webbrowser
-from pathlib import Path
+import socket
 
-def start_server():
-    """Start the HTTP server to host the Recipe Remix Master"""
-    
-    # Get the current directory
-    current_dir = Path(__file__).parent.absolute()
-    
-    # Change to the current directory
-    os.chdir(current_dir)
-    
-    # Set up the server
+def get_local_ip():
+    """Get the local IP address of the machine"""
+    try:
+        # Connect to a remote address to determine local IP
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+        return local_ip
+    except:
+        return "127.0.0.1"
+
+def create_server():
+    """Create and start the HTTP server"""
     PORT = 8000
     
-    # Create a custom handler to serve the HTML file
-    class CustomHandler(http.server.SimpleHTTPRequestHandler):
-        def do_GET(self):
-            if self.path == '/':
-                self.path = '/recipe-remix-master.html'
-            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+    # Check if port is in use
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind(('localhost', PORT))
+    except OSError:
+        print(f"⚠️  Port {PORT} is already in use. Trying to kill existing process...")
+        os.system(f"lsof -ti:{PORT} | xargs kill -9")
+        print(f"✅ Killed process on port {PORT}")
     
-    # Create the server
-    with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
+    # Set up the server
+    Handler = http.server.SimpleHTTPRequestHandler
+    
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        local_ip = get_local_ip()
+        
         print("🌐 Recipe Remix Master Server Started!")
         print(f"📱 Local URL: http://localhost:{PORT}")
         print(f"🌍 Network URL: http://0.0.0.0:{PORT}")
-        print("\n📋 Features Available:")
+        print(f"💻 Your IP: http://{local_ip}:{PORT}")
+        print("📋 Features Available:")
         print("• Find recipes by ingredients")
         print("• Get random recipes")
         print("• Transform recipes to world cuisines")
         print("• Remix recipes with modifications")
-        print("\n💡 To access from other devices on your network:")
-        print("1. Find your computer's IP address")
-        print("2. Use: http://[YOUR_IP]:8000")
-        print("\n🔄 Press Ctrl+C to stop the server")
+        print("• Categories and dietary restrictions sidebar")
+        print("💡 To access from other devices on your network:")
+        print(f"1. Use: http://{local_ip}:{PORT}")
+        print("🔄 Press Ctrl+C to stop the server")
         
-        # Open the browser automatically
-        try:
-            webbrowser.open(f'http://localhost:{PORT}')
-        except:
-            print(f"\n🌐 Please open your browser and go to: http://localhost:{PORT}")
-        
-        # Start serving
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
-            print("\n\n🛑 Server stopped. Goodbye!")
+            print("\n🛑 Server stopped by user")
+            httpd.shutdown()
 
 if __name__ == "__main__":
-    start_server() 
+    create_server() 

@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recipe Remix Master</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-item, .dietary-option, .cuisine-option {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .category-item:hover, .dietary-option:hover, .cuisine-option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .category-item.active, .dietary-option.active, .cuisine-option.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .recipe-display {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .selected-category {
+            background: #e8f5e8;
+            border-left: 4px solid #2ecc71;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .selected-category h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        /* Favorites and Saved Recipes */
+        .favorites-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .favorites-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .favorite-recipe {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .favorite-recipe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .favorite-recipe h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .favorite-recipe-content {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .favorite-recipe-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .favorite-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background 0.2s;
+        }
+
+        .favorite-btn.view {
+            background: #667eea;
+            color: white;
+        }
+
+        .favorite-btn.remove {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .favorite-btn:hover {
+            opacity: 0.8;
+        }
+
+        .no-favorites {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        /* Conversion Chart */
+        .conversion-chart {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .conversion-chart h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .conversion-category {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .conversion-category h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .conversion-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+        }
+
+        .conversion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Share Section */
+        .share-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .share-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .share-btn.email {
+            background: #667eea;
+            color: white;
+        }
+
+        .share-btn.copy {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .share-btn.print {
+            background: #f39c12;
+            color: white;
+        }
+
+        .share-btn.social {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .conversion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🍽️ Recipe Master</h2>
+            <p>Find your perfect recipe</p>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="sidebar-section">
+            <h3>📂 Categories</h3>
+            <button class="category-item" onclick="selectCategory('breakfast')">🌅 Breakfast</button>
+            <button class="category-item" onclick="selectCategory('lunch')">🍽️ Lunch</button>
+            <button class="category-item" onclick="selectCategory('dinner')">🌙 Dinner</button>
+            <button class="category-item" onclick="selectCategory('desserts')">🍰 Desserts</button>
+            <button class="category-item" onclick="selectCategory('snacks')">🥨 Snacks</button>
+            <button class="category-item" onclick="selectCategory('appetizers')">🥟 Appetizers</button>
+            <button class="category-item" onclick="selectCategory('soups')">🍲 Soups</button>
+            <button class="category-item" onclick="selectCategory('salads')">�� Salads</button>
+            <button class="category-item" onclick="selectCategory('pasta')">🍝 Pasta</button>
+            <button class="category-item" onclick="selectCategory('seafood')">🐟 Seafood</button>
+            <button class="category-item" onclick="selectCategory('vegetarian')">🥬 Vegetarian</button>
+            <button class="category-item" onclick="selectCategory('quick')">⚡ Quick & Easy</button>
+        </div>
+
+        <!-- Dietary Restrictions Section -->
+        <div class="sidebar-section">
+            <h3>🥗 Dietary Options</h3>
+            <button class="dietary-option" onclick="selectDietary('vegetarian')">🥬 Vegetarian</button>
+            <button class="dietary-option" onclick="selectDietary('vegan')">🌱 Vegan</button>
+            <button class="dietary-option" onclick="selectDietary('gluten-free')">🌾 Gluten-Free</button>
+            <button class="dietary-option" onclick="selectDietary('dairy-free')">🥛 Dairy-Free</button>
+            <button class="dietary-option" onclick="selectDietary('low-carb')">🥑 Low-Carb</button>
+            <button class="dietary-option" onclick="selectDietary('keto')">🥩 Keto</button>
+            <button class="dietary-option" onclick="selectDietary('paleo')">🦕 Paleo</button>
+            <button class="dietary-option" onclick="selectDietary('nut-free')">🥜 Nut-Free</button>
+        </div>
+
+        <!-- Cuisine Types Section -->
+        <div class="sidebar-section">
+            <h3>🌍 Cuisine Types</h3>
+            <button class="cuisine-option" onclick="selectCuisine('italian')">🇮🇹 Italian</button>
+            <button class="cuisine-option" onclick="selectCuisine('mexican')">🇲🇽 Mexican</button>
+            <button class="cuisine-option" onclick="selectCuisine('asian')">🇯🇵 Asian</button>
+            <button class="cuisine-option" onclick="selectCuisine('indian')">🇮🇳 Indian</button>
+            <button class="cuisine-option" onclick="selectCuisine('mediterranean')">🇬🇷 Mediterranean</button>
+            <button class="cuisine-option" onclick="selectCuisine('french')">🇫🇷 French</button>
+            <button class="cuisine-option" onclick="selectCuisine('thai')">🇹🇭 Thai</button>
+            <button class="cuisine-option" onclick="selectCuisine('japanese')">🇯🇵 Japanese</button>
+            <button class="cuisine-option" onclick="selectCuisine('greek')">🇬🇷 Greek</button>
+            <button class="cuisine-option" onclick="selectCuisine('chinese')">🇨🇳 Chinese</button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="sidebar-section">
+            <h3>⚡ Quick Actions</h3>
+            <button class="btn btn-secondary" onclick="getRandomRecipe()" style="width: 100%; margin: 5px 0;">🎲 Random Recipe</button>
+            <button class="btn btn-success" onclick="clearSelections()" style="width: 100%; margin: 5px 0;">🔄 Clear All</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>🍽️ AI Recipe Remix Master</h1>
+            <p>Transform your ingredients into delicious recipes with world cuisine flavors!</p>
+        </div>
+
+        <div class="content-area">
+            <!-- Selected Category Display -->
+            <div id="selectedCategory" class="selected-category hidden">
+                <h3>Selected Filters:</h3>
+                <div id="selectedFilters"></div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="ingredients">📋 Enter your ingredients (comma-separated):</label>
+                    <input type="text" id="ingredients" placeholder="e.g., chicken, broccoli, pasta, garlic, olive oil">
+                </div>
+                
+                <button class="btn" onclick="generateRecipe()">🔍 Find Recipe</button>
+                <button class="btn btn-secondary" onclick="getRandomRecipe()">🎲 Random Recipe</button>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Creating your recipe...</p>
+            </div>
+
+            <div id="recipeDisplay" class="recipe-display hidden"></div>
+
+            <div class="input-section" id="modificationSection" style="display: none;">
+                <div class="input-group">
+                    <label for="modifications">🔄 How would you like to remix this recipe?</label>
+                    <input type="text" id="modifications" placeholder="e.g., make it mexican, add a spicy kick, use less oil, add mushrooms">
+                </div>
+                <button class="btn" onclick="remixRecipe()">🔄 Remix Recipe</button>
+            </div>
+
+            <!-- Share Section -->
+            <div class="share-section" id="shareSection" style="display: none;">
+                <h3>📤 Share Recipe</h3>
+                <div class="share-buttons">
+                    <button class="share-btn email" onclick="shareViaEmail()">📧 Email</button>
+                    <button class="share-btn copy" onclick="copyToClipboard()">📋 Copy</button>
+                    <button class="share-btn print" onclick="printRecipe()">🖨️ Print</button>
+                    <button class="share-btn social" onclick="shareOnSocial()">📱 Social</button>
+                </div>
+                <div id="shareMessage"></div>
+            </div>
+
+            <!-- Favorites Section -->
+            <div class="favorites-section">
+                <h3>❤️ Saved Recipes</h3>
+                <button class="btn btn-secondary" onclick="saveCurrentRecipe()" style="margin-bottom: 20px;">💾 Save Current Recipe</button>
+                <div id="favoritesList"></div>
+            </div>
+
+            <!-- Conversion Chart -->
+            <div class="conversion-chart">
+                <h3>📊 Measurement Conversion Chart</h3>
+                <div class="conversion-grid">
+                    <div class="conversion-category">
+                        <h4>Volume</h4>
+                        <div class="conversion-item">
+                            <span>1 cup</span>
+                            <span>240 ml</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 tablespoon</span>
+                            <span>15 ml</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 teaspoon</span>
+                            <span>5 ml</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 fluid ounce</span>
+                            <span>30 ml</span>
+                        </div>
+                    </div>
+
+                    <div class="conversion-category">
+                        <h4>Weight</h4>
+                        <div class="conversion-item">
+                            <span>1 pound</span>
+                            <span>454 grams</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 ounce</span>
+                            <span>28 grams</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 kilogram</span>
+                            <span>2.2 pounds</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 gram</span>
+                            <span>0.035 ounces</span>
+                        </div>
+                    </div>
+
+                    <div class="conversion-category">
+                        <h4>Temperature</h4>
+                        <div class="conversion-item">
+                            <span>350°F</span>
+                            <span>175°C</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>375°F</span>
+                            <span>190°C</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>400°F</span>
+                            <span>200°C</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>425°F</span>
+                            <span>220°C</span>
+                        </div>
+                    </div>
+
+                    <div class="conversion-category">
+                        <h4>Common Substitutions</h4>
+                        <div class="conversion-item">
+                            <span>1 cup buttermilk</span>
+                            <span>1 cup milk + 1 tbsp vinegar</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 cup cake flour</span>
+                            <span>1 cup AP flour - 2 tbsp</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 cup brown sugar</span>
+                            <span>1 cup white + 1 tbsp molasses</span>
+                        </div>
+                        <div class="conversion-item">
+                            <span>1 egg</span>
+                            <span>1/4 cup applesauce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Recipe database
+        const RECIPE_DATABASE = [
+            {
+                name: "Classic Spaghetti Carbonara",
+                ingredients: [
+                    {item: "spaghetti", amount: 1, unit: "pound", notes: "or 16 oz"},
+                    {item: "eggs", amount: 4, unit: "large", notes: "room temperature"},
+                    {item: "pecorino romano cheese", amount: 1, unit: "cup", notes: "freshly grated"},
+                    {item: "guanciale", amount: 8, unit: "ounces", notes: "or pancetta, cubed"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "freshly ground"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "for pasta water"}
+                ],
+                instructions: [
+                    "Fill a large pot with water and bring to a boil. Add salt to taste.",
+                    "Cook spaghetti according to package directions until al dente. Reserve 1 cup of pasta water.",
+                    "In a large skillet, cook guanciale over medium heat until crispy and golden brown.",
+                    "Remove skillet from heat and add hot pasta to the pan with guanciale.",
+                    "In a bowl, whisk together eggs, grated cheese, and black pepper.",
+                    "Quickly pour egg mixture over hot pasta, stirring constantly to create a creamy sauce.",
+                    "Add reserved pasta water gradually if needed to achieve desired consistency.",
+                    "Serve immediately with extra cheese and black pepper on top."
+                ],
+                prep_time: 15,
+                cook_time: 20,
+                total_time: 35,
+                servings: 4,
+                difficulty: "medium",
+                cuisine: "italian",
+                category: "dinner",
+                tags: ["pasta", "quick", "classic", "dinner"],
+                dietary: ["vegetarian"],
+                tips: [
+                    "Use room temperature eggs to prevent scrambling",
+                    "Work quickly when combining pasta and eggs",
+                    "Reserve pasta water - it's essential for the sauce",
+                    "Don't overcook the pasta - al dente is key"
+                ]
+            },
+            {
+                name: "Vegetarian Buddha Bowl",
+                ingredients: [
+                    {item: "quinoa", amount: 1, unit: "cup", notes: "uncooked, rinsed"},
+                    {item: "sweet potato", amount: 1, unit: "large", notes: "peeled and cubed into 1-inch pieces"},
+                    {item: "chickpeas", amount: 1, unit: "can", notes: "15 oz, drained and rinsed"},
+                    {item: "kale", amount: 2, unit: "cups", notes: "chopped, stems removed"},
+                    {item: "avocado", amount: 1, unit: "medium", notes: "sliced"},
+                    {item: "olive oil", amount: 2, unit: "tablespoons", notes: "extra virgin, divided"},
+                    {item: "lemon", amount: 1, unit: "medium", notes: "juiced (about 2 tbsp)"},
+                    {item: "garlic", amount: 2, unit: "cloves", notes: "minced"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "cumin", amount: 0.5, unit: "teaspoon", notes: "ground"},
+                    {item: "paprika", amount: 0.5, unit: "teaspoon", notes: "smoked"}
+                ],
+                instructions: [
+                    "Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.",
+                    "Cook quinoa according to package directions. Set aside to keep warm.",
+                    "Toss sweet potato cubes with 1 tablespoon olive oil, salt, pepper, cumin, and paprika.",
+                    "Spread sweet potatoes on baking sheet and roast for 25-30 minutes until tender.",
+                    "In a skillet, heat remaining olive oil and cook garlic for 30 seconds until fragrant.",
+                    "Add chickpeas and cook for 5-7 minutes until golden and slightly crispy.",
+                    "Massage kale with lemon juice and salt until softened.",
+                    "Assemble bowls with quinoa, roasted sweet potatoes, crispy chickpeas, and kale.",
+                    "Top with sliced avocado and serve immediately."
+                ],
+                prep_time: 20,
+                cook_time: 30,
+                total_time: 50,
+                servings: 2,
+                difficulty: "easy",
+                cuisine: "mediterranean",
+                category: "lunch",
+                tags: ["healthy", "bowl", "vegetarian", "gluten-free", "lunch"],
+                dietary: ["vegetarian", "vegan", "gluten-free"],
+                tips: [
+                    "Massage kale thoroughly to make it tender",
+                    "Don't overcrowd the baking sheet for crispy sweet potatoes",
+                    "Rinse quinoa well to remove bitter coating",
+                    "Use fresh lemon juice for best flavor"
+                ]
+            },
+            {
+                name: "Chocolate Chip Cookies",
+                ingredients: [
+                    {item: "all-purpose flour", amount: 2.25, unit: "cups", notes: "spooned and leveled"},
+                    {item: "butter", amount: 1, unit: "cup", notes: "unsalted, softened to room temperature"},
+                    {item: "brown sugar", amount: 0.75, unit: "cup", notes: "packed, light or dark"},
+                    {item: "white sugar", amount: 0.75, unit: "cup", notes: "granulated"},
+                    {item: "eggs", amount: 2, unit: "large", notes: "room temperature"},
+                    {item: "vanilla extract", amount: 2, unit: "teaspoons", notes: "pure vanilla extract"},
+                    {item: "chocolate chips", amount: 2, unit: "cups", notes: "semi-sweet or dark"},
+                    {item: "baking soda", amount: 1, unit: "teaspoon", notes: ""},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "fine sea salt"},
+                    {item: "walnuts", amount: 1, unit: "cup", notes: "chopped, optional"}
+                ],
+                instructions: [
+                    "Preheat oven to 375°F (190°C). Line baking sheets with parchment paper.",
+                    "In a medium bowl, whisk together flour, baking soda, and salt. Set aside.",
+                    "In a large bowl, cream together softened butter, brown sugar, and white sugar until light and fluffy.",
+                    "Add eggs one at a time, beating well after each addition. Beat in vanilla extract.",
+                    "Gradually add dry ingredients to wet ingredients, mixing until just combined.",
+                    "Fold in chocolate chips and walnuts (if using) until evenly distributed.",
+                    "Drop rounded tablespoons of dough onto prepared baking sheets, spacing 2 inches apart.",
+                    "Bake for 9-11 minutes until edges are golden brown but centers are still soft.",
+                    "Cool on baking sheets for 5 minutes, then transfer to wire racks to cool completely."
+                ],
+                prep_time: 25,
+                cook_time: 10,
+                total_time: 35,
+                servings: 24,
+                difficulty: "easy",
+                cuisine: "american",
+                category: "desserts",
+                tags: ["dessert", "baking", "cookies", "chocolate", "sweet"],
+                dietary: ["vegetarian"],
+                tips: [
+                    "Use room temperature ingredients for best results",
+                    "Don't overmix the dough - it makes cookies tough",
+                    "Let cookies cool on baking sheet for 5 minutes before moving",
+                    "Store in an airtight container to keep them fresh"
+                ]
+            }
+        ];
+
+        // Global variables
+        let currentRecipe = null;
+        let selectedCategory = null;
+        let selectedDietary = null;
+        let selectedCuisine = null;
+        let savedRecipes = [];
+
+        // Load saved recipes from localStorage
+        function loadSavedRecipes() {
+            const saved = localStorage.getItem('savedRecipes');
+            if (saved) {
+                savedRecipes = JSON.parse(saved);
+            }
+            displaySavedRecipes();
+        }
+
+        // Save recipes to localStorage
+        function saveRecipesToStorage() {
+            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+        }
+
+        // Save current recipe to favorites
+        function saveCurrentRecipe() {
+            if (!currentRecipe) {
+                showMessage('No recipe to save. Please generate a recipe first.', 'error');
+                return;
+            }
+
+            // Create a unique ID for the recipe
+            const recipeId = Date.now().toString();
+            
+            // Extract recipe name from the first line
+            const recipeName = currentRecipe.name || 'Unknown Recipe';
+            
+            const recipeToSave = {
+                id: recipeId,
+                name: recipeName,
+                content: formatRecipe(currentRecipe),
+                timestamp: new Date().toISOString()
+            };
+
+            // Check if recipe already exists
+            const existingIndex = savedRecipes.findIndex(recipe => 
+                recipe.name === recipeName
+            );
+
+            if (existingIndex !== -1) {
+                showMessage('Recipe already saved in favorites!', 'success');
+                return;
+            }
+
+            savedRecipes.push(recipeToSave);
+            saveRecipesToStorage();
+            displaySavedRecipes();
+            showMessage('Recipe saved to favorites!', 'success');
+        }
+
+        // Display saved recipes
+        function displaySavedRecipes() {
+            const favoritesList = document.getElementById('favoritesList');
+            
+            if (savedRecipes.length === 0) {
+                favoritesList.innerHTML = '<div class="no-favorites">No favorite recipes yet. Save a recipe to see it here!</div>';
+                return;
+            }
+
+            favoritesList.innerHTML = '';
+            savedRecipes.forEach(recipe => {
+                const recipeElement = createFavoriteRecipeElement(recipe);
+                favoritesList.appendChild(recipeElement);
+            });
+        }
+
+        // Create favorite recipe element
+        function createFavoriteRecipeElement(recipe) {
+            const div = document.createElement('div');
+            div.className = 'favorite-recipe';
+            div.innerHTML = `
+                <h4>${recipe.name}</h4>
+                <div class="favorite-recipe-content">${recipe.content.substring(0, 200)}...</div>
+                <div class="favorite-recipe-actions">
+                    <button class="favorite-btn view" onclick="viewRecipe('${recipe.id}')" title="View Recipe">👁️</button>
+                    <button class="favorite-btn remove" onclick="removeRecipe('${recipe.id}')" title="Remove from Favorites">🗑️</button>
+                </div>
+            `;
+            return div;
+        }
+
+        // View saved recipe
+        function viewRecipe(recipeId) {
+            const recipe = savedRecipes.find(r => r.id === recipeId);
+            if (recipe) {
+                document.getElementById('recipeDisplay').textContent = recipe.content;
+                document.getElementById('recipeDisplay').classList.remove('hidden');
+                document.getElementById('modificationSection').style.display = 'block';
+                document.getElementById('shareSection').style.display = 'block';
+                
+                // Scroll to recipe display
+                document.getElementById('recipeDisplay').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Remove recipe from favorites
+        function removeRecipe(recipeId) {
+            const index = savedRecipes.findIndex(r => r.id === recipeId);
+            if (index !== -1) {
+                savedRecipes.splice(index, 1);
+                saveRecipesToStorage();
+                displaySavedRecipes();
+                showMessage('Recipe removed from favorites!', 'success');
+            }
+        }
+
+        // Clear all saved recipes
+        function clearAllFavorites() {
+            if (confirm('Are you sure you want to delete all saved recipes?')) {
+                savedRecipes = [];
+                saveRecipesToStorage();
+                displaySavedRecipes();
+                showMessage('All favorites cleared!', 'success');
+            }
+        }
+
+        // Share functions
+        function shareViaEmail() {
+            if (!currentRecipe) {
+                showMessage('No recipe to share. Please generate a recipe first.', 'error');
+                return;
+            }
+
+            const subject = encodeURIComponent(`Recipe: ${currentRecipe.name}`);
+            const body = encodeURIComponent(formatRecipe(currentRecipe));
+            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+            
+            window.open(mailtoLink);
+            showMessage('Email client opened!', 'success');
+        }
+
+        function copyToClipboard() {
+            if (!currentRecipe) {
+                showMessage('No recipe to copy. Please generate a recipe first.', 'error');
+                return;
+            }
+
+            const recipeText = formatRecipe(currentRecipe);
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(recipeText).then(() => {
+                    showMessage('Recipe copied to clipboard!', 'success');
+                }).catch(() => {
+                    fallbackCopyToClipboard(recipeText);
+                });
+            } else {
+                fallbackCopyToClipboard(recipeText);
+            }
+        }
+
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showMessage('Recipe copied to clipboard!', 'success');
+            } catch (err) {
+                showMessage('Failed to copy recipe.', 'error');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function printRecipe() {
+            if (!currentRecipe) {
+                showMessage('No recipe to print. Please generate a recipe first.', 'error');
+                return;
+            }
+
+            const printWindow = window.open('', '_blank');
+            const recipeText = formatRecipe(currentRecipe);
+            
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>${currentRecipe.name}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            h1 { color: #333; }
+                            .ingredients { margin: 20px 0; }
+                            .instructions { margin: 20px 0; }
+                            .info { margin: 20px 0; color: #666; }
+                        </style>
+                    </head>
+                    <body>
+                        <pre>${recipeText}</pre>
+                    </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function shareOnSocial() {
+            if (!currentRecipe) {
+                showMessage('No recipe to share. Please generate a recipe first.', 'error');
+                return;
+            }
+
+            const text = encodeURIComponent(`Check out this recipe: ${currentRecipe.name}`);
+            const url = encodeURIComponent(window.location.href);
+            
+            // Try to use Web Share API if available
+            if (navigator.share) {
+                navigator.share({
+                    title: currentRecipe.name,
+                    text: `Check out this recipe: ${currentRecipe.name}`,
+                    url: window.location.href
+                }).then(() => {
+                    showMessage('Recipe shared!', 'success');
+                }).catch(() => {
+                    showMessage('Sharing cancelled.', 'error');
+                });
+            } else {
+                // Fallback to Twitter
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                window.open(twitterUrl, '_blank');
+                showMessage('Twitter opened for sharing!', 'success');
+            }
+        }
+
+        // Show message function
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('shareMessage');
+            messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+
+        // Category selection
+        function selectCategory(category) {
+            // Remove active class from all category items
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedCategory = category;
+            updateSelectedFilters();
+        }
+
+        // Dietary selection
+        function selectDietary(dietary) {
+            // Remove active class from all dietary options
+            document.querySelectorAll('.dietary-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedDietary = dietary;
+            updateSelectedFilters();
+        }
+
+        // Cuisine selection
+        function selectCuisine(cuisine) {
+            // Remove active class from all cuisine options
+            document.querySelectorAll('.cuisine-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedCuisine = cuisine;
+            updateSelectedFilters();
+        }
+
+        // Update selected filters display
+        function updateSelectedFilters() {
+            const filtersDiv = document.getElementById('selectedFilters');
+            const selectedCategoryDiv = document.getElementById('selectedCategory');
+            
+            let filters = [];
+            if (selectedCategory) filters.push(`Category: ${selectedCategory}`);
+            if (selectedDietary) filters.push(`Dietary: ${selectedDietary}`);
+            if (selectedCuisine) filters.push(`Cuisine: ${selectedCuisine}`);
+            
+            if (filters.length > 0) {
+                filtersDiv.innerHTML = filters.join(' | ');
+                selectedCategoryDiv.classList.remove('hidden');
+            } else {
+                selectedCategoryDiv.classList.add('hidden');
+            }
+        }
+
+        // Clear all selections
+        function clearSelections() {
+            selectedCategory = null;
+            selectedDietary = null;
+            selectedCuisine = null;
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.category-item, .dietary-option, .cuisine-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            updateSelectedFilters();
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('recipeDisplay').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+        }
+
+        function formatRecipe(recipe) {
+            let formatted = `🍽️ ${recipe.name}\n\n`;
+            
+            // Ingredients section
+            formatted += "📋 Ingredients:\n";
+            for (let ingredient of recipe.ingredients) {
+                let amount = ingredient.amount;
+                if (Number.isInteger(amount)) {
+                    amount = amount.toString();
+                }
+                formatted += `- ${amount} ${ingredient.unit} ${ingredient.item}`;
+                if (ingredient.notes) {
+                    formatted += ` (${ingredient.notes})`;
+                }
+                formatted += "\n";
+            }
+            
+            // Instructions section
+            formatted += `\n👨‍🍳 Instructions:\n`;
+            for (let i = 0; i < recipe.instructions.length; i++) {
+                formatted += `${i + 1}. ${recipe.instructions[i]}\n`;
+            }
+            
+            // Additional info
+            formatted += `\n⏱️ Prep Time: ${recipe.prep_time} minutes\n`;
+            formatted += `🔥 Cook Time: ${recipe.cook_time} minutes\n`;
+            formatted += `⏰ Total Time: ${recipe.total_time} minutes\n`;
+            formatted += `👥 Servings: ${recipe.servings}\n`;
+            formatted += `📊 Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}\n`;
+            formatted += `🌍 Cuisine: ${recipe.cuisine.charAt(0).toUpperCase() + recipe.cuisine.slice(1)}\n`;
+            formatted += `📂 Category: ${recipe.category.charAt(0).toUpperCase() + recipe.category.slice(1)}\n`;
+            
+            if (recipe.tags) {
+                formatted += `🏷️ Tags: ${recipe.tags.join(', ')}\n`;
+            }
+            
+            if (recipe.dietary) {
+                formatted += `🥗 Dietary: ${recipe.dietary.join(', ')}\n`;
+            }
+            
+            // Tips section
+            if (recipe.tips) {
+                formatted += `\n💡 Chef's Tips:\n`;
+                for (let tip of recipe.tips) {
+                    formatted += `• ${tip}\n`;
+                }
+            }
+            
+            return formatted;
+        }
+
+        function findRecipesByIngredients(ingredients) {
+            const matchingRecipes = [];
+            const ingredientsLower = ingredients.map(ing => ing.toLowerCase());
+            
+            for (let recipe of RECIPE_DATABASE) {
+                const recipeIngredients = recipe.ingredients.map(ing => ing.item.toLowerCase());
+                
+                const matches = ingredientsLower.filter(ing => 
+                    recipeIngredients.some(recipeIng => 
+                        recipeIng.includes(ing) || ing.includes(recipeIng)
+                    )
+                );
+                
+                if (matches.length > 0) {
+                    const recipeCopy = {...recipe};
+                    recipeCopy.matching_ingredients = matches;
+                    recipeCopy.match_score = matches.length;
+                    matchingRecipes.push(recipeCopy);
+                }
+            }
+            
+            matchingRecipes.sort((a, b) => b.match_score - a.match_score);
+            return matchingRecipes;
+        }
+
+        function filterRecipesBySelections(recipes) {
+            let filtered = recipes;
+            
+            if (selectedCategory) {
+                filtered = filtered.filter(recipe => 
+                    recipe.category === selectedCategory || 
+                    recipe.tags.includes(selectedCategory)
+                );
+            }
+            
+            if (selectedDietary) {
+                filtered = filtered.filter(recipe => 
+                    recipe.dietary && recipe.dietary.includes(selectedDietary)
+                );
+            }
+            
+            if (selectedCuisine) {
+                filtered = filtered.filter(recipe => 
+                    recipe.cuisine === selectedCuisine
+                );
+            }
+            
+            return filtered;
+        }
+
+        function generateRecipe() {
+            const ingredientsInput = document.getElementById('ingredients').value.trim();
+            if (!ingredientsInput) {
+                alert('Please enter some ingredients!');
+                return;
+            }
+
+            showLoading();
+
+            setTimeout(() => {
+                const ingredients = ingredientsInput.split(',').map(ing => ing.trim());
+                let matchingRecipes = findRecipesByIngredients(ingredients);
+                
+                // Apply filters if any are selected
+                if (selectedCategory || selectedDietary || selectedCuisine) {
+                    matchingRecipes = filterRecipesBySelections(matchingRecipes);
+                }
+                
+                if (matchingRecipes.length > 0) {
+                    currentRecipe = matchingRecipes[0];
+                    const formatted = formatRecipe(currentRecipe);
+                    displayRecipe(formatted);
+                } else {
+                    // Generate a simple fallback recipe
+                    currentRecipe = {
+                        name: `Simple ${ingredients.slice(0, 3).join(' ')} Dish`,
+                        ingredients: [
+                            ...ingredients.map(ing => ({item: ing, amount: 1, unit: "cup", notes: "as needed"})),
+                            {item: "olive oil", amount: 2, unit: "tablespoons", notes: "for cooking"},
+                            {item: "garlic", amount: 2, unit: "cloves", notes: "minced"},
+                            {item: "salt", amount: 1, unit: "teaspoon", notes: "to taste"},
+                            {item: "black pepper", amount: 1, unit: "teaspoon", notes: "to taste"}
+                        ],
+                        instructions: [
+                            "Heat olive oil in a large skillet over medium heat.",
+                            "Add minced garlic and cook for 30 seconds until fragrant.",
+                            `Add ${ingredients.slice(0, 3).join(', ')} and cook for 5-7 minutes until heated through.`,
+                            "Season with salt and black pepper to taste.",
+                            "Serve immediately while hot."
+                        ],
+                        prep_time: 10,
+                        cook_time: 10,
+                        total_time: 20,
+                        servings: 4,
+                        difficulty: "easy",
+                        cuisine: "general",
+                        category: selectedCategory || "dinner",
+                        tags: ["quick", "simple", "dinner"],
+                        dietary: selectedDietary ? [selectedDietary] : []
+                    };
+                    const formatted = formatRecipe(currentRecipe);
+                    displayRecipe(formatted);
+                }
+                hideLoading();
+            }, 1500);
+        }
+
+        function getRandomRecipe() {
+            showLoading();
+            
+            setTimeout(() => {
+                let availableRecipes = RECIPE_DATABASE;
+                
+                // Apply filters if any are selected
+                if (selectedCategory || selectedDietary || selectedCuisine) {
+                    availableRecipes = filterRecipesBySelections(availableRecipes);
+                }
+                
+                if (availableRecipes.length === 0) {
+                    alert('No recipes match your selected filters. Try clearing the filters or selecting different options.');
+                    hideLoading();
+                    return;
+                }
+                
+                const randomIndex = Math.floor(Math.random() * availableRecipes.length);
+                currentRecipe = availableRecipes[randomIndex];
+                const formatted = formatRecipe(currentRecipe);
+                displayRecipe(formatted);
+                hideLoading();
+            }, 1000);
+        }
+
+        function displayRecipe(formatted) {
+            document.getElementById('recipeDisplay').textContent = formatted;
+            document.getElementById('recipeDisplay').classList.remove('hidden');
+            document.getElementById('modificationSection').style.display = 'block';
+            document.getElementById('shareSection').style.display = 'block';
+        }
+
+        function remixRecipe() {
+            const modifications = document.getElementById('modifications').value.trim();
+            if (!modifications) {
+                alert('Please enter modifications!');
+                return;
+            }
+
+            if (!currentRecipe) {
+                alert('Please generate a recipe first!');
+                return;
+            }
+
+            showLoading();
+            
+            setTimeout(() => {
+                const modLower = modifications.toLowerCase();
+                let remixedRecipe = {...currentRecipe};
+                
+                if (modLower.includes('spicy') || modLower.includes('hot')) {
+                    remixedRecipe.ingredients.push(
+                        {item: "red pepper flakes", amount: 0.5, unit: "teaspoon", notes: "or to taste"},
+                        {item: "cayenne pepper", amount: 0.25, unit: "teaspoon", notes: "optional"}
+                    );
+                    remixedRecipe.instructions.push("Add red pepper flakes and cayenne pepper for extra heat.");
+                } else if (modLower.includes('vegan') || modLower.includes('vegetarian')) {
+                    remixedRecipe.ingredients = remixedRecipe.ingredients.map(ing => {
+                        if (ing.item.toLowerCase().includes('cheese')) {
+                            return {item: "nutritional yeast", amount: ing.amount, unit: ing.unit, notes: "vegan cheese alternative"};
+                        }
+                        return ing;
+                    });
+                    remixedRecipe.instructions.push("Use nutritional yeast instead of cheese for vegan version.");
+                } else if (modLower.includes('less oil') || modLower.includes('low fat')) {
+                    remixedRecipe.ingredients = remixedRecipe.ingredients.map(ing => {
+                        if (ing.item.toLowerCase().includes('oil')) {
+                            return {item: "cooking spray", amount: 1, unit: "spray", notes: "instead of oil"};
+                        }
+                        return ing;
+                    });
+                    remixedRecipe.instructions.push("Use cooking spray instead of oil for lower fat content.");
+                } else {
+                    remixedRecipe.instructions.push(`Custom modification: ${modifications}`);
+                }
+                
+                currentRecipe = remixedRecipe;
+                const formatted = formatRecipe(remixedRecipe);
+                displayRecipe(formatted);
+                hideLoading();
+            }, 1000);
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('ingredients').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateRecipe();
+            }
+        });
+
+        document.getElementById('modifications').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                remixRecipe();
+            }
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedRecipes();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recipe Remix Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-item, .dietary-option, .cuisine-option {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .category-item:hover, .dietary-option:hover, .cuisine-option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .category-item.active, .dietary-option.active, .cuisine-option.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Category Button Styles with Background Images */
+        .category-item {
+            position: relative;
+            overflow: hidden;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .category-text {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            z-index: 2;
+            position: relative;
+        }
+
+        .category-breakfast {
+            background-image: url('https://images.unsplash.com/photo-1494859802809-d069c3b71a8a?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-lunch {
+            background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-dinner {
+            background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-desserts {
+            background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-snacks {
+            background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-appetizers {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-soups {
+            background-image: url('https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-salads {
+            background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-pasta {
+            background-image: url('https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-seafood {
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-vegetarian {
+            background-image: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-quick {
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .category-item:hover {
+            transform: translateX(5px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .category-item.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-item.active .category-text {
+            background: rgba(102, 126, 234, 0.9);
+        }
+
+        /* Dietary Option Button Styles */
+        .dietary-option {
+            position: relative;
+            overflow: hidden;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            margin: 5px 0;
+        }
+
+        .dietary-text {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            z-index: 2;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        .dietary-vegetarian {
+            background-image: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-vegan {
+            background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-gluten-free {
+            background-image: url('https://images.unsplash.com/photo-1504674900240-9a9049b7d8ce?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-dairy-free {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-low-carb {
+            background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-keto {
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-paleo {
+            background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-nut-free {
+            background-image: url('https://images.unsplash.com/photo-1494859802809-d069c3b71a8a?auto=format&fit=crop&w=400&q=80');
+        }
+
+        /* Cuisine Option Button Styles */
+        .cuisine-option {
+            position: relative;
+            overflow: hidden;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            margin: 5px 0;
+        }
+
+        .cuisine-text {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            z-index: 2;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        .cuisine-italian {
+            background-image: url('https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-mexican {
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-asian {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-indian {
+            background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-mediterranean {
+            background-image: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-french {
+            background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-thai {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-japanese {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-greek {
+            background-image: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .cuisine-chinese {
+            background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .dietary-option:hover, .cuisine-option:hover {
+            transform: translateX(5px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .dietary-option.active, .cuisine-option.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .dietary-option.active .dietary-text, .cuisine-option.active .cuisine-text {
+            background: rgba(102, 126, 234, 0.9);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Animated Title Styles */
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .dancing-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 0;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255,255,255,0.3); }
+            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6); }
+        }
+
+        .animated-plate {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plate {
+            font-size: 4em;
+            animation: spinPlate 8s linear infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes spinPlate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .utensils {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .fork, .knife {
+            font-size: 2em;
+            position: absolute;
+            animation: rotateUtensils 6s linear infinite;
+        }
+
+        .fork {
+            animation-delay: 0s;
+        }
+
+        .knife {
+            animation-delay: 3s;
+        }
+
+        @keyframes rotateUtensils {
+            0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+
+        .food-items {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+        }
+
+        .food-item {
+            position: absolute;
+            font-size: 2.5em;
+            opacity: 0;
+            animation: showFood 10s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .food-item:nth-child(1) { animation-delay: 0s; }
+        .food-item:nth-child(2) { animation-delay: 1s; }
+        .food-item:nth-child(3) { animation-delay: 2s; }
+        .food-item:nth-child(4) { animation-delay: 3s; }
+        .food-item:nth-child(5) { animation-delay: 4s; }
+        .food-item:nth-child(6) { animation-delay: 5s; }
+        .food-item:nth-child(7) { animation-delay: 6s; }
+        .food-item:nth-child(8) { animation-delay: 7s; }
+        .food-item:nth-child(9) { animation-delay: 8s; }
+        .food-item:nth-child(10) { animation-delay: 9s; }
+
+        @keyframes showFood {
+            0%, 8% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            10%, 18% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            20%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .recipe-display {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .selected-category {
+            background: #e8f5e8;
+            border-left: 4px solid #2ecc71;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .selected-category h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        .action-bar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 0 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+        .action-btn {
+            font-size: 1.1em;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .action-btn:hover {
+            background: linear-gradient(135deg, #fcb69f 0%, #ffecd2 100%);
+            transform: translateY(-2px);
+        }
+        .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+        }
+        .modal.hidden { display: none; }
+        .modal-content {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            min-width: 320px;
+            max-width: 90vw;
+            position: relative;
+        }
+        .modal-content h2 { margin-bottom: 18px; }
+        .modal-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .modal-content th, .modal-content td {
+            border: 1px solid #eee;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.7em;
+            color: #888;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🍽️ Recipe Master</h2>
+            <p>Find your perfect recipe</p>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="sidebar-section">
+            <h3>📂 Categories</h3>
+            <button class="category-item category-breakfast" onclick="selectCategory('breakfast')">
+                <span class="category-text">Breakfast</span>
+            </button>
+            <button class="category-item category-lunch" onclick="selectCategory('lunch')">
+                <span class="category-text">Lunch</span>
+            </button>
+            <button class="category-item category-dinner" onclick="selectCategory('dinner')">
+                <span class="category-text">Dinner</span>
+            </button>
+            <button class="category-item category-desserts" onclick="selectCategory('desserts')">
+                <span class="category-text">Desserts</span>
+            </button>
+            <button class="category-item category-snacks" onclick="selectCategory('snacks')">
+                <span class="category-text">Snacks</span>
+            </button>
+            <button class="category-item category-appetizers" onclick="selectCategory('appetizers')">
+                <span class="category-text">Appetizers</span>
+            </button>
+            <button class="category-item category-soups" onclick="selectCategory('soups')">
+                <span class="category-text">Soups</span>
+            </button>
+            <button class="category-item category-salads" onclick="selectCategory('salads')">
+                <span class="category-text">Salads</span>
+            </button>
+            <button class="category-item category-pasta" onclick="selectCategory('pasta')">
+                <span class="category-text">Pasta</span>
+            </button>
+            <button class="category-item category-seafood" onclick="selectCategory('seafood')">
+                <span class="category-text">Seafood</span>
+            </button>
+            <button class="category-item category-vegetarian" onclick="selectCategory('vegetarian')">
+                <span class="category-text">Vegetarian</span>
+            </button>
+            <button class="category-item category-quick" onclick="selectCategory('quick')">
+                <span class="category-text">Quick & Easy</span>
+            </button>
+        </div>
+
+        <!-- Dietary Restrictions Section -->
+        <div class="sidebar-section">
+            <h3>🥗 Dietary Options</h3>
+            <button class="dietary-option dietary-vegetarian" onclick="selectDietary('vegetarian')">
+                <span class="dietary-text">Vegetarian</span>
+            </button>
+            <button class="dietary-option dietary-vegan" onclick="selectDietary('vegan')">
+                <span class="dietary-text">Vegan</span>
+            </button>
+            <button class="dietary-option dietary-gluten-free" onclick="selectDietary('gluten-free')">
+                <span class="dietary-text">Gluten-Free</span>
+            </button>
+            <button class="dietary-option dietary-dairy-free" onclick="selectDietary('dairy-free')">
+                <span class="dietary-text">Dairy-Free</span>
+            </button>
+            <button class="dietary-option dietary-low-carb" onclick="selectDietary('low-carb')">
+                <span class="dietary-text">Low-Carb</span>
+            </button>
+            <button class="dietary-option dietary-keto" onclick="selectDietary('keto')">
+                <span class="dietary-text">Keto</span>
+            </button>
+            <button class="dietary-option dietary-paleo" onclick="selectDietary('paleo')">
+                <span class="dietary-text">Paleo</span>
+            </button>
+            <button class="dietary-option dietary-nut-free" onclick="selectDietary('nut-free')">
+                <span class="dietary-text">Nut-Free</span>
+            </button>
+        </div>
+
+        <!-- Cuisine Types Section -->
+        <div class="sidebar-section">
+            <h3>🌍 Cuisine Types</h3>
+            <button class="cuisine-option cuisine-italian" onclick="selectCuisine('italian')">
+                <span class="cuisine-text">Italian</span>
+            </button>
+            <button class="cuisine-option cuisine-mexican" onclick="selectCuisine('mexican')">
+                <span class="cuisine-text">Mexican</span>
+            </button>
+            <button class="cuisine-option cuisine-asian" onclick="selectCuisine('asian')">
+                <span class="cuisine-text">Asian</span>
+            </button>
+            <button class="cuisine-option cuisine-indian" onclick="selectCuisine('indian')">
+                <span class="cuisine-text">Indian</span>
+            </button>
+            <button class="cuisine-option cuisine-mediterranean" onclick="selectCuisine('mediterranean')">
+                <span class="cuisine-text">Mediterranean</span>
+            </button>
+            <button class="cuisine-option cuisine-french" onclick="selectCuisine('french')">
+                <span class="cuisine-text">French</span>
+            </button>
+            <button class="cuisine-option cuisine-thai" onclick="selectCuisine('thai')">
+                <span class="cuisine-text">Thai</span>
+            </button>
+            <button class="cuisine-option cuisine-japanese" onclick="selectCuisine('japanese')">
+                <span class="cuisine-text">Japanese</span>
+            </button>
+            <button class="cuisine-option cuisine-greek" onclick="selectCuisine('greek')">
+                <span class="cuisine-text">Greek</span>
+            </button>
+            <button class="cuisine-option cuisine-chinese" onclick="selectCuisine('chinese')">
+                <span class="cuisine-text">Chinese</span>
+            </button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="sidebar-section">
+            <h3>⚡ Quick Actions</h3>
+            <button class="btn btn-secondary" onclick="getRandomRecipe()" style="width: 100%; margin: 5px 0;">🎲 Random Recipe</button>
+            <button class="btn btn-success" onclick="clearSelections()" style="width: 100%; margin: 5px 0;">🔄 Clear All</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="title-container">
+                <div class="animated-plate">
+                    <div class="plate">🍽️</div>
+                    <div class="utensils">
+                        <span class="fork">🍴</span>
+                        <span class="knife">🔪</span>
+                    </div>
+                    <div class="food-items">
+                        <span class="food-item" data-cuisine="italian">🍝</span>
+                        <span class="food-item" data-cuisine="mexican">🌮</span>
+                        <span class="food-item" data-cuisine="asian">🍜</span>
+                        <span class="food-item" data-cuisine="indian">🍛</span>
+                        <span class="food-item" data-cuisine="mediterranean">🥙</span>
+                        <span class="food-item" data-cuisine="french">🥐</span>
+                        <span class="food-item" data-cuisine="thai">🍲</span>
+                        <span class="food-item" data-cuisine="japanese">🍱</span>
+                        <span class="food-item" data-cuisine="greek">🥗</span>
+                        <span class="food-item" data-cuisine="chinese">🥟</span>
+                    </div>
+                </div>
+                <h1 class="dancing-title">AI Recipe Remix Master</h1>
+            </div>
+            <p>Transform your ingredients into delicious recipes with world cuisine flavors!</p>
+        </div>
+
+        <div class="content-area">
+            <!-- Selected Category Display -->
+            <div id="selectedCategory" class="selected-category hidden">
+                <h3>Selected Filters:</h3>
+                <div id="selectedFilters"></div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="ingredients">📋 Enter your ingredients (comma-separated):</label>
+                    <input type="text" id="ingredients" placeholder="e.g., chicken, broccoli, pasta, garlic, olive oil">
+                </div>
+                
+                <button class="btn" onclick="generateRecipe()">🔍 Find Recipe</button>
+                <button class="btn btn-secondary" onclick="getRandomRecipe()">🎲 Random Recipe</button>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Creating your recipe...</p>
+            </div>
+
+            <div id="recipeDisplay" class="recipe-display hidden"></div>
+
+            <div class="input-section" id="modificationSection" style="display: none;">
+                <div class="input-group">
+                    <label for="modifications">🔄 How would you like to remix this recipe?</label>
+                    <input type="text" id="modifications" placeholder="e.g., make it mexican, add a spicy kick, use less oil, add mushrooms">
+                </div>
+                <button class="btn" onclick="remixRecipe()">🔄 Remix Recipe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Action Bar -->
+    <div class="action-bar">
+        <button class="action-btn" id="conversionChartBtn">📏 Conversion Chart</button>
+        <button class="action-btn" id="saveBtn">💾 Save</button>
+        <button class="action-btn" id="favoriteBtn"><span id="favoriteIcon">🤍</span> Favorite</button>
+        <button class="action-btn" id="shareBtn">🔗 Share</button>
+    </div>
+
+    <!-- Conversion Chart Modal -->
+    <div id="conversionChartModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="closeConversionChart">&times;</span>
+            <h2>Measurement Conversion Chart</h2>
+            <table>
+                <tr><th>Cups</th><th>Ounces</th><th>Tablespoons</th><th>Teaspoons</th></tr>
+                <tr><td>1 cup</td><td>8 oz</td><td>16 tbsp</td><td>48 tsp</td></tr>
+                <tr><td>1/2 cup</td><td>4 oz</td><td>8 tbsp</td><td>24 tsp</td></tr>
+                <tr><td>1/3 cup</td><td>2.7 oz</td><td>5.3 tbsp</td><td>16 tsp</td></tr>
+                <tr><td>1/4 cup</td><td>2 oz</td><td>4 tbsp</td><td>12 tsp</td></tr>
+                <tr><td>1 tbsp</td><td>0.5 oz</td><td>1 tbsp</td><td>3 tsp</td></tr>
+                <tr><td>1 tsp</td><td>0.17 oz</td><td>0.33 tbsp</td><td>1 tsp</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Recipe database
+        const RECIPE_DATABASE = [
+            {
+                name: "Classic Spaghetti Carbonara",
+                ingredients: [
+                    {item: "spaghetti", amount: 1, unit: "pound", notes: "or 16 oz"},
+                    {item: "eggs", amount: 4, unit: "large", notes: "room temperature"},
+                    {item: "pecorino romano cheese", amount: 1, unit: "cup", notes: "freshly grated"},
+                    {item: "guanciale", amount: 8, unit: "ounces", notes: "or pancetta, cubed"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "freshly ground"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "for pasta water"}
+                ],
+                instructions: [
+                    "Fill a large pot with water and bring to a boil. Add salt to taste.",
+                    "Cook spaghetti according to package directions until al dente. Reserve 1 cup of pasta water.",
+                    "In a large skillet, cook guanciale over medium heat until crispy and golden brown.",
+                    "Remove skillet from heat and add hot pasta to the pan with guanciale.",
+                    "In a bowl, whisk together eggs, grated cheese, and black pepper.",
+                    "Quickly pour egg mixture over hot pasta, stirring constantly to create a creamy sauce.",
+                    "Add reserved pasta water gradually if needed to achieve desired consistency.",
+                    "Serve immediately with extra cheese and black pepper on top."
+                ],
+                prep_time: 15,
+                cook_time: 20,
+                total_time: 35,
+                servings: 4,
+                difficulty: "medium",
+                cuisine: "italian",
+                category: "dinner",
+                tags: ["pasta", "quick", "classic", "dinner"],
+                dietary: ["vegetarian"],
+                tips: [
+                    "Use room temperature eggs to prevent scrambling",
+                    "Work quickly when combining pasta and eggs",
+                    "Reserve pasta water - it's essential for the sauce",
+                    "Don't overcook the pasta - al dente is key"
+                ]
+            },
+            {
+                name: "Vegetarian Buddha Bowl",
+                ingredients: [
+                    {item: "quinoa", amount: 1, unit: "cup", notes: "uncooked, rinsed"},
+                    {item: "sweet potato", amount: 1, unit: "large", notes: "peeled and cubed into 1-inch pieces"},
+                    {item: "chickpeas", amount: 1, unit: "can", notes: "15 oz, drained and rinsed"},
+                    {item: "kale", amount: 2, unit: "cups", notes: "chopped, stems removed"},
+                    {item: "avocado", amount: 1, unit: "medium", notes: "sliced"},
+                    {item: "olive oil", amount: 2, unit: "tablespoons", notes: "extra virgin, divided"},
+                    {item: "lemon", amount: 1, unit: "medium", notes: "juiced (about 2 tbsp)"},
+                    {item: "garlic", amount: 2, unit: "cloves", notes: "minced"},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "black pepper", amount: 1, unit: "teaspoon", notes: "divided"},
+                    {item: "cumin", amount: 0.5, unit: "teaspoon", notes: "ground"},
+                    {item: "paprika", amount: 0.5, unit: "teaspoon", notes: "smoked"}
+                ],
+                instructions: [
+                    "Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.",
+                    "Cook quinoa according to package directions. Set aside to keep warm.",
+                    "Toss sweet potato cubes with 1 tablespoon olive oil, salt, pepper, cumin, and paprika.",
+                    "Spread sweet potatoes on baking sheet and roast for 25-30 minutes until tender.",
+                    "In a skillet, heat remaining olive oil and cook garlic for 30 seconds until fragrant.",
+                    "Add chickpeas and cook for 5-7 minutes until golden and slightly crispy.",
+                    "Massage kale with lemon juice and salt until softened.",
+                    "Assemble bowls with quinoa, roasted sweet potatoes, crispy chickpeas, and kale.",
+                    "Top with sliced avocado and serve immediately."
+                ],
+                prep_time: 20,
+                cook_time: 30,
+                total_time: 50,
+                servings: 2,
+                difficulty: "easy",
+                cuisine: "mediterranean",
+                category: "lunch",
+                tags: ["healthy", "bowl", "vegetarian", "gluten-free", "lunch"],
+                dietary: ["vegetarian", "vegan", "gluten-free"],
+                tips: [
+                    "Massage kale thoroughly to make it tender",
+                    "Don't overcrowd the baking sheet for crispy sweet potatoes",
+                    "Rinse quinoa well to remove bitter coating",
+                    "Use fresh lemon juice for best flavor"
+                ]
+            },
+            {
+                name: "Chocolate Chip Cookies",
+                ingredients: [
+                    {item: "all-purpose flour", amount: 2.25, unit: "cups", notes: "spooned and leveled"},
+                    {item: "butter", amount: 1, unit: "cup", notes: "unsalted, softened to room temperature"},
+                    {item: "brown sugar", amount: 0.75, unit: "cup", notes: "packed, light or dark"},
+                    {item: "white sugar", amount: 0.75, unit: "cup", notes: "granulated"},
+                    {item: "eggs", amount: 2, unit: "large", notes: "room temperature"},
+                    {item: "vanilla extract", amount: 2, unit: "teaspoons", notes: "pure vanilla extract"},
+                    {item: "chocolate chips", amount: 2, unit: "cups", notes: "semi-sweet or dark"},
+                    {item: "baking soda", amount: 1, unit: "teaspoon", notes: ""},
+                    {item: "salt", amount: 1, unit: "teaspoon", notes: "fine sea salt"},
+                    {item: "walnuts", amount: 1, unit: "cup", notes: "chopped, optional"}
+                ],
+                instructions: [
+                    "Preheat oven to 375°F (190°C). Line baking sheets with parchment paper.",
+                    "In a medium bowl, whisk together flour, baking soda, and salt. Set aside.",
+                    "In a large bowl, cream together softened butter, brown sugar, and white sugar until light and fluffy.",
+                    "Add eggs one at a time, beating well after each addition. Beat in vanilla extract.",
+                    "Gradually add dry ingredients to wet ingredients, mixing until just combined.",
+                    "Fold in chocolate chips and walnuts (if using) until evenly distributed.",
+                    "Drop rounded tablespoons of dough onto prepared baking sheets, spacing 2 inches apart.",
+                    "Bake for 9-11 minutes until edges are golden brown but centers are still soft.",
+                    "Cool on baking sheets for 5 minutes, then transfer to wire racks to cool completely."
+                ],
+                prep_time: 25,
+                cook_time: 10,
+                total_time: 35,
+                servings: 24,
+                difficulty: "easy",
+                cuisine: "american",
+                category: "desserts",
+                tags: ["dessert", "baking", "cookies", "chocolate", "sweet"],
+                dietary: ["vegetarian"],
+                tips: [
+                    "Use room temperature ingredients for best results",
+                    "Don't overmix the dough - it makes cookies tough",
+                    "Let cookies cool on baking sheet for 5 minutes before moving",
+                    "Store in an airtight container to keep them fresh"
+                ]
+            }
+        ];
+
+        // Global variables
+        let currentRecipe = null;
+        let selectedCategory = null;
+        let selectedDietary = null;
+        let selectedCuisine = null;
+
+        // Category selection
+        function selectCategory(category) {
+            // Remove active class from all category items
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedCategory = category;
+            updateSelectedFilters();
+        }
+
+        // Dietary selection
+        function selectDietary(dietary) {
+            // Remove active class from all dietary options
+            document.querySelectorAll('.dietary-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedDietary = dietary;
+            updateSelectedFilters();
+        }
+
+        // Cuisine selection
+        function selectCuisine(cuisine) {
+            // Remove active class from all cuisine options
+            document.querySelectorAll('.cuisine-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to selected item
+            event.target.classList.add('active');
+            
+            selectedCuisine = cuisine;
+            updateSelectedFilters();
+        }
+
+        // Update selected filters display
+        function updateSelectedFilters() {
+            const filtersDiv = document.getElementById('selectedFilters');
+            const selectedCategoryDiv = document.getElementById('selectedCategory');
+            
+            let filters = [];
+            if (selectedCategory) filters.push(`Category: ${selectedCategory}`);
+            if (selectedDietary) filters.push(`Dietary: ${selectedDietary}`);
+            if (selectedCuisine) filters.push(`Cuisine: ${selectedCuisine}`);
+            
+            if (filters.length > 0) {
+                filtersDiv.innerHTML = filters.join(' | ');
+                selectedCategoryDiv.classList.remove('hidden');
+            } else {
+                selectedCategoryDiv.classList.add('hidden');
+            }
+        }
+
+        // Clear all selections
+        function clearSelections() {
+            selectedCategory = null;
+            selectedDietary = null;
+            selectedCuisine = null;
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.category-item, .dietary-option, .cuisine-option').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            updateSelectedFilters();
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('recipeDisplay').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+        }
+
+        function formatRecipe(recipe) {
+            let formatted = `🍽️ ${recipe.name}\n\n`;
+            
+            // Ingredients section
+            formatted += "📋 Ingredients:\n";
+            for (let ingredient of recipe.ingredients) {
+                let amount = ingredient.amount;
+                if (Number.isInteger(amount)) {
+                    amount = amount.toString();
+                }
+                formatted += `- ${amount} ${ingredient.unit} ${ingredient.item}`;
+                if (ingredient.notes) {
+                    formatted += ` (${ingredient.notes})`;
+                }
+                formatted += "\n";
+            }
+            
+            // Instructions section
+            formatted += `\n👨‍🍳 Instructions:\n`;
+            for (let i = 0; i < recipe.instructions.length; i++) {
+                formatted += `${i + 1}. ${recipe.instructions[i]}\n`;
+            }
+            
+            // Additional info
+            formatted += `\n⏱️ Prep Time: ${recipe.prep_time} minutes\n`;
+            formatted += `🔥 Cook Time: ${recipe.cook_time} minutes\n`;
+            formatted += `⏰ Total Time: ${recipe.total_time} minutes\n`;
+            formatted += `👥 Servings: ${recipe.servings}\n`;
+            formatted += `📊 Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}\n`;
+            formatted += `🌍 Cuisine: ${recipe.cuisine.charAt(0).toUpperCase() + recipe.cuisine.slice(1)}\n`;
+            formatted += `📂 Category: ${recipe.category.charAt(0).toUpperCase() + recipe.category.slice(1)}\n`;
+            
+            if (recipe.tags) {
+                formatted += `🏷️ Tags: ${recipe.tags.join(', ')}\n`;
+            }
+            
+            if (recipe.dietary) {
+                formatted += `🥗 Dietary: ${recipe.dietary.join(', ')}\n`;
+            }
+            
+            // Tips section
+            if (recipe.tips) {
+                formatted += `\n💡 Chef's Tips:\n`;
+                for (let tip of recipe.tips) {
+                    formatted += `• ${tip}\n`;
+                }
+            }
+            
+            return formatted;
+        }
+
+        function findRecipesByIngredients(ingredients) {
+            const matchingRecipes = [];
+            const ingredientsLower = ingredients.map(ing => ing.toLowerCase());
+            
+            for (let recipe of RECIPE_DATABASE) {
+                const recipeIngredients = recipe.ingredients.map(ing => ing.item.toLowerCase());
+                
+                const matches = ingredientsLower.filter(ing => 
+                    recipeIngredients.some(recipeIng => 
+                        recipeIng.includes(ing) || ing.includes(recipeIng)
+                    )
+                );
+                
+                if (matches.length > 0) {
+                    const recipeCopy = {...recipe};
+                    recipeCopy.matching_ingredients = matches;
+                    recipeCopy.match_score = matches.length;
+                    matchingRecipes.push(recipeCopy);
+                }
+            }
+            
+            matchingRecipes.sort((a, b) => b.match_score - a.match_score);
+            return matchingRecipes;
+        }
+
+        function filterRecipesBySelections(recipes) {
+            let filtered = recipes;
+            
+            if (selectedCategory) {
+                filtered = filtered.filter(recipe => 
+                    recipe.category === selectedCategory || 
+                    recipe.tags.includes(selectedCategory)
+                );
+            }
+            
+            if (selectedDietary) {
+                filtered = filtered.filter(recipe => 
+                    recipe.dietary && recipe.dietary.includes(selectedDietary)
+                );
+            }
+            
+            if (selectedCuisine) {
+                filtered = filtered.filter(recipe => 
+                    recipe.cuisine === selectedCuisine
+                );
+            }
+            
+            return filtered;
+        }
+
+        function generateRecipe() {
+            const ingredientsInput = document.getElementById('ingredients').value.trim();
+            if (!ingredientsInput) {
+                alert('Please enter some ingredients!');
+                return;
+            }
+
+            showLoading();
+
+            setTimeout(() => {
+                const ingredients = ingredientsInput.split(',').map(ing => ing.trim());
+                let matchingRecipes = findRecipesByIngredients(ingredients);
+                
+                // Apply filters if any are selected
+                if (selectedCategory || selectedDietary || selectedCuisine) {
+                    matchingRecipes = filterRecipesBySelections(matchingRecipes);
+                }
+                
+                if (matchingRecipes.length > 0) {
+                    currentRecipe = matchingRecipes[0];
+                    const formatted = formatRecipe(currentRecipe);
+                    displayRecipe(formatted);
+                } else {
+                    // Generate a simple fallback recipe
+                    currentRecipe = {
+                        name: `Simple ${ingredients.slice(0, 3).join(' ')} Dish`,
+                        ingredients: [
+                            ...ingredients.map(ing => ({item: ing, amount: 1, unit: "cup", notes: "as needed"})),
+                            {item: "olive oil", amount: 2, unit: "tablespoons", notes: "for cooking"},
+                            {item: "garlic", amount: 2, unit: "cloves", notes: "minced"},
+                            {item: "salt", amount: 1, unit: "teaspoon", notes: "to taste"},
+                            {item: "black pepper", amount: 1, unit: "teaspoon", notes: "to taste"}
+                        ],
+                        instructions: [
+                            "Heat olive oil in a large skillet over medium heat.",
+                            "Add minced garlic and cook for 30 seconds until fragrant.",
+                            `Add ${ingredients.slice(0, 3).join(', ')} and cook for 5-7 minutes until heated through.`,
+                            "Season with salt and black pepper to taste.",
+                            "Serve immediately while hot."
+                        ],
+                        prep_time: 10,
+                        cook_time: 10,
+                        total_time: 20,
+                        servings: 4,
+                        difficulty: "easy",
+                        cuisine: "general",
+                        category: selectedCategory || "dinner",
+                        tags: ["quick", "simple", "dinner"],
+                        dietary: selectedDietary ? [selectedDietary] : []
+                    };
+                    const formatted = formatRecipe(currentRecipe);
+                    displayRecipe(formatted);
+                }
+                hideLoading();
+            }, 1500);
+        }
+
+        function getRandomRecipe() {
+            showLoading();
+            
+            setTimeout(() => {
+                let availableRecipes = RECIPE_DATABASE;
+                
+                // Apply filters if any are selected
+                if (selectedCategory || selectedDietary || selectedCuisine) {
+                    availableRecipes = filterRecipesBySelections(availableRecipes);
+                }
+                
+                if (availableRecipes.length === 0) {
+                    alert('No recipes match your selected filters. Try clearing the filters or selecting different options.');
+                    hideLoading();
+                    return;
+                }
+                
+                const randomIndex = Math.floor(Math.random() * availableRecipes.length);
+                currentRecipe = availableRecipes[randomIndex];
+                const formatted = formatRecipe(currentRecipe);
+                displayRecipe(formatted);
+                hideLoading();
+            }, 1000);
+        }
+
+        function displayRecipe(formatted) {
+            document.getElementById('recipeDisplay').textContent = formatted;
+            document.getElementById('recipeDisplay').classList.remove('hidden');
+            document.getElementById('modificationSection').style.display = 'block';
+            updateFavoriteIcon();
+        }
+
+        function remixRecipe() {
+            const modifications = document.getElementById('modifications').value.trim();
+            if (!modifications) {
+                alert('Please enter modifications!');
+                return;
+            }
+
+            if (!currentRecipe) {
+                alert('Please generate a recipe first!');
+                return;
+            }
+
+            showLoading();
+            
+            setTimeout(() => {
+                const modLower = modifications.toLowerCase();
+                let remixedRecipe = {...currentRecipe};
+                
+                if (modLower.includes('spicy') || modLower.includes('hot')) {
+                    remixedRecipe.ingredients.push(
+                        {item: "red pepper flakes", amount: 0.5, unit: "teaspoon", notes: "or to taste"},
+                        {item: "cayenne pepper", amount: 0.25, unit: "teaspoon", notes: "optional"}
+                    );
+                    remixedRecipe.instructions.push("Add red pepper flakes and cayenne pepper for extra heat.");
+                } else if (modLower.includes('vegan') || modLower.includes('vegetarian')) {
+                    remixedRecipe.ingredients = remixedRecipe.ingredients.map(ing => {
+                        if (ing.item.toLowerCase().includes('cheese')) {
+                            return {item: "nutritional yeast", amount: ing.amount, unit: ing.unit, notes: "vegan cheese alternative"};
+                        }
+                        return ing;
+                    });
+                    remixedRecipe.instructions.push("Use nutritional yeast instead of cheese for vegan version.");
+                } else if (modLower.includes('less oil') || modLower.includes('low fat')) {
+                    remixedRecipe.ingredients = remixedRecipe.ingredients.map(ing => {
+                        if (ing.item.toLowerCase().includes('oil')) {
+                            return {item: "cooking spray", amount: 1, unit: "spray", notes: "instead of oil"};
+                        }
+                        return ing;
+                    });
+                    remixedRecipe.instructions.push("Use cooking spray instead of oil for lower fat content.");
+                } else {
+                    remixedRecipe.instructions.push(`Custom modification: ${modifications}`);
+                }
+                
+                currentRecipe = remixedRecipe;
+                const formatted = formatRecipe(remixedRecipe);
+                displayRecipe(formatted);
+                hideLoading();
+            }, 1000);
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('ingredients').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateRecipe();
+            }
+        });
+
+        document.getElementById('modifications').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                remixRecipe();
+            }
+        });
+
+        // Action Bar Functionality
+        document.getElementById('conversionChartBtn').onclick = function() {
+            document.getElementById('conversionChartModal').classList.remove('hidden');
+        };
+        document.getElementById('closeConversionChart').onclick = function() {
+            document.getElementById('conversionChartModal').classList.add('hidden');
+        };
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('conversionChartModal')) {
+                document.getElementById('conversionChartModal').classList.add('hidden');
+            }
+        };
+
+        // Save, Favorite, Share handlers
+        document.getElementById('saveBtn').onclick = function() {
+            if (!currentRecipe) {
+                alert('Please generate a recipe first!');
+                return;
+            }
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes') || '[]');
+            savedRecipes.push(currentRecipe);
+            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+            alert('Recipe saved!');
+        };
+
+        document.getElementById('favoriteBtn').onclick = function() {
+            if (!currentRecipe) {
+                alert('Please generate a recipe first!');
+                return;
+            }
+            let favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            const idx = favorites.findIndex(r => r.name === currentRecipe.name);
+            if (idx === -1) {
+                favorites.push(currentRecipe);
+                document.getElementById('favoriteIcon').textContent = '❤️';
+                alert('Added to favorites!');
+            } else {
+                favorites.splice(idx, 1);
+                document.getElementById('favoriteIcon').textContent = '🤍';
+                alert('Removed from favorites.');
+            }
+            localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+        };
+
+        function updateFavoriteIcon() {
+            if (!currentRecipe) {
+                document.getElementById('favoriteIcon').textContent = '🤍';
+                return;
+            }
+            let favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            const idx = favorites.findIndex(r => r.name === currentRecipe.name);
+            document.getElementById('favoriteIcon').textContent = idx === -1 ? '🤍' : '❤️';
+        }
+
+        document.getElementById('shareBtn').onclick = function() {
+            if (!currentRecipe) {
+                alert('Please generate a recipe first!');
+                return;
+            }
+            const text = formatRecipe(currentRecipe);
+            if (navigator.share) {
+                navigator.share({
+                    title: currentRecipe.name,
+                    text: text
+                }).catch(() => {
+                    alert('Share cancelled or failed.');
+                });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Recipe copied to clipboard!');
+                }, () => {
+                    alert('Could not copy to clipboard.');
+                });
+            }
+        };
+    </script>
+</body>
+</html> 
